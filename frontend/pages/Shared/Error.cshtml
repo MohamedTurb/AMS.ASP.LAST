@@ -1,19 +1,18 @@
-@model ErrorViewModel
+﻿@model AssistanceManagementSystem.Models.ErrorViewModel
 @{
     ViewData["Title"] = "خطأ";
+    ViewData["LayoutMode"] = "minimal";
 }
 
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body text-center">
-                <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
-                <h2 class="text-danger">حدث خطأ</h2>
-                <p class="text-muted">نعتذر، حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.</p>
-                <a asp-action="Index" asp-controller="Home" class="btn btn-primary">
-                    <i class="fas fa-home me-2"></i>العودة للرئيسية
-                </a>
-            </div>
-        </div>
+<div class="ams-auth-panel" style="min-height:60vh">
+    <div class="ams-auth-card text-center">
+        <div class="ams-empty__icon mx-auto"><i class="fas fa-triangle-exclamation ams-text-danger"></i></div>
+        <h1 class="h3 ams-fw-bold">حدث خطأ</h1>
+        <p class="ams-text-muted">عذراً، حدث خطأ أثناء معالجة طلبك.</p>
+        @if (Model.ShowRequestId)
+        {
+            <p class="small ams-text-muted"><code>@Model.RequestId</code></p>
+        }
+        <a asp-controller="Home" asp-action="Index" class="ams-btn ams-btn--primary mt-4">العودة للرئيسية</a>
     </div>
 </div>

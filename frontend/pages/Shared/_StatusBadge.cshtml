@@ -1,0 +1,17 @@
+@model string
+@{
+    var status = Model ?? "";
+    var css = status switch
+    {
+        "معلق" => "ams-badge--pending",
+        "موافق عليه" => "ams-badge--approved",
+        "مرفوض" => "ams-badge--rejected",
+        "تم التنفيذ" => "ams-badge--executed",
+        "Pending" => "ams-badge--pending",
+        "Approved" => "ams-badge--approved",
+        "Rejected" => "ams-badge--rejected",
+        "Paid" => "ams-badge--executed",
+        _ => "ams-badge--neutral"
+    };
+}
+<span class="ams-badge @css">@status</span>

@@ -1,0 +1,8 @@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="d-none" data-ams-toast="success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="d-none" data-ams-toast="error">@TempData["ErrorMessage"]</div>
+}

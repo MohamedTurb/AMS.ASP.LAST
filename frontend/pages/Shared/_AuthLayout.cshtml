@@ -1,0 +1,24 @@
+@{
+    Layout = "_Layout";
+    ViewData["LayoutMode"] = "minimal";
+}
+<div class="ams-auth-shell">
+    <div class="ams-auth-hero d-none d-lg-flex">
+        <div>
+            <div class="ams-page-header__eyebrow text-white-50">AMS Platform</div>
+            <h2 class="display-6 fw-bold mb-3">منصة حديثة لإدارة المساعدات والمستفيدين</h2>
+            <p class="opacity-75 mb-4">لوحة تحكم موحّدة للطلبات والفروع والتقارير — مصممة للفرق الإدارية والميدانية.</p>
+            <ul class="list-unstyled opacity-90">
+                <li class="mb-2"><i class="fas fa-shield-halved me-2"></i> مصادقة آمنة وجلسات محمية</li>
+                <li class="mb-2"><i class="fas fa-chart-line me-2"></i> تقارير وتحليلات فورية</li>
+                <li class="mb-2"><i class="fas fa-mobile-screen me-2"></i> واجهة متجاوبة بالكامل</li>
+            </ul>
+        </div>
+        <small class="opacity-50">© @DateTime.Now.Year نظام إدارة المساعدات</small>
+    </div>
+    <div class="ams-auth-panel">
+        <div class="ams-auth-card">
+            @RenderBody()
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.Branch
+﻿@model AssistanceManagementSystem.Models.Branch
 
 @{
     ViewData["Title"] = "Dashboard الفرع";
@@ -10,7 +10,7 @@
     ViewData["PageHeaderActionText"] = "العودة للفروع";
     ViewData["PageHeaderActionUrl"] = Url.Action("Index", "Branches");
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="row g-4 mb-4">
     <div class="col-md-3">
@@ -107,3 +107,4 @@
         </div>
     </div>
 </div>
+

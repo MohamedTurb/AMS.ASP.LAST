@@ -1,0 +1,90 @@
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    bool IsActive(string c) => string.Equals(controller, c, StringComparison.OrdinalIgnoreCase);
+    string LinkClass(string c) => "ams-sidebar__link" + (IsActive(c) ? " is-active" : "");
+}
+<aside class="ams-sidebar" id="amsSidebar" aria-label="القائمة الرئيسية">
+    <a class="ams-sidebar__brand" asp-controller="Home" asp-action="Index">
+        <div class="ams-sidebar__logo"><i class="fas fa-hands-helping"></i></div>
+        <div>
+            <div class="ams-sidebar__title">نظام المساعدات</div>
+            <div class="ams-sidebar__subtitle">AMS Platform</div>
+        </div>
+    </a>
+
+    <nav class="ams-sidebar__nav">
+        <div class="ams-sidebar__section">الرئيسية</div>
+        <a class="@LinkClass("Home")" asp-controller="Home" asp-action="Index">
+            <i class="fas fa-house"></i> لوحة التحكم
+        </a>
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff") || User.IsInRole("Approver") || User.IsInRole("Beneficiary"))
+        {
+            <div class="ams-sidebar__section">العمليات</div>
+            <a class="@LinkClass("AssistanceRequests")" asp-controller="AssistanceRequests" asp-action="Index">
+                <i class="fas fa-file-lines"></i> طلبات المساعدة
+            </a>
+        }
+
+        @if (User.IsInRole("Cashier") || User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+        {
+            <a class="@LinkClass("Assistances")" asp-controller="Assistances" asp-action="ReadyForDisbursement">
+                <i class="fas fa-wallet"></i> صرف المساعدات
+            </a>
+        }
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+        {
+            <div class="ams-sidebar__section">الإدارة</div>
+            <a class="@LinkClass("Organizations")" asp-controller="Organizations" asp-action="Index">
+                <i class="fas fa-building"></i> المنظمات
+            </a>
+            <a class="@LinkClass("Projects")" asp-controller="Projects" asp-action="Index">
+                <i class="fas fa-diagram-project"></i> المشاريع
+            </a>
+            <a class="@LinkClass("AidCategories")" asp-controller="AidCategories" asp-action="Index">
+                <i class="fas fa-tags"></i> التصنيفات
+            </a>
+            <a class="@LinkClass("Beneficiaries")" asp-controller="Beneficiaries" asp-action="Index">
+                <i class="fas fa-users"></i> المستفيدون
+            </a>
+        }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="@LinkClass("Branches")" asp-controller="Branches" asp-action="Index">
+                <i class="fas fa-code-branch"></i> الفروع
+            </a>
+            <a class="@LinkClass("Account")" asp-controller="Account" asp-action="Index">
+                <i class="fas fa-user-gear"></i> المستخدمون
+            </a>
+        }
+
+        @if (User.IsInRole("Branch Manager"))
+        {
+            <a class="@LinkClass("Branches")" asp-controller="Branches" asp-action="Dashboard">
+                <i class="fas fa-store"></i> لوحة الفرع
+            </a>
+        }
+
+        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+        {
+            <div class="ams-sidebar__section">التقارير</div>
+            <a class="@LinkClass("Reports")" asp-controller="Reports" asp-action="Index">
+                <i class="fas fa-chart-bar"></i> التقارير
+            </a>
+            <a class="@LinkClass("Reports")" asp-controller="Reports" asp-action="Analytics">
+                <i class="fas fa-chart-pie"></i> التحليلات
+            </a>
+        }
+
+        <div class="ams-sidebar__section">الحساب</div>
+        <a class="@LinkClass("Notifications")" asp-controller="Notifications" asp-action="Index">
+            <i class="fas fa-bell"></i> الإشعارات
+        </a>
+    </nav>
+
+    <div class="ams-sidebar__footer">
+        <small class="ams-text-muted d-block text-center">© @DateTime.Now.Year AMS</small>
+    </div>
+</aside>

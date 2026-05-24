@@ -1,10 +1,10 @@
-@model AssistanceManagementSystem.Models.Beneficiary
+﻿@model AssistanceManagementSystem.Models.Beneficiary
 
 @{
     ViewData["Title"] = "إضافة مستفيد جديد";
 }
 
-<div class="hero-shell mb-4">
+<div class="ams-mb-6">
     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
         <div>
             <div class="eyebrow mb-2">نموذج</div>
@@ -16,7 +16,7 @@
 
 <div class="row g-3">
     <div class="col-lg-8">
-        <div class="card glass-surface">
+        <div class="ams-card">
             <div class="card-body">
                 <form asp-action="Create" class="row g-3">
                     @Html.AntiForgeryToken()
@@ -81,7 +81,7 @@
                     }
 
                     <div class="col-12 d-flex flex-wrap gap-2 mt-2">
-                        <button class="btn btn-primary"><i class="fas fa-save me-2"></i>حفظ</button>
+                        <button class="ams-btn ams-btn--primary"><i class="fas fa-save me-2"></i>حفظ</button>
                         <a asp-action="Index" class="btn btn-outline-secondary">العودة</a>
                     </div>
                 </form>
@@ -89,3 +89,4 @@
         </div>
     </div>
 </div>
+

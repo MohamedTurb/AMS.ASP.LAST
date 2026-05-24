@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.Branch
+﻿@model AssistanceManagementSystem.Models.Branch
 @using AssistanceManagementSystem.Models
 
 @{
@@ -13,7 +13,7 @@
     ViewData["PageHeaderActionText"] = "Dashboard";
     ViewData["PageHeaderActionUrl"] = Url.Action("Dashboard", "Branches", new { id = Model.Id });
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
@@ -76,3 +76,4 @@
         </div>
     </div>
 </div>
+

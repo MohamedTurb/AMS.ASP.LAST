@@ -1,0 +1,14 @@
+@{
+    var icon = ViewData["EmptyIcon"] as string ?? "fa-inbox";
+    var title = ViewData["EmptyTitle"] as string ?? "لا توجد بيانات";
+    var text = ViewData["EmptyText"] as string ?? "لم يتم العثور على عناصر تطابق معايير البحث.";
+}
+<div class="ams-empty">
+    <div class="ams-empty__icon"><i class="fas @icon"></i></div>
+    <h3 class="ams-empty__title">@title</h3>
+    <p class="ams-empty__text">@text</p>
+    @if (ViewData["EmptyAction"] != null)
+    {
+        @Html.Raw(ViewData["EmptyAction"])
+    }
+</div>

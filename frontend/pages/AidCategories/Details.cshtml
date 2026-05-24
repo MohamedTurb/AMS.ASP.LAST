@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.AidCategory
+﻿@model AssistanceManagementSystem.Models.AidCategory
 
 @{
     ViewData["Title"] = "تفاصيل التصنيف";
@@ -8,7 +8,7 @@
     ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
     ViewData["PageHeaderIcon"] = "fas fa-tags";
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="row">
     <div class="col-lg-8">

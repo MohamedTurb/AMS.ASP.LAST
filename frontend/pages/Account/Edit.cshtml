@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Controllers.EditUserViewModel
+﻿@model AssistanceManagementSystem.Controllers.EditUserViewModel
 
 @{
     ViewData["Title"] = "تعديل المستخدم";
@@ -8,11 +8,11 @@
     ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
     ViewData["PageHeaderIcon"] = "fas fa-user-edit";
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="row g-3">
     <div class="col-lg-8">
-        <div class="card glass-surface">
+        <div class="ams-card">
             <div class="card-body">
                 <form asp-action="Edit" class="row g-3">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="col-12 d-flex flex-wrap gap-2 mt-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="ams-btn ams-btn--primary">
                             <i class="fas fa-save me-2"></i>حفظ التغييرات
                         </button>
                         <a asp-action="Index" class="btn btn-outline-secondary">
@@ -71,3 +71,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

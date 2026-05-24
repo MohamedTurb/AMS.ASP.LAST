@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.Beneficiary
+﻿@model AssistanceManagementSystem.Models.Beneficiary
 
 @{
     ViewData["Title"] = "حذف المستفيد";
@@ -17,10 +17,11 @@
                 </div>
                 <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-danger">نعم، احذف</button>
+                    <button type="submit" class="ams-btn ams-btn--danger">نعم، احذف</button>
                     <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
                 </form>
             </div>
         </div>
     </div>
 </div>
+

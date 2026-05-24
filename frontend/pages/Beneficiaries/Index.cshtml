@@ -1,94 +1,82 @@
 @model IEnumerable<AssistanceManagementSystem.Models.Beneficiary>
-
 @{
     ViewData["Title"] = "المستفيدون";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
+    ViewData["PageHeaderIcon"] = "fas fa-users";
+    ViewData["PageHeaderDesc"] = "سجل المستفيدين المسجّلين في النظام.";
 }
 
-<div class="row mt-4">
-    <div class="col-12 d-flex justify-content-between align-items-center mb-3">
-        <h2><i class="fas fa-users me-2"></i>@ViewData["Title"]</h2>
-        <div>
-            <form asp-action="ExportCsv" method="post" class="d-inline">
+@await Html.PartialAsync("_PageHeader")
+
+<div class="ams-card ams-filter">
+    <div class="ams-card__body">
+        <div class="ams-flex ams-flex-wrap ams-justify-between ams-gap-3">
+            <form method="get" class="ams-flex ams-flex-wrap ams-gap-2 flex-grow-1">
+                <input name="searchString" value="@ViewBag.SearchString" class="form-control" style="max-width:280px" placeholder="بحث..." />
+                @if (User.IsInRole("Admin"))
+                {
+                    <select name="branchFilter" class="form-select" style="max-width:200px">
+                        <option value="">الكل</option>
+                        @foreach (var b in ViewBag.Branches)
+                        {
+                            <option value="@b.Id" selected="@(ViewBag.BranchFilter != null && (int)ViewBag.BranchFilter == b.Id)">@b.Name</option>
+                        }
+                    </select>
+                }
+                <button type="submit" class="ams-btn ams-btn--primary">بحث</button>
+            </form>
+            <form asp-action="ExportCsv" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="branchFilter" value="@ViewBag.BranchFilter" />
-                <button type="submit" class="btn btn-outline-secondary">
-                    <i class="fas fa-file-csv me-2"></i>تصدير CSV
-                </button>
+                <button type="submit" class="ams-btn ams-btn--secondary"><i class="fas fa-file-csv"></i> CSV</button>
             </form>
         </div>
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <form method="get" class="row g-3 align-items-end">
-                    <div class="col-md-4">
-                        <label class="form-label">بحث</label>
-                        <input name="searchString" value="@ViewBag.SearchString" class="form-control" />
-                    </div>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <div class="col-md-4">
-                            <label class="form-label">الفرع</label>
-                            <select name="branchFilter" class="form-select">
-                                <option value="">الكل</option>
-                                @foreach (var b in ViewBag.Branches)
-                                {
-                                    <option value="@b.Id" selected="@(ViewBag.BranchFilter != null && (int)ViewBag.BranchFilter == b.Id)">@b.Name</option>
-                                }
-                            </select>
-                        </div>
-                    }
-                    <div class="col-md-2">
-                        <button class="btn btn-primary">ابحث</button>
-                    </div>
-                </form>
+<div class="ams-card">
+    <div class="ams-card__body p-0">
+        @if (Model.Any())
+        {
+            <div class="ams-table-wrap">
+                <table class="ams-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>الرقم القومي</th>
+                            <th>الهاتف</th>
+                            <th>الفرع</th>
+                            <th>تاريخ التسجيل</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td class="ams-fw-semibold">@item.FullName</td>
+                                <td>@item.NationalId</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Branch?.Name</td>
+                                <td>@item.CreatedAt.ToString("yyyy/MM/dd")</td>
+                                <td>
+                                    <div class="ams-flex ams-gap-2">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-eye"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-pen"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm ams-text-danger"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                @if (Model.Any())
-                {
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>الاسم</th>
-                                    <th>الرقم القومي</th>
-                                    <th>الهاتف</th>
-                                    <th>الفرع</th>
-                                    <th>تاريخ الإنشاء</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.FullName</td>
-                                        <td>@item.NationalId</td>
-                                        <td>@item.Phone</td>
-                                        <td>@item.Branch?.Name</td>
-                                        <td>@item.CreatedAt.ToString("yyyy/MM/dd")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-                else
-                {
-                    <div class="text-center py-5 text-muted">لا يوجد مستفيدون</div>
-                }
-            </div>
-        </div>
+        }
+        else
+        {
+            @await Html.PartialAsync("_EmptyState")
+        }
     </div>
 </div>

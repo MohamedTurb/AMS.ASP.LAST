@@ -1,0 +1,146 @@
+/* AMS — Page-specific styles */
+
+/* Dashboard hero strip */
+.ams-dashboard-hero {
+  background: linear-gradient(135deg, var(--ams-brand) 0%, #4f46e5 50%, #312e81 100%);
+  border-radius: var(--ams-radius-xl);
+  padding: var(--ams-space-8);
+  color: #fff;
+  margin-bottom: var(--ams-space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.ams-dashboard-hero::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ams-dashboard-hero__title {
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  font-weight: 700;
+  margin: 0 0 var(--ams-space-3);
+  letter-spacing: -0.02em;
+}
+
+.ams-dashboard-hero__text {
+  opacity: 0.9;
+  max-width: 48ch;
+  margin: 0 0 var(--ams-space-5);
+}
+
+.ams-dashboard-hero .ams-btn--secondary {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+.ams-dashboard-hero .ams-btn--secondary:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* Auth card */
+.ams-auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.ams-auth-card__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--ams-radius-md);
+  background: var(--ams-brand-muted);
+  color: var(--ams-brand);
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  margin: 0 auto var(--ams-space-4);
+}
+
+.ams-auth-card h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: var(--ams-space-2);
+}
+
+.ams-auth-card .text-muted {
+  text-align: center;
+  margin-bottom: var(--ams-space-6);
+}
+
+.ams-demo-box {
+  margin-top: var(--ams-space-6);
+  padding: var(--ams-space-4);
+  border-radius: var(--ams-radius-md);
+  background: var(--ams-bg-subtle);
+  border: 1px solid var(--ams-border);
+  font-size: 0.8rem;
+}
+
+/* Reports */
+.ams-report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--ams-space-5);
+}
+
+.ams-chart-card canvas {
+  max-height: 280px;
+}
+
+/* Branch dashboard */
+.ams-branch-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--ams-space-4);
+}
+
+@media (max-width: 767.98px) {
+  .ams-branch-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Assistance request details sidebar */
+.ams-detail-sidebar .ams-card {
+  position: sticky;
+  top: calc(var(--ams-topbar-height) + var(--ams-space-4));
+}
+
+/* Disbursement queue */
+.ams-queue-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ams-space-4);
+  padding: var(--ams-space-4);
+  border-bottom: 1px solid var(--ams-border);
+}
+
+.ams-queue-item:last-child {
+  border-bottom: none;
+}
+
+/* Analytics page */
+.analytics-page .ams-metric {
+  min-height: 100px;
+}
+
+.analytics-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--ams-space-5);
+}
+
+@media (max-width: 991.98px) {
+  .analytics-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}

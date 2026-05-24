@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.Project
+﻿@model AssistanceManagementSystem.Models.Project
 
 @{
     ViewData["Title"] = "تفاصيل المشروع";
@@ -8,7 +8,7 @@
     ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
     ViewData["PageHeaderIcon"] = "fas fa-project-diagram";
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="page-shell">
     <div class="page-hero p-4 p-lg-5 mb-4">
@@ -66,3 +66,4 @@
 </div>
 
 </div>
+

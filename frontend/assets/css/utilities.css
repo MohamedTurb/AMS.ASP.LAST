@@ -1,0 +1,86 @@
+/* AMS — Utility classes */
+
+.ams-gap-2 { gap: var(--ams-space-2) !important; }
+.ams-gap-3 { gap: var(--ams-space-3) !important; }
+.ams-gap-4 { gap: var(--ams-space-4) !important; }
+
+.ams-mb-0 { margin-bottom: 0 !important; }
+.ams-mb-4 { margin-bottom: var(--ams-space-4) !important; }
+.ams-mb-6 { margin-bottom: var(--ams-space-6) !important; }
+
+.ams-text-muted { color: var(--ams-text-muted) !important; }
+.ams-text-secondary { color: var(--ams-text-secondary) !important; }
+.ams-text-brand { color: var(--ams-brand) !important; }
+.ams-text-success { color: var(--ams-success) !important; }
+.ams-text-danger { color: var(--ams-danger) !important; }
+
+.ams-fw-bold { font-weight: 700 !important; }
+.ams-fw-semibold { font-weight: 600 !important; }
+
+.ams-flex { display: flex !important; }
+.ams-flex-wrap { flex-wrap: wrap !important; }
+.ams-items-center { align-items: center !important; }
+.ams-justify-between { justify-content: space-between !important; }
+.ams-d-grid { display: grid !important; }
+
+.ams-w-full { width: 100% !important; }
+.ams-max-w-prose { max-width: 65ch; }
+
+.ams-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.ams-animate-in {
+  animation: ams-fade-in 0.4s ease;
+}
+
+@keyframes ams-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Bootstrap overrides for theme */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+  background-color: var(--ams-bg-elevated);
+  border-color: var(--ams-border-strong);
+  color: var(--ams-text);
+}
+
+[data-theme="dark"] .table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--ams-text);
+  --bs-table-border-color: var(--ams-border);
+}
+
+[data-theme="dark"] .dropdown-menu {
+  background: var(--ams-bg-elevated);
+  border-color: var(--ams-border);
+}
+
+[data-theme="dark"] .dropdown-item {
+  color: var(--ams-text);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+  background: var(--ams-bg-subtle);
+}
+
+[data-theme="dark"] .alert-success {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .alert-danger {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+}

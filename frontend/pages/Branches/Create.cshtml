@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.Branch
+﻿@model AssistanceManagementSystem.Models.Branch
 
 @{
     ViewData["Title"] = "إضافة فرع جديد";
@@ -10,11 +10,11 @@
     ViewData["PageHeaderActionText"] = "العودة للفروع";
     ViewData["PageHeaderActionUrl"] = Url.Action("Index", "Branches");
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="row g-3">
     <div class="col-lg-8">
-        <div class="card glass-surface">
+        <div class="ams-card">
             <div class="card-body">
                 <form asp-action="Create" method="post" class="row g-3">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -34,7 +34,7 @@
                         <span asp-validation-for="Address" class="text-danger"></span>
                     </div>
                     <div class="col-12 d-flex flex-wrap gap-2 mt-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="ams-btn ams-btn--primary">
                             <i class="fas fa-save me-2"></i>حفظ
                         </button>
                         <a asp-action="Index" class="btn btn-outline-secondary">إلغاء</a>
@@ -44,3 +44,4 @@
         </div>
     </div>
 </div>
+

@@ -1,65 +1,47 @@
 @model IEnumerable<AssistanceManagementSystem.Models.Branch>
-
 @{
-    ViewData["Title"] = "إدارة الفروع";
-}
-
-@{
-    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["Title"] = "الفروع";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
     ViewData["PageHeaderIcon"] = "fas fa-code-branch";
-    ViewData["PageHeaderActionText"] = "إضافة فرع جديد";
-    ViewData["PageHeaderActionUrl"] = Url.Action("Create", "Branches");
+    ViewData["PageHeaderDesc"] = "إدارة الفروع ولوحات المتابعة.";
+    ViewData["PageHeaderActionText"] = "إضافة فرع";
+    ViewData["PageHeaderActionUrl"] = Url.Action("Create");
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
 
-<div class="card shadow-sm border-0 mb-4">
-    <div class="card-body">
-        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between mb-3">
-            <div>
-                <h5 class="mb-1">الفروع المسجلة</h5>
-                <p class="text-muted mb-0">إدارة الفروع وعرض لوحة كل فرع</p>
-            </div>
-            <a asp-action="Create" class="btn btn-primary">
-                <i class="fas fa-plus me-2"></i>إضافة فرع جديد
-            </a>
-        </div>
+@await Html.PartialAsync("_PageHeader")
 
+<div class="ams-card">
+    <div class="ams-card__body p-0">
         @if (Model.Any())
         {
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
+            <div class="ams-table-wrap">
+                <table class="ams-table mb-0">
                     <thead>
                         <tr>
-                            <th>اسم الفرع</th>
+                            <th>الفرع</th>
                             <th>العنوان</th>
                             <th>الهاتف</th>
-                            <th>لوحة الفرع</th>
-                            <th>الإجراءات</th>
+                            <th>لوحة</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var branch in Model)
                         {
                             <tr>
-                                <td class="fw-semibold">@branch.Name</td>
-                                <td>@(branch.Address ?? "-")</td>
-                                <td>@(branch.Phone ?? "-")</td>
+                                <td class="ams-fw-semibold">@branch.Name</td>
+                                <td>@(branch.Address ?? "—")</td>
+                                <td>@(branch.Phone ?? "—")</td>
                                 <td>
-                                    <a asp-action="Dashboard" asp-route-id="@branch.Id" class="btn btn-outline-success btn-sm">
-                                        <i class="fas fa-chart-line me-1"></i>Dashboard
+                                    <a asp-action="Dashboard" asp-route-id="@branch.Id" class="ams-btn ams-btn--ghost ams-btn--sm">
+                                        <i class="fas fa-chart-line"></i> Dashboard
                                     </a>
                                 </td>
                                 <td>
-                                    <div class="btn-group" role="group">
-                                        <a asp-action="Details" asp-route-id="@branch.Id" class="btn btn-outline-info btn-sm">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a asp-action="Edit" asp-route-id="@branch.Id" class="btn btn-outline-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@branch.Id" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                    <div class="ams-flex ams-gap-2">
+                                        <a asp-action="Details" asp-route-id="@branch.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-eye"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@branch.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-pen"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@branch.Id" class="ams-btn ams-btn--ghost ams-btn--sm ams-text-danger"><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -70,14 +52,7 @@
         }
         else
         {
-            <div class="text-center py-5">
-                <i class="fas fa-code-branch fa-3x text-muted mb-3"></i>
-                <h5 class="text-muted">لا توجد فروع</h5>
-                <p class="text-muted">ابدأ بإضافة فرع جديد</p>
-                <a asp-action="Create" class="btn btn-primary">
-                    <i class="fas fa-plus me-2"></i>إضافة فرع جديد
-                </a>
-            </div>
+            @await Html.PartialAsync("_EmptyState")
         }
     </div>
 </div>

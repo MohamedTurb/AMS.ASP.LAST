@@ -1,25 +1,23 @@
 @model IEnumerable<AssistanceManagementSystem.Models.Organization>
-
 @{
-    ViewData["Title"] = "قائمة المنظمات";
-}
-
-@{
-    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["Title"] = "المنظمات";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
     ViewData["PageHeaderIcon"] = "fas fa-building";
-    ViewData["PageHeaderActionText"] = User.IsInRole("Admin") || User.IsInRole("Branch Manager") ? "إضافة منظمة جديدة" : null;
-    ViewData["PageHeaderActionUrl"] = User.IsInRole("Admin") || User.IsInRole("Branch Manager") ? Url.Action("Create", "Organizations") : null;
+    ViewData["PageHeaderDesc"] = "إدارة المنظمات الشريكة والجهات الممولة.";
+    ViewData["PageHeaderActionText"] = User.IsInRole("Admin") || User.IsInRole("Branch Manager") ? "إضافة منظمة" : null;
+    ViewData["PageHeaderActionUrl"] = User.IsInRole("Admin") || User.IsInRole("Branch Manager") ? Url.Action("Create") : null;
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
 
-<div class="card">
-    <div class="card-body">
-        <div class="mb-3 d-flex justify-content-between">
-            <form method="get" class="d-flex g-2">
-                <input name="searchString" value="@ViewBag.SearchString" class="form-control me-2" placeholder="بحث..." />
+@await Html.PartialAsync("_PageHeader")
+
+<div class="ams-card ams-filter">
+    <div class="ams-card__body">
+        <div class="ams-flex ams-flex-wrap ams-justify-between ams-gap-3">
+            <form method="get" class="ams-flex ams-flex-wrap ams-gap-2 flex-grow-1">
+                <input name="searchString" value="@ViewBag.SearchString" class="form-control" style="max-width:280px" placeholder="بحث..." />
                 @if (User.IsInRole("Admin"))
                 {
-                    <select name="branchFilter" class="form-select me-2">
+                    <select name="branchFilter" class="form-select" style="max-width:200px">
                         <option value="">كل الفروع</option>
                         @foreach (var b in ViewBag.Branches)
                         {
@@ -27,50 +25,47 @@
                         }
                     </select>
                 }
-                <button class="btn btn-primary">بحث</button>
+                <button type="submit" class="ams-btn ams-btn--primary"><i class="fas fa-search"></i> بحث</button>
             </form>
             <form asp-action="ExportCsv" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="branchFilter" value="@ViewBag.BranchFilter" />
-                <button class="btn btn-outline-secondary"><i class="fas fa-file-csv me-2"></i>تصدير CSV</button>
+                <button type="submit" class="ams-btn ams-btn--secondary"><i class="fas fa-file-csv"></i> تصدير CSV</button>
             </form>
         </div>
+    </div>
+</div>
+
+<div class="ams-card">
+    <div class="ams-card__body p-0">
         @if (Model.Any())
         {
-            <div class="table-responsive">
-                <table class="table table-hover">
+            <div class="ams-table-wrap">
+                <table class="ams-table mb-0">
                     <thead>
                         <tr>
-                            <th>اسم المنظمة</th>
+                            <th>الاسم</th>
                             <th>الفرع</th>
                             <th>النوع</th>
-                            <th>العنوان</th>
-                            <th>رقم الهاتف</th>
-                            <th>رقم الحساب</th>
-                            <th>الإجراءات</th>
+                            <th>الهاتف</th>
+                            <th>الحساب</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.Name</td>
+                                <td class="ams-fw-semibold">@item.Name</td>
                                 <td>@item.Branch?.Name</td>
                                 <td>@item.Type</td>
-                                <td>@item.Address</td>
                                 <td>@item.Phone</td>
                                 <td>@item.AccountNumber</td>
                                 <td>
-                                    <div class="btn-group" role="group">
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                    <div class="ams-flex ams-gap-2">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-eye"></i></a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-pen"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm ams-text-danger"><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -81,17 +76,9 @@
         }
         else
         {
-            <div class="text-center py-5">
-                <i class="fas fa-building fa-3x text-muted mb-3"></i>
-                <h5 class="text-muted">لا توجد منظمات</h5>
-                <p class="text-muted">ابدأ بإضافة منظمة جديدة</p>
-                @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
-                {
-                    <a asp-action="Create" class="btn btn-primary">
-                        <i class="fas fa-plus me-2"></i>إضافة منظمة جديدة
-                    </a>
-                }
-            </div>
+            ViewData["EmptyTitle"] = "لا توجد منظمات";
+            ViewData["EmptyText"] = "ابدأ بإضافة منظمة جديدة.";
+            @await Html.PartialAsync("_EmptyState")
         }
     </div>
 </div>

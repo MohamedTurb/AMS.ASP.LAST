@@ -1,146 +1,97 @@
 @model AssistanceManagementSystem.Controllers.BeneficiaryDashboardViewModel
+@{
+    ViewData["Title"] = "لوحتي";
+}
 
-<div class="hero-shell mb-4">
-    <div class="row align-items-center g-4">
-        <div class="col-lg-7">
-            <div class="eyebrow mb-2">مرحبًا</div>
-            <h1 class="display-6 fw-bold mb-3">@Model.UserName</h1>
-            <p class="lead mb-0">تابع طلباتك وحالتها في مكان واحد، مع وصول سريع لإنشاء طلب جديد ومراجعة أحدث النتائج.</p>
+<div class="ams-dashboard-hero">
+    <h1 class="ams-dashboard-hero__title">مرحباً، @Model.UserName</h1>
+    <p class="ams-dashboard-hero__text">تابع طلباتك وحالتها، وأنشئ طلب مساعدة جديد في أي وقت.</p>
+    <div class="ams-flex ams-gap-2">
+        <a asp-controller="AssistanceRequests" asp-action="Create" class="ams-btn ams-btn--secondary ams-btn--sm"><i class="fas fa-plus"></i> طلب جديد</a>
+        <a asp-controller="AssistanceRequests" asp-action="Index" class="ams-btn ams-btn--secondary ams-btn--sm"><i class="fas fa-list"></i> كل الطلبات</a>
+    </div>
+</div>
+
+<div class="ams-metrics">
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--brand"><i class="fas fa-file-lines"></i></div>
+        <div>
+            <div class="ams-metric__label">إجمالي الطلبات</div>
+            <div class="ams-metric__value">@Model.TotalRequests</div>
         </div>
-        <div class="col-lg-5">
-            <div class="hero-panel p-4">
-                <div class="row g-3">
-                    <div class="col-6"><div class="metric-mini"><span>إجمالي الطلبات</span><strong>@Model.TotalRequests</strong></div></div>
-                    <div class="col-6"><div class="metric-mini"><span>معلقة</span><strong>@Model.PendingRequests</strong></div></div>
-                    <div class="col-6"><div class="metric-mini"><span>معتمدة</span><strong>@Model.ApprovedRequests</strong></div></div>
-                    <div class="col-6"><div class="metric-mini"><span>مرفوضة</span><strong>@Model.RejectedRequests</strong></div></div>
-                </div>
-            </div>
+    </div>
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--warning"><i class="fas fa-clock"></i></div>
+        <div>
+            <div class="ams-metric__label">قيد المراجعة</div>
+            <div class="ams-metric__value">@Model.PendingRequests</div>
+        </div>
+    </div>
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--success"><i class="fas fa-check"></i></div>
+        <div>
+            <div class="ams-metric__label">معتمدة</div>
+            <div class="ams-metric__value">@Model.ApprovedRequests</div>
+        </div>
+    </div>
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--info"><i class="fas fa-flag-checkered"></i></div>
+        <div>
+            <div class="ams-metric__label">منفّذة</div>
+            <div class="ams-metric__value">@Model.ExecutedRequests</div>
         </div>
     </div>
 </div>
 
-<div class="row g-3 mb-4">
-    <div class="col-lg-4 col-md-6">
-        <div class="card dashboard-card metric-card">
-            <div class="card-body">
-                <div class="metric-icon text-primary"><i class="fas fa-file-alt"></i></div>
-                <div>
-                    <div class="metric-label">إجمالي الطلبات</div>
-                    <div class="metric-value">@Model.TotalRequests</div>
-                </div>
-            </div>
+<div class="ams-card">
+    <div class="ams-card__header">
+        <div>
+            <h2 class="ams-card__title">أحدث الطلبات</h2>
+            <p class="ams-card__subtitle">آخر 5 طلبات</p>
         </div>
     </div>
-    <div class="col-lg-4 col-md-6">
-        <div class="card dashboard-card metric-card">
-            <div class="card-body">
-                <div class="metric-icon text-warning"><i class="fas fa-clock"></i></div>
-                <div>
-                    <div class="metric-label">قيد المراجعة</div>
-                    <div class="metric-value">@Model.PendingRequests</div>
-                </div>
+    <div class="ams-card__body p-0">
+        @if (Model.RecentRequests.Any())
+        {
+            <div class="ams-table-wrap">
+                <table class="ams-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>النوع</th>
+                            <th>المبلغ</th>
+                            <th>الحالة</th>
+                            <th>التاريخ</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var request in Model.RecentRequests)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="ams-fw-semibold">@request.TypeOfAssistance</div>
+                                    <small class="ams-text-muted">@request.BeneficiaryName</small>
+                                </td>
+                                <td>@(request.Amount.HasValue ? $"{request.Amount:N0} جنيه" : "—")</td>
+                                <td>@await Html.PartialAsync("_StatusBadge", request.Status)</td>
+                                <td>@request.CreatedAt.ToString("yyyy/MM/dd")</td>
+                                <td>
+                                    <a asp-controller="AssistanceRequests" asp-action="Details" asp-route-id="@request.Id" class="ams-btn ams-btn--ghost ams-btn--sm">
+                                        <i class="fas fa-eye"></i> تفاصيل
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-4 col-md-6">
-        <div class="card dashboard-card metric-card">
-            <div class="card-body">
-                <div class="metric-icon text-success"><i class="fas fa-check-circle"></i></div>
-                <div>
-                    <div class="metric-label">الطلبات المنجزة</div>
-                    <div class="metric-value">@Model.ExecutedRequests</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row g-3 mb-4">
-    <div class="col-md-6">
-        <a asp-controller="AssistanceRequests" asp-action="Create" class="action-cta action-cta-primary">
-            <i class="fas fa-plus-circle fa-2x"></i>
-            <div>
-                <h5 class="mb-1">طلب مساعدة جديد</h5>
-                <small>بدء طلب جديد مباشرة</small>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-6">
-        <a asp-controller="AssistanceRequests" asp-action="Index" class="action-cta action-cta-secondary">
-            <i class="fas fa-list fa-2x"></i>
-            <div>
-                <h5 class="mb-1">عرض جميع الطلبات</h5>
-                <small>متابعة التفاصيل والحالات</small>
-            </div>
-        </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0"><i class="fas fa-history me-2"></i>أحدث طلبات المساعدة</h5>
-                <span class="badge bg-light text-dark">آخر 5 طلبات</span>
-            </div>
-            <div class="card-body">
-                @if (Model.RecentRequests.Any())
-                {
-                    <div class="table-responsive">
-                        <table class="table align-middle table-hover">
-                            <thead>
-                                <tr>
-                                    <th>نوع المساعدة</th>
-                                    <th>المبلغ</th>
-                                    <th>الحالة</th>
-                                    <th>التاريخ</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var request in Model.RecentRequests)
-                                {
-                                    <tr>
-                                        <td>
-                                            <div class="fw-semibold">@request.TypeOfAssistance</div>
-                                            <small class="text-muted">@request.BeneficiaryName</small>
-                                        </td>
-                                        <td>
-                                            @if (request.Amount.HasValue)
-                                            {
-                                                <span class="text-success fw-bold">@request.Amount.Value.ToString("N0") جنيه</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-muted">غير محدد</span>
-                                            }
-                                        </td>
-                                        <td><span class="status-pill @(request.Status switch { "معلق" => "status-pending", "موافق عليه" => "status-approved", "مرفوض" => "status-rejected", "تم التنفيذ" => "status-paid", _ => "bg-secondary" })">@request.Status</span></td>
-                                        <td>@request.CreatedAt.ToString("yyyy/MM/dd")</td>
-                                        <td class="text-end">
-                                            <a asp-controller="AssistanceRequests" asp-action="Details" asp-route-id="@request.Id" class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye me-1"></i>تفاصيل
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-                else
-                {
-                    <div class="text-center py-5">
-                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                        <h5 class="text-muted">لا توجد طلبات مساعدة</h5>
-                        <p class="text-muted">ابدأ بإنشاء طلب مساعدة جديد</p>
-                        <a asp-controller="AssistanceRequests" asp-action="Create" class="btn btn-primary">
-                            <i class="fas fa-plus me-2"></i>طلب مساعدة جديد
-                        </a>
-                    </div>
-                }
-            </div>
-        </div>
+        }
+        else
+        {
+            ViewData["EmptyTitle"] = "لا توجد طلبات";
+            ViewData["EmptyText"] = "ابدأ بإنشاء أول طلب مساعدة.";
+            ViewData["EmptyAction"] = $"<a href=\"{Url.Action("Create", "AssistanceRequests")}\" class=\"ams-btn ams-btn--primary\"><i class=\"fas fa-plus\"></i> طلب جديد</a>";
+            @await Html.PartialAsync("_EmptyState")
+        }
     </div>
 </div>

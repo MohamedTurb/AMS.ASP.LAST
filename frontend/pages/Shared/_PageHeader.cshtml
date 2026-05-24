@@ -1,23 +1,40 @@
 @{
-    var title = ViewData["PageHeaderTitle"]?.ToString() ?? string.Empty;
-    var iconClass = ViewData["PageHeaderIcon"]?.ToString() ?? string.Empty;
-    var actionText = ViewData["PageHeaderActionText"]?.ToString();
-    var actionUrl = ViewData["PageHeaderActionUrl"]?.ToString();
+    var title = ViewData["PageHeaderTitle"] as string ?? ViewData["Title"] as string ?? "";
+    var desc = ViewData["PageHeaderDesc"] as string;
+    var eyebrow = ViewData["PageHeaderEyebrow"] as string;
+    var icon = ViewData["PageHeaderIcon"] as string;
 }
-
-<div class="hero-shell mb-4 py-3 py-lg-4 px-4 px-lg-5">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+<div class="ams-page-header ams-animate-in">
+    @if (!string.IsNullOrWhiteSpace(eyebrow))
+    {
+        <div class="ams-page-header__eyebrow">@eyebrow</div>
+    }
+    <div class="ams-page-header__row">
         <div>
-            <div class="eyebrow text-white-50 mb-2">إدارة القسم</div>
-            <h1 class="h3 fw-bold text-white mb-0">
-                <i class="@iconClass me-2"></i>@title
+            <h1 class="ams-page-header__title">
+                @if (!string.IsNullOrWhiteSpace(icon))
+                {
+                    <i class="@icon ams-text-brand me-2"></i>
+                }
+                @title
             </h1>
+            @if (!string.IsNullOrWhiteSpace(desc))
+            {
+                <p class="ams-page-header__desc">@desc</p>
+            }
         </div>
-        @if (!string.IsNullOrWhiteSpace(actionText) && !string.IsNullOrWhiteSpace(actionUrl))
+        @{
+            var actions = ViewData["PageHeaderActions"] as string;
+            var actionText = ViewData["PageHeaderActionText"] as string;
+            var actionUrl = ViewData["PageHeaderActionUrl"] as string;
+        }
+        @if (!string.IsNullOrWhiteSpace(actions))
         {
-            <a href="@actionUrl" class="btn btn-light btn-sm">
-                <i class="fas fa-plus me-2"></i>@actionText
-            </a>
+            <div class="ams-flex ams-gap-2">@Html.Raw(actions)</div>
+        }
+        else if (!string.IsNullOrWhiteSpace(actionText) && !string.IsNullOrWhiteSpace(actionUrl))
+        {
+            <a href="@actionUrl" class="ams-btn ams-btn--primary"><i class="fas fa-plus"></i> @actionText</a>
         }
     </div>
 </div>

@@ -215,12 +215,36 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Alerts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9BbGVydHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_AuthLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9BdXRoTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_EmptyState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9FbXB0eVN0YXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_PageHeader.cshtml]
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9QYWdlSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Sidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_StatusBadge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9TdGF0dXNCYWRnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Topbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9Ub3BiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_ValidationScriptsPartial.cshtml]

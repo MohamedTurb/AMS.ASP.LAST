@@ -1,224 +1,164 @@
 @model IEnumerable<AssistanceManagementSystem.Models.AssistanceRequest>
-
 @{
     ViewData["Title"] = "طلبات المساعدة";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
+    ViewData["PageHeaderDesc"] = "بحث وتصفية ومتابعة حالات الطلبات.";
+    ViewData["PageHeaderEyebrow"] = "العمليات";
+    ViewData["PageHeaderIcon"] = "fas fa-file-lines";
+    var canCreate = User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff") || User.IsInRole("Approver") || User.IsInRole("Beneficiary");
+    if (canCreate)
+    {
+        ViewData["PageHeaderActions"] = $"<a href=\"{Url.Action("Create")}\" class=\"ams-btn ams-btn--primary\"><i class=\"fas fa-plus\"></i> طلب جديد</a>";
+    }
 }
 
-<div class="hero-shell mb-4">
-    <div class="row align-items-center g-4">
-        <div class="col-lg-7">
-            <div class="eyebrow mb-2">تشغيل يومي</div>
-            <h1 class="h2 fw-bold mb-2">@ViewData["Title"]</h1>
-            <p class="lead mb-0">بحث أسرع، تصفية أوضح، ورؤية فورية للحالات حتى تقدر تتعامل مع الطلبات بدون تنقل زائد.</p>
-        </div>
-        <div class="col-lg-5">
-            <div class="hero-panel p-3 p-lg-4">
-                <div class="row g-2 g-lg-3">
-                    <div class="col-6"><div class="metric-mini"><span>الإجمالي</span><strong>@ViewBag.TotalRequests</strong></div></div>
-                    <div class="col-6"><div class="metric-mini"><span>هذا الشهر</span><strong>@ViewBag.LastMonthRequests</strong></div></div>
-                    <div class="col-6"><div class="metric-mini"><span>معلق</span><strong>@ViewBag.PendingRequests</strong></div></div>
-                    <div class="col-6"><div class="metric-mini"><span>تم التنفيذ</span><strong>@ViewBag.ExecutedRequests</strong></div></div>
-                </div>
+@await Html.PartialAsync("_PageHeader")
+
+<div class="ams-metrics">
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--brand"><i class="fas fa-layer-group"></i></div>
+        <div><div class="ams-metric__label">الإجمالي</div><div class="ams-metric__value">@ViewBag.TotalRequests</div></div>
+    </div>
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--warning"><i class="fas fa-clock"></i></div>
+        <div><div class="ams-metric__label">معلق</div><div class="ams-metric__value">@ViewBag.PendingRequests</div></div>
+    </div>
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--success"><i class="fas fa-check"></i></div>
+        <div><div class="ams-metric__label">موافق عليه</div><div class="ams-metric__value">@ViewBag.ApprovedRequests</div></div>
+    </div>
+    <div class="ams-metric">
+        <div class="ams-metric__icon ams-metric__icon--info"><i class="fas fa-flag-checkered"></i></div>
+        <div><div class="ams-metric__label">تم التنفيذ</div><div class="ams-metric__value">@ViewBag.ExecutedRequests</div></div>
+    </div>
+</div>
+
+<div class="ams-card ams-filter">
+    <div class="ams-card__body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label" for="searchString">بحث</label>
+                <input type="text" id="searchString" name="searchString" class="form-control" value="@ViewBag.SearchString" placeholder="الاسم، الرقم القومي، الهاتف..." />
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="row g-3 mb-4">
-    <div class="col-lg-3 col-md-6">
-        <div class="card dashboard-card metric-card"><div class="card-body"><div class="metric-icon text-primary"><i class="fas fa-layer-group"></i></div><div><div class="metric-label">الإجمالي</div><div class="metric-value">@ViewBag.TotalRequests</div></div></div></div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card dashboard-card metric-card"><div class="card-body"><div class="metric-icon text-warning"><i class="fas fa-clock"></i></div><div><div class="metric-label">معلق</div><div class="metric-value">@ViewBag.PendingRequests</div></div></div></div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card dashboard-card metric-card"><div class="card-body"><div class="metric-icon text-success"><i class="fas fa-check-circle"></i></div><div><div class="metric-label">موافق عليه</div><div class="metric-value">@ViewBag.ApprovedRequests</div></div></div></div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="card dashboard-card metric-card"><div class="card-body"><div class="metric-icon text-info"><i class="fas fa-flag-checkered"></i></div><div><div class="metric-label">تم التنفيذ</div><div class="metric-value">@ViewBag.ExecutedRequests</div></div></div></div>
-    </div>
-</div>
-
-<!-- Search and Filter Section -->
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card filter-card">
-            <div class="card-body">
-                <form method="get" class="row g-3 align-items-end">
-                    <div class="col-md-3">
-                        <label for="searchString" class="form-label">بحث سريع</label>
-                        <input type="text" name="searchString" class="form-control" value="@ViewBag.SearchString" placeholder="الاسم، الرقم القومي، التليفون..." />
-                    </div>
-                    <div class="col-md-2">
-                        <label for="typeFilter" class="form-label">نوع المساعدة</label>
-                        <select name="typeFilter" class="form-select">
-                            <option value="">الكل</option>
-                            @foreach (var type in ViewBag.Types)
-                            {
-                                <option value="@type" selected="@(ViewBag.TypeFilter == type)">@type</option>
-                            }
-                        </select>
-                    </div>
-                    @if (User.IsInRole("Admin"))
+            <div class="col-md-2">
+                <label class="form-label" for="typeFilter">نوع المساعدة</label>
+                <select id="typeFilter" name="typeFilter" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach (var type in ViewBag.Types)
                     {
-                        <div class="col-md-2">
-                            <label for="branchFilter" class="form-label">الفرع</label>
-                            <select name="branchFilter" class="form-select">
-                                <option value="">الكل</option>
-                                @if (ViewBag.Branches != null)
-                                {
-                                    foreach (var b in (IEnumerable<dynamic>)ViewBag.Branches)
-                                    {
-                                        <option value="@b.Id" selected="@(ViewBag.BranchFilter != null && (int)ViewBag.BranchFilter == b.Id)">@b.Name</option>
-                                    }
-                                }
-                            </select>
-                        </div>
+                        <option value="@type" selected="@(ViewBag.TypeFilter == type)">@type</option>
                     }
-                    <div class="col-md-2">
-                        <label for="statusFilter" class="form-label">الحالة</label>
-                        <select name="statusFilter" class="form-select">
-                            <option value="">الكل</option>
-                            @foreach (var status in ViewBag.Statuses)
-                            {
-                                <option value="@status" selected="@(ViewBag.StatusFilter == status)">@status</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="dateFrom" class="form-label">من تاريخ</label>
-                        <input type="date" name="dateFrom" class="form-control" value="@ViewBag.DateFrom" />
-                    </div>
-                    <div class="col-md-2">
-                        <label for="dateTo" class="form-label">إلى تاريخ</label>
-                        <input type="date" name="dateTo" class="form-control" value="@ViewBag.DateTo" />
-                    </div>
-                    <div class="col-md-1 d-grid">
-                        <label class="form-label">&nbsp;</label>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </form>
+                </select>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Actions Section -->
-<div class="row mb-3">
-    <div class="col-12">
-        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff") || User.IsInRole("Approver") || User.IsInRole("Beneficiary"))
-        {
-            <a asp-action="Create" class="btn btn-success">
-                <i class="fas fa-plus me-2"></i>طلب مساعدة جديد
-            </a>
-        }
-    </div>
-</div>
-
-<!-- Results Table -->
-<div class="row">
-    <div class="col-12">
-        <div class="card glass-surface">
-            <div class="card-body">
-                @if (Model.Any())
-                {
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle request-table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>رقم</th>
-                                    <th>طالب المساعدة</th>
-                                    <th>المستفيد</th>
-                                    <th>الفرع</th>
-                                    <th>نوع المساعدة</th>
-                                    <th>المبلغ</th>
-                                    <th>الحالة</th>
-                                    <th>تاريخ الطلب</th>
-                                    <th>الإجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            <div><span class="fw-semibold">#@item.Id</span></div>
-                                            <div class="text-muted small">@(item.ReferenceNumber ?? "—")</div>
-                                        </td>
-                                        <td>
-                                            <div class="fw-bold">@(!string.IsNullOrWhiteSpace(item.RequesterNameAr) ? item.RequesterNameAr : item.RequesterName)@(!string.IsNullOrWhiteSpace(item.RequesterNameEn) ? " (" + item.RequesterNameEn + ")" : "")</div>
-                                            <small class="text-muted">@item.RequesterPhoneNumber</small>
-                                        </td>
-                                        <td>
-                                            <div class="fw-bold">@(!string.IsNullOrWhiteSpace(item.BeneficiaryNameAr) ? item.BeneficiaryNameAr : item.BeneficiaryName)@(!string.IsNullOrWhiteSpace(item.BeneficiaryNameEn) ? " (" + item.BeneficiaryNameEn + ")" : "")</div>
-                                            <small class="text-muted">@item.BeneficiaryPhoneNumber</small>
-                                        </td>
-                                        <td>
-                                            <div class="fw-bold">@item.Branch?.Name</div>
-                                        </td>
-                                        <td>@item.TypeOfAssistance</td>
-                                        <td>
-                                            @if (item.Amount.HasValue)
-                                            {
-                                                <span class="text-success fw-bold">@item.Amount.Value.ToString("N0") جنيه</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-muted">غير محدد</span>
-                                            }
-                                        </td>
-                                        <td>
-                                            <span class="badge @(item.Status switch {
-                                                "معلق" => "bg-warning",
-                                                "موافق عليه" => "bg-success",
-                                                "مرفوض" => "bg-danger",
-                                                "تم التنفيذ" => "bg-info",
-                                                _ => "bg-secondary"
-                                            })">@item.Status</span>
-                                        </td>
-                                        <td>@item.CreatedAt.ToString("yyyy/MM/dd")</td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">
-                                                    <i class="fas fa-eye me-1"></i>تفاصيل
-                                                </a>
-                                                @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff"))
-                                                {
-                                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">
-                                                        <i class="fas fa-edit me-1"></i>تعديل
-                                                    </a>
-                                                }
-                                                @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
-                                                {
-                                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
-                                                        <i class="fas fa-trash me-1"></i>حذف
-                                                    </a>
-                                                }
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-                else
-                {
-                    <div class="text-center py-5">
-                        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                        <h5 class="text-muted">لا توجد طلبات مساعدة</h5>
-                        <p class="text-muted">لم يتم العثور على أي طلبات مساعدة تطابق معايير البحث</p>
-                        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff") || User.IsInRole("Approver") || User.IsInRole("Beneficiary"))
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-md-2">
+                    <label class="form-label" for="branchFilter">الفرع</label>
+                    <select id="branchFilter" name="branchFilter" class="form-select">
+                        <option value="">الكل</option>
+                        @if (ViewBag.Branches != null)
                         {
-                            <a asp-action="Create" class="btn btn-primary">
-                                <i class="fas fa-plus me-2"></i>إضافة طلب مساعدة جديد
-                            </a>
+                            foreach (var b in (IEnumerable<dynamic>)ViewBag.Branches)
+                            {
+                                <option value="@b.Id" selected="@(ViewBag.BranchFilter != null && (int)ViewBag.BranchFilter == b.Id)">@b.Name</option>
+                            }
                         }
-                    </div>
-                }
+                    </select>
+                </div>
+            }
+            <div class="col-md-2">
+                <label class="form-label" for="statusFilter">الحالة</label>
+                <select id="statusFilter" name="statusFilter" class="form-select">
+                    <option value="">الكل</option>
+                    @foreach (var status in ViewBag.Statuses)
+                    {
+                        <option value="@status" selected="@(ViewBag.StatusFilter == status)">@status</option>
+                    }
+                </select>
             </div>
-        </div>
+            <div class="col-md-2">
+                <label class="form-label" for="dateFrom">من</label>
+                <input type="date" id="dateFrom" name="dateFrom" class="form-control" value="@ViewBag.DateFrom" />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" for="dateTo">إلى</label>
+                <input type="date" id="dateTo" name="dateTo" class="form-control" value="@ViewBag.DateTo" />
+            </div>
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="ams-btn ams-btn--primary"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="ams-card">
+    <div class="ams-card__body p-0">
+        @if (Model.Any())
+        {
+            <div class="ams-table-wrap">
+                <table class="ams-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>رقم</th>
+                            <th>طالب المساعدة</th>
+                            <th>المستفيد</th>
+                            <th>الفرع</th>
+                            <th>النوع</th>
+                            <th>المبلغ</th>
+                            <th>الحالة</th>
+                            <th>التاريخ</th>
+                            <th>إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="ams-fw-semibold">#@item.Id</span>
+                                    <div class="small ams-text-muted">@(item.ReferenceNumber ?? "—")</div>
+                                </td>
+                                <td>
+                                    <div class="ams-fw-semibold">@(!string.IsNullOrWhiteSpace(item.RequesterNameAr) ? item.RequesterNameAr : item.RequesterName)</div>
+                                    <small class="ams-text-muted">@item.RequesterPhoneNumber</small>
+                                </td>
+                                <td>
+                                    <div class="ams-fw-semibold">@(!string.IsNullOrWhiteSpace(item.BeneficiaryNameAr) ? item.BeneficiaryNameAr : item.BeneficiaryName)</div>
+                                    <small class="ams-text-muted">@item.BeneficiaryPhoneNumber</small>
+                                </td>
+                                <td>@item.Branch?.Name</td>
+                                <td>@item.TypeOfAssistance</td>
+                                <td>@(item.Amount.HasValue ? $"{item.Amount:N0} جنيه" : "—")</td>
+                                <td>@await Html.PartialAsync("_StatusBadge", item.Status)</td>
+                                <td>@item.CreatedAt.ToString("yyyy/MM/dd")</td>
+                                <td>
+                                    <div class="ams-flex ams-gap-2">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-eye"></i></a>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff"))
+                                        {
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-pen"></i></a>
+                                        }
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+                                        {
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm ams-text-danger"><i class="fas fa-trash"></i></a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            ViewData["EmptyTitle"] = "لا توجد طلبات";
+            ViewData["EmptyText"] = "لم يتم العثور على طلبات تطابق معايير البحث.";
+            if (canCreate)
+            {
+                ViewData["EmptyAction"] = $"<a href=\"{Url.Action("Create")}\" class=\"ams-btn ams-btn--primary\"><i class=\"fas fa-plus\"></i> طلب جديد</a>";
+            }
+            @await Html.PartialAsync("_EmptyState")
+        }
     </div>
 </div>

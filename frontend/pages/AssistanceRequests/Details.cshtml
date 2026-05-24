@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.AssistanceRequest
+﻿@model AssistanceManagementSystem.Models.AssistanceRequest
 
 @{
     ViewData["Title"] = "تفاصيل طلب المساعدة";
@@ -332,10 +332,10 @@
                     {
                         @if (Model.Status == "معلق")
                         {
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
+                            <button type="button" class="ams-btn ams-btn--success" data-bs-toggle="modal" data-bs-target="#approveModal">
                                 <i class="fas fa-check me-2"></i>الموافقة على الطلب
                             </button>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                            <button type="button" class="ams-btn ams-btn--danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
                                 <i class="fas fa-times me-2"></i>رفض الطلب
                             </button>
                         }
@@ -350,7 +350,7 @@
 
                     @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
                     {
-                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="ams-btn ams-btn--danger">
                             <i class="fas fa-trash me-2"></i>حذف الطلب
                         </a>
                     }
@@ -406,7 +406,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                    <button type="submit" class="btn btn-success">موافقة</button>
+                    <button type="submit" class="ams-btn ams-btn--success">موافقة</button>
                 </div>
             </form>
         </div>
@@ -431,7 +431,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                    <button type="submit" class="btn btn-danger">رفض</button>
+                    <button type="submit" class="ams-btn ams-btn--danger">رفض</button>
                 </div>
             </form>
         </div>

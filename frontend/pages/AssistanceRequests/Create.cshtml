@@ -1,30 +1,22 @@
-@model AssistanceManagementSystem.Models.AssistanceRequest
+﻿@model AssistanceManagementSystem.Models.AssistanceRequest
 
 @{
     ViewData["Title"] = "طلب مساعدة جديد";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
+    ViewData["PageHeaderIcon"] = "fas fa-file-circle-plus";
+    ViewData["PageHeaderDesc"] = "املأ بيانات طالب المساعدة والمستفيد والمرفقات.";
+    ViewData["PageHeaderActions"] = $"<a href=\"{Url.Action("Index")}\" class=\"ams-btn ams-btn--secondary\"><i class=\"fas fa-arrow-right\"></i> القائمة</a>";
 }
 
-<div class="hero-shell mb-4">
-    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-        <div>
-            <div class="eyebrow mb-2">نموذج</div>
-            <h1 class="h3 fw-bold text-white mb-1"><i class="fas fa-file-plus me-2"></i>@ViewData["Title"]</h1>
-            <p class="text-white-50 mb-0">املأ بيانات طالب المساعدة والمستفيد والمرفقات بشكل متسق وسريع.</p>
-        </div>
-        <a asp-action="Index" class="btn btn-light btn-sm">
-            <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
-        </a>
-    </div>
-</div>
+@await Html.PartialAsync("_PageHeader")
 
 <div class="row">
     <div class="col-md-10">
-        <div class="card glass-surface">
-            <div class="card-header">
-                <div class="section-kicker mb-1">تفاصيل الطلب</div>
-                <h5 class="card-title mb-0"><i class="fas fa-edit me-2"></i>بيانات طلب المساعدة والمستفيد</h5>
+        <div class="ams-card">
+            <div class="ams-card__header">
+                <h2 class="ams-card__title"><i class="fas fa-edit me-2"></i>بيانات طلب المساعدة والمستفيد</h2>
             </div>
-            <div class="card-body">
+            <div class="ams-card__body">
                 <form asp-action="Create" method="post" enctype="multipart/form-data" id="unifiedForm">
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
@@ -285,7 +277,7 @@
                     </div>
 
                     <div class="d-flex flex-wrap gap-2">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="ams-btn ams-btn--success">
                                 <i class="fas fa-paper-plane me-2"></i>إرسال الطلب
                             </button>
                         <a asp-action="Index" class="btn btn-secondary">
@@ -299,7 +291,7 @@
 
     <!-- قسم المساعدة -->
     <div class="col-md-2">
-        <div class="card glass-surface">
+        <div class="ams-card">
             <div class="card-header">
                 <div class="section-kicker mb-1">مساعدة</div>
                 <h5 class="card-title mb-0"><i class="fas fa-question-circle me-2"></i>معلومات مفيدة</h5>

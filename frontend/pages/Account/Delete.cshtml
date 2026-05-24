@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Controllers.UserViewModel
+﻿@model AssistanceManagementSystem.Controllers.UserViewModel
 
 @{
     ViewData["Title"] = "حذف المستخدم";
@@ -8,7 +8,7 @@
     ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
     ViewData["PageHeaderIcon"] = "fas fa-user-times text-danger";
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="page-shell">
     <div class="page-hero p-4 p-lg-5 mb-4">
@@ -72,3 +72,4 @@
 </div>
 
 </div>
+

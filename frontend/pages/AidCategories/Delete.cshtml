@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.AidCategory
+﻿@model AssistanceManagementSystem.Models.AidCategory
 
 @{
     ViewData["Title"] = "حذف التصنيف";
@@ -8,7 +8,7 @@
     ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
     ViewData["PageHeaderIcon"] = "fas fa-trash text-danger";
 }
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@{ @await Html.PartialAsync("_PageHeader") }
 
 <div class="page-shell">
     <div class="page-hero p-4 p-lg-5 mb-4">
@@ -44,7 +44,7 @@
                 <form asp-action="Delete" class="mt-4">
                     <input type="hidden" asp-for="Id" />
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="ams-btn ams-btn--danger">
                             <i class="fas fa-trash me-2"></i>حذف
                         </button>
                         <a asp-action="Index" class="btn btn-secondary">

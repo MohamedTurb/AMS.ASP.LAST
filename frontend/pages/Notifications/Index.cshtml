@@ -1,44 +1,51 @@
 @model IEnumerable<AssistanceManagementSystem.Models.Notification>
-
 @{
     ViewData["Title"] = "الإشعارات";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
+    ViewData["PageHeaderIcon"] = "fas fa-bell";
+    ViewData["PageHeaderDesc"] = "جميع الإشعارات والتنبيهات الخاصة بحسابك.";
 }
 
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center">
-        <h2>@ViewData["Title"]</h2>
-    </div>
-</div>
+@await Html.PartialAsync("_PageHeader")
 
-<div class="card">
-    <div class="card-body">
+<div class="ams-card">
+    <div class="ams-card__body">
         @if (Model.Any())
         {
-            <ul class="list-group">
+            <div class="list-group list-group-flush">
                 @foreach (var n in Model)
                 {
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="list-group-item px-0 d-flex justify-content-between align-items-start gap-3 border-0 border-bottom">
                         <div>
-                            <div>@n.Message</div>
-                            @if (!string.IsNullOrEmpty(n.Link)) { <a href="@n.Link">عرض</a> }
-                            <div class="text-muted small">@n.CreatedAt.ToString("yyyy/MM/dd HH:mm")</div>
-                        </div>
-                        <div>
-                            @if (!n.IsRead)
+                            <div class="ams-fw-semibold">@n.Message</div>
+                            @if (!string.IsNullOrEmpty(n.Link))
                             {
-                                <form method="post" asp-action="MarkRead" class="d-inline">
-                                    <input type="hidden" name="id" value="@n.Id" />
-                                    <button class="btn btn-sm btn-primary">تعليم كمقروء</button>
-                                </form>
+                                <a href="@n.Link" class="small ams-text-brand">عرض التفاصيل</a>
                             }
+                            <div class="small ams-text-muted mt-1">@n.CreatedAt.ToString("yyyy/MM/dd HH:mm")</div>
                         </div>
-                    </li>
+                        @if (!n.IsRead)
+                        {
+                            <form method="post" asp-action="MarkRead">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@n.Id" />
+                                <button type="submit" class="ams-btn ams-btn--primary ams-btn--sm">تعليم كمقروء</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="ams-badge ams-badge--neutral">مقروء</span>
+                        }
+                    </div>
                 }
-            </ul>
+            </div>
         }
         else
         {
-            <div class="text-center py-5 text-muted">لا توجد إشعارات</div>
+            ViewData["EmptyIcon"] = "fa-bell-slash";
+            ViewData["EmptyTitle"] = "لا توجد إشعارات";
+            ViewData["EmptyText"] = "ستظهر التنبيهات هنا عند وصولها.";
+            @await Html.PartialAsync("_EmptyState")
         }
     </div>
 </div>

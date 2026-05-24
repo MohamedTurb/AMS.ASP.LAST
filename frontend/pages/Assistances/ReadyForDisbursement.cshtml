@@ -1,33 +1,36 @@
-@model IEnumerable<AssistanceManagementSystem.Models.Assistance>
-
+﻿@model IEnumerable<AssistanceManagementSystem.Models.Assistance>
 @{
-    ViewData["Title"] = "صرف المساعدات - للصرافين";
+    ViewData["Title"] = "صرف المساعدات";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
+    ViewData["PageHeaderIcon"] = "fas fa-wallet";
+    ViewData["PageHeaderDesc"] = "قائمة المساعدات الجاهزة للصرف.";
 }
 
-<div class="row mb-4">
-    <div class="col-12 d-flex justify-content-between align-items-center">
-        <h2>@ViewData["Title"]</h2>
-        <form method="get" class="d-flex flex-wrap gap-2">
-            <input type="text" name="search" class="form-control" placeholder="بحث برقم المرجع..." />
-            <button class="btn btn-primary">بحث</button>
+@await Html.PartialAsync("_PageHeader")
+
+<div class="ams-card ams-filter">
+    <div class="ams-card__body">
+        <form method="get" class="ams-flex ams-flex-wrap ams-gap-2">
+            <input type="text" name="search" class="form-control" style="max-width:320px" placeholder="بحث برقم المرجع..." />
+            <button type="submit" class="ams-btn ams-btn--primary"><i class="fas fa-search"></i> بحث</button>
         </form>
     </div>
 </div>
 
-<div class="card">
-    <div class="card-body">
+<div class="ams-card">
+    <div class="ams-card__body p-0">
         @if (Model.Any())
         {
-            <div class="table-responsive">
-                <table class="table table-hover">
+            <div class="ams-table-wrap">
+                <table class="ams-table mb-0">
                     <thead>
                         <tr>
                             <th>المرجع</th>
                             <th>المستفيد</th>
                             <th>النوع</th>
                             <th>المبلغ</th>
-                            <th>تاريخ الإنشاء</th>
-                            <th>إجراءات</th>
+                            <th>التاريخ</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,15 +39,16 @@
                             <tr>
                                 <td>@(a.ReferenceNumber ?? a.AssistanceRequest?.ReferenceNumber ?? "—")</td>
                                 <td>
-                                    @(a.Beneficiary?.FullNameAr ?? a.Beneficiary?.FullName ?? "—")
-                                    @if (!string.IsNullOrWhiteSpace(a.Beneficiary?.FullNameEn)) { <div class="small">(@a.Beneficiary.FullNameEn)</div> }
-                                    <br/><small class="text-muted">#@a.BeneficiaryId</small>
+                                    <div class="ams-fw-semibold">@(a.Beneficiary?.FullNameAr ?? a.Beneficiary?.FullName ?? "—")</div>
+                                    <small class="ams-text-muted">#@a.BeneficiaryId</small>
                                 </td>
                                 <td>@a.Type</td>
-                                <td>@a.Amount.ToString("N0") جنيه</td>
+                                <td class="ams-text-success ams-fw-bold">@a.Amount.ToString("N0") جنيه</td>
                                 <td>@a.CreatedAt.ToString("yyyy/MM/dd HH:mm")</td>
                                 <td>
-                                    <a asp-controller="AssistanceRequests" asp-action="Details" asp-route-id="@a.AssistanceRequestId" class="btn btn-sm btn-primary">تفاصيل الطلب</a>
+                                    <a asp-controller="AssistanceRequests" asp-action="Details" asp-route-id="@a.AssistanceRequestId" class="ams-btn ams-btn--primary ams-btn--sm">
+                                        تفاصيل الطلب
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -54,7 +58,9 @@
         }
         else
         {
-            <div class="text-center py-5 text-muted">لا توجد مساعدات جاهزة للصرف</div>
+            ViewData["EmptyTitle"] = "لا توجد مساعدات للصرف";
+            ViewData["EmptyText"] = "لا توجد عناصر جاهزة حالياً.";
+            @await Html.PartialAsync("_EmptyState")
         }
     </div>
 </div>

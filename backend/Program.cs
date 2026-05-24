@@ -273,6 +273,20 @@ if (Directory.Exists(staticAssetsPath))
         RequestPath = string.Empty
     });
 }
+
+var uploadsPath = Path.Combine(builder.Environment.WebRootPath ?? builder.Environment.ContentRootPath, "wwwroot", "uploads");
+if (!Directory.Exists(uploadsPath))
+{
+    uploadsPath = Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "uploads");
+}
+if (Directory.Exists(uploadsPath))
+{
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(uploadsPath),
+        RequestPath = "/uploads"
+    });
+}
 app.UseRequestLocalization(localizationOptions);
 
 app.UseRouting();

@@ -1,56 +1,47 @@
-@model IEnumerable<AssistanceManagementSystem.Controllers.UserViewModel>
-
+﻿@model IEnumerable<AssistanceManagementSystem.Controllers.UserViewModel>
 @{
-    ViewData["Title"] = "إدارة المستخدمين";
+    ViewData["Title"] = "المستخدمون";
+    ViewData["PageHeaderTitle"] = ViewData["Title"];
+    ViewData["PageHeaderIcon"] = "fas fa-user-gear";
+    ViewData["PageHeaderActionText"] = User.IsInRole("Admin") ? "مستخدم جديد" : null;
+    ViewData["PageHeaderActionUrl"] = User.IsInRole("Admin") ? Url.Action("Create") : null;
 }
 
-@{
-    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
-    ViewData["PageHeaderIcon"] = "fas fa-user-cog";
-    ViewData["PageHeaderActionText"] = User.IsInRole("Admin") ? "إضافة مستخدم جديد" : null;
-    ViewData["PageHeaderActionUrl"] = User.IsInRole("Admin") ? Url.Action("Create", "Account") : null;
-}
-@{ await Html.RenderPartialAsync("_PageHeader"); }
+@await Html.PartialAsync("_PageHeader")
 
-<div class="card">
-    <div class="card-body">
+<div class="ams-card">
+    <div class="ams-card__body p-0">
         @if (Model.Any())
         {
-            <div class="table-responsive">
-                <table class="table table-hover">
+            <div class="ams-table-wrap">
+                <table class="ams-table mb-0">
                     <thead>
                         <tr>
-                            <th>اسم المستخدم</th>
-                            <th>البريد الإلكتروني</th>
-                            <th>الاسم الكامل</th>
+                            <th>المستخدم</th>
+                            <th>البريد</th>
+                            <th>الاسم</th>
                             <th>الفرع</th>
                             <th>الأدوار</th>
-                            <th>الإجراءات</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.UserName</td>
+                                <td class="ams-fw-semibold">@item.UserName</td>
                                 <td>@item.Email</td>
                                 <td>@item.FullName</td>
                                 <td>@item.BranchName</td>
+                                <td><span class="ams-badge ams-badge--neutral">@item.Roles</span></td>
                                 <td>
-                                    <span class="badge bg-primary">@item.Roles</span>
-                                </td>
-                                <td>
-                                    <div class="btn-group" role="group">
-                                        @if (User.IsInRole("Admin"))
-                                        {
-                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        }
-                                    </div>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <div class="ams-flex ams-gap-2">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm"><i class="fas fa-pen"></i></a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="ams-btn ams-btn--ghost ams-btn--sm ams-text-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -60,17 +51,7 @@
         }
         else
         {
-            <div class="text-center py-5">
-                <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                <h5 class="text-muted">لا توجد مستخدمين</h5>
-                <p class="text-muted">ابدأ بإضافة مستخدم جديد</p>
-                @if (User.IsInRole("Admin"))
-                {
-                    <a asp-action="Create" class="btn btn-primary">
-                        <i class="fas fa-user-plus me-2"></i>إضافة مستخدم جديد
-                    </a>
-                }
-            </div>
+            @await Html.PartialAsync("_EmptyState")
         }
     </div>
 </div>

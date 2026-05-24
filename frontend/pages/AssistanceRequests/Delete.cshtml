@@ -1,4 +1,4 @@
-@model AssistanceManagementSystem.Models.AssistanceRequest
+﻿@model AssistanceManagementSystem.Models.AssistanceRequest
 
 @{
     ViewData["Title"] = "حذف طلب المساعدة";
@@ -126,7 +126,7 @@
                     <input type="hidden" asp-for="Id" />
                     <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-danger btn-lg">
+                            <button type="submit" class="ams-btn ams-btn--danger btn-lg">
                                 <i class="fas fa-trash me-2"></i>حذف نهائياً
                             </button>
                             <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info btn-lg">
@@ -197,3 +197,4 @@
         </div>
     </div>
 </div>
+
