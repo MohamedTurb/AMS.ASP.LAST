@@ -1,0 +1,95 @@
+@model List<Assistance>
+@{
+    ViewData["Title"] = "Ready for Disbursement";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    @{
+        ViewBag.Subtitle = "Assistance records ready for disbursement";
+        ViewBag.Actions = $@"";
+    }
+    @await Html.PartialAsync("_PageHeader", "Ready for Disbursement")
+
+    <!-- Search & Filters -->
+    <div class="card" style="margin-bottom: var(--spacing-6);">
+        <div class="card-body">
+            <form method="get" asp-action="ReadyForDisbursement" class="search-filters">
+                <div class="search-box">
+                    <input type="text" name="search" class="form-input" placeholder="Search by reference number..." 
+                           value="@ViewContext.HttpContext.Request.Query["search"]" />
+                    <i class="fas fa-search search-box-icon"></i>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-filter"></i>
+                    Filter
+                </button>
+                <a href="@Url.Action("ReadyForDisbursement", "Assistances")" class="btn btn-outline">
+                    <i class="fas fa-redo"></i>
+                    Reset
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assistance Records Table -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Reference Number</th>
+                        <th>Beneficiary</th>
+                        <th>National ID</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th>
+                        <th>Date</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model?.Count > 0)
+                    {
+                        @foreach (var assistance in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge badge-light">@(assistance.ReferenceNumber ?? "N/A")</span>
+                                </td>
+                                <td>@assistance.Beneficiary?.FullName</td>
+                                <td>@assistance.Beneficiary?.NationalId</td>
+                                <td>@assistance.Type</td>
+                                <td>
+                                    <strong>@assistance.Amount.ToString("C")</strong>
+                                </td>
+                                <td>@(assistance.PaymentMethod ?? "-")</td>
+                                <td>@assistance.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                <td>
+                                    <small>@(string.IsNullOrEmpty(assistance.Notes) ? "-" : assistance.Notes.Substring(0, Math.Min(50, assistance.Notes.Length)))</small>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">
+                                <div class="empty-state" style="padding: var(--spacing-8) var(--spacing-4);">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-inbox"></i>
+                                    </div>
+                                    <p class="empty-state-title">No Records Ready for Disbursement</p>
+                                    <p class="empty-state-description">
+                                        There are currently no assistance records ready for disbursement.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
