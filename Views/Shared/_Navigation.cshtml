@@ -1,0 +1,132 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<aside class="layout-sidebar">
+    <!-- Sidebar Brand -->
+    <a href="@Url.Action("Index", "Home")" class="sidebar-brand">
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-hands-helping"></i>
+        </div>
+        <span>AMS</span>
+    </a>
+
+    <!-- Main Navigation Menu -->
+    <nav class="sidebar-menu">
+        <!-- Dashboard -->
+        <li class="sidebar-menu-item">
+            <a href="@Url.Action("Index", "Home")" class="sidebar-menu-link">
+                <span class="sidebar-menu-icon">
+                    <i class="fas fa-chart-line"></i>
+                </span>
+                <span class="sidebar-menu-label">Dashboard</span>
+            </a>
+        </li>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <!-- Assistance Requests -->
+            <li class="sidebar-menu-item">
+                <a href="@Url.Action("Index", "AssistanceRequests")" class="sidebar-menu-link">
+                    <span class="sidebar-menu-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </span>
+                    <span class="sidebar-menu-label">Requests</span>
+                </a>
+            </li>
+
+            <!-- Beneficiaries -->
+            @if (User.IsInRole("Admin") || User.IsInRole("BranchManager") || User.IsInRole("Officer"))
+            {
+                <li class="sidebar-menu-item">
+                    <a href="@Url.Action("Index", "Beneficiaries")" class="sidebar-menu-link">
+                        <span class="sidebar-menu-icon">
+                            <i class="fas fa-users"></i>
+                        </span>
+                        <span class="sidebar-menu-label">Beneficiaries</span>
+                    </a>
+                </li>
+            }
+
+            <!-- Admin Resources Section -->
+            @if (User.IsInRole("Admin") || User.IsInRole("BranchManager"))
+            {
+                <!-- Assistance Section -->
+                <li class="sidebar-menu-item">
+                    <a href="@Url.Action("Index", "Assistances")" class="sidebar-menu-link">
+                        <span class="sidebar-menu-icon">
+                            <i class="fas fa-handshake"></i>
+                        </span>
+                        <span class="sidebar-menu-label">Assistances</span>
+                    </a>
+                </li>
+
+                <!-- Branches -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="sidebar-menu-item">
+                        <a href="@Url.Action("Index", "Branches")" class="sidebar-menu-link">
+                            <span class="sidebar-menu-icon">
+                                <i class="fas fa-building"></i>
+                            </span>
+                            <span class="sidebar-menu-label">Branches</span>
+                        </a>
+                    </li>
+
+                    <!-- Organizations -->
+                    <li class="sidebar-menu-item">
+                        <a href="@Url.Action("Index", "Organizations")" class="sidebar-menu-link">
+                            <span class="sidebar-menu-icon">
+                                <i class="fas fa-sitemap"></i>
+                            </span>
+                            <span class="sidebar-menu-label">Organizations</span>
+                        </a>
+                    </li>
+
+                    <!-- Projects -->
+                    <li class="sidebar-menu-item">
+                        <a href="@Url.Action("Index", "Projects")" class="sidebar-menu-link">
+                            <span class="sidebar-menu-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </span>
+                            <span class="sidebar-menu-label">Projects</span>
+                        </a>
+                    </li>
+
+                    <!-- Aid Categories -->
+                    <li class="sidebar-menu-item">
+                        <a href="@Url.Action("Index", "AidCategories")" class="sidebar-menu-link">
+                            <span class="sidebar-menu-icon">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                            <span class="sidebar-menu-label">Aid Categories</span>
+                        </a>
+                    </li>
+                }
+            }
+
+            <!-- Notifications -->
+            <li class="sidebar-menu-item">
+                <a href="@Url.Action("Index", "Notifications")" class="sidebar-menu-link">
+                    <span class="sidebar-menu-icon">
+                        <i class="fas fa-bell"></i>
+                    </span>
+                    <span class="sidebar-menu-label">Notifications</span>
+                </a>
+            </li>
+
+            <!-- Reports & Analytics -->
+            @if (User.IsInRole("Admin") || User.IsInRole("BranchManager") || User.IsInRole("Officer"))
+            {
+                <li class="sidebar-menu-item">
+                    <a href="@Url.Action("Index", "Reports")" class="sidebar-menu-link">
+                        <span class="sidebar-menu-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </span>
+                        <span class="sidebar-menu-label">Reports</span>
+                    </a>
+                </li>
+            }
+        }
+    </nav>
+</aside>

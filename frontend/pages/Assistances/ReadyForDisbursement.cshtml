@@ -1,0 +1,60 @@
+@model IEnumerable<AssistanceManagementSystem.Models.Assistance>
+
+@{
+    ViewData["Title"] = "صرف المساعدات - للصرافين";
+}
+
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <h2>@ViewData["Title"]</h2>
+        <form method="get" class="d-flex flex-wrap gap-2">
+            <input type="text" name="search" class="form-control" placeholder="بحث برقم المرجع..." />
+            <button class="btn btn-primary">بحث</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>المرجع</th>
+                            <th>المستفيد</th>
+                            <th>النوع</th>
+                            <th>المبلغ</th>
+                            <th>تاريخ الإنشاء</th>
+                            <th>إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in Model)
+                        {
+                            <tr>
+                                <td>@(a.ReferenceNumber ?? a.AssistanceRequest?.ReferenceNumber ?? "—")</td>
+                                <td>
+                                    @(a.Beneficiary?.FullNameAr ?? a.Beneficiary?.FullName ?? "—")
+                                    @if (!string.IsNullOrWhiteSpace(a.Beneficiary?.FullNameEn)) { <div class="small">(@a.Beneficiary.FullNameEn)</div> }
+                                    <br/><small class="text-muted">#@a.BeneficiaryId</small>
+                                </td>
+                                <td>@a.Type</td>
+                                <td>@a.Amount.ToString("N0") جنيه</td>
+                                <td>@a.CreatedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                                <td>
+                                    <a asp-controller="AssistanceRequests" asp-action="Details" asp-route-id="@a.AssistanceRequestId" class="btn btn-sm btn-primary">تفاصيل الطلب</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5 text-muted">لا توجد مساعدات جاهزة للصرف</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,230 @@
+@model AssistanceManagementSystem.Models.AssistanceRequest
+
+@{
+    ViewData["Title"] = "إضافة مساعدة جديدة";
+}
+
+<div class="page-shell">
+    <div class="page-hero p-4 p-lg-5 mb-4">
+        <div class="hero-copy row align-items-center g-4">
+            <div class="col-lg-8">
+                <div class="hero-chip"><i class="fas fa-hand-holding-heart"></i>صرف مساعدة</div>
+                <h1 class="hero-title">@ViewData["Title"]</h1>
+                <p class="hero-subtitle mb-0">إضافة مساعدة جديدة مرتبطة بطلب المساعدة رقم #@Model.Id</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-light btn-lg">
+                    <i class="fas fa-arrow-right me-2"></i>العودة للتفاصيل
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-form-icon me-2"></i>بيانات المساعدة الجديدة
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddAssistance" asp-route-id="@Model.Id" method="post" class="needs-validation" novalidate>
+                        <!-- معلومات المستفيد -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-primary border-bottom pb-2">
+                                    <i class="fas fa-user me-2"></i>بيانات المستفيد
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">اسم المستفيد:</label>
+                                <input type="text" class="form-control" value="@Model.BeneficiaryName" disabled>
+                                <small class="text-muted">من بيانات الطلب الأصلية</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">الرقم القومي:</label>
+                                <input type="text" class="form-control" value="@Model.BeneficiaryNationalId" disabled>
+                                <small class="text-muted">من بيانات الطلب الأصلية</small>
+                            </div>
+                        </div>
+
+                        <!-- بيانات المساعدة -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-primary border-bottom pb-2 mt-4">
+                                    <i class="fas fa-hand-holding-heart me-2"></i>بيانات المساعدة
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="Type" class="form-label fw-bold">نوع المساعدة: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="Type" name="Type" placeholder="مثل: مساعدة مالية، غذائية، طبية..." required>
+                                <div class="invalid-feedback">
+                                    نوع المساعدة مطلوب
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="Amount" class="form-label fw-bold">قيمة المساعدة (جنيه): <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="Amount" name="Amount" placeholder="0.00" step="0.01" min="0" required>
+                                <div class="invalid-feedback">
+                                    قيمة المساعدة مطلوبة وتكون أكبر من صفر
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="PaymentMethod" class="form-label fw-bold">طريقة الدفع: <span class="text-danger">*</span></label>
+                                <select class="form-select" id="PaymentMethod" name="PaymentMethod" required>
+                                    <option value="">-- اختر طريقة الدفع --</option>
+                                    <option value="نقدي">نقدي</option>
+                                    <option value="تحويل بنكي">تحويل بنكي</option>
+                                    <option value="عيني">عيني</option>
+                                    <option value="شيك">شيك</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    طريقة الدفع مطلوبة
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="Status" class="form-label fw-bold">حالة المساعدة:</label>
+                                <input type="text" class="form-control" value="قيد الانتظار" disabled>
+                                <small class="text-muted">سيتم تعيينها تلقائياً كـ قيد الانتظار</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="Notes" class="form-label fw-bold">ملاحظات إضافية:</label>
+                                <textarea class="form-control" id="Notes" name="Notes" rows="3" placeholder="أضف أي ملاحظات إضافية حول المساعدة..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Request Info -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h6 class="text-primary border-bottom pb-2 mt-4">
+                                    <i class="fas fa-info-circle me-2"></i>معلومات الطلب الأصلي
+                                </h6>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">رقم الطلب:</label>
+                                <p class="form-control-plaintext">#@Model.Id</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">نوع المساعدة المطلوب:</label>
+                                <p class="form-control-plaintext">
+                                    <span class="badge bg-primary">@Model.TypeOfAssistance</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">حالة الطلب:</label>
+                                <p class="form-control-plaintext">
+                                    <span class="badge @(Model.Status == "موافق عليه" ? "bg-success" : "bg-warning")">@Model.Status</span>
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">تاريخ الطلب:</label>
+                                <p class="form-control-plaintext">@Model.CreatedAt.ToString("yyyy/MM/dd")</p>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <div class="d-grid gap-2 d-sm-flex justify-content-sm-end">
+                                    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary btn-lg">
+                                        <i class="fas fa-times me-2"></i>إلغاء
+                                    </a>
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-check me-2"></i>إضافة المساعدة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Info Card -->
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>معلومات مهمة
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-3">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>الطلب موافق عليه</strong><br>
+                        <small class="text-muted">يمكنك الآن إضافة مساعدات مرتبطة بهذا الطلب</small>
+                    </p>
+                    <p class="mb-3">
+                        <i class="fas fa-plus-circle text-primary me-2"></i>
+                        <strong>إضافة متعددة</strong><br>
+                        <small class="text-muted">يمكنك إضافة أكثر من مساعدة واحدة لنفس الطلب</small>
+                    </p>
+                    <p class="mb-0">
+                        <i class="fas fa-user-check text-success me-2"></i>
+                        <strong>البيانات آمنة</strong><br>
+                        <small class="text-muted">تُربط المساعدة تلقائياً ببيانات المستفيد من الطلب</small>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Request Details Card -->
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-file-alt me-2"></i>طالب المساعدة
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <small class="text-muted">
+                        <strong>الاسم:</strong> @Model.RequesterName<br>
+                        <strong>الرقم القومي:</strong> @Model.RequesterNationalId<br>
+                        <strong>التليفون:</strong> 
+                        <a href="tel:@Model.RequesterPhoneNumber">@Model.RequesterPhoneNumber</a><br>
+                        <strong>العنوان:</strong> @Model.RequesterAddress
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Bootstrap form validation
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                var forms = document.querySelectorAll('.needs-validation');
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+            }, false);
+        })();
+    </script>
+}

@@ -1,0 +1,225 @@
+@model PaginatedList<AssistanceRequest>
+@{
+    ViewData["Title"] = "Assistance Requests";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    @{
+        ViewBag.Subtitle = "Manage and track all assistance requests in the system";
+        ViewBag.Actions = $@"<a href=""{Url.Action("Create", "AssistanceRequests")}"" class=""btn btn-primary"">
+            <i class=""fas fa-plus""></i>
+            New Request
+        </a>";
+    }
+    @await Html.PartialAsync("_PageHeader", "Assistance Requests")
+
+    <!-- Search & Filters -->
+    <div class="card" style="margin-bottom: var(--spacing-6);">
+        <div class="card-body">
+            <form method="get" asp-action="Index" class="search-filters">
+                <!-- Search Box -->
+                <div class="search-box">
+                    <input type="text" name="searchString" class="form-input" placeholder="Search by reference, beneficiary name..." value="@ViewContext.HttpContext.Request.Query["searchString"]" />
+                    <i class="fas fa-search search-box-icon"></i>
+                </div>
+
+                <!-- Status Filter -->
+                <div class="filter-group">
+                    <select name="status" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="Pending" @(ViewContext.HttpContext.Request.Query["status"] == "Pending" ? "selected" : "")>Pending</option>
+                        <option value="Approved" @(ViewContext.HttpContext.Request.Query["status"] == "Approved" ? "selected" : "")>Approved</option>
+                        <option value="Rejected" @(ViewContext.HttpContext.Request.Query["status"] == "Rejected" ? "selected" : "")>Rejected</option>
+                        <option value="Completed" @(ViewContext.HttpContext.Request.Query["status"] == "Completed" ? "selected" : "")>Completed</option>
+                    </select>
+                </div>
+
+                <!-- Branch Filter (if Admin) -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="filter-group">
+                        <select name="branchId" class="filter-select">
+                            <option value="">All Branches</option>
+                        </select>
+                    </div>
+                }
+
+                <!-- Filter & Reset Buttons -->
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-filter"></i>
+                    Filter
+                </button>
+                <a href="@Url.Action("Index", "AssistanceRequests")" class="btn btn-outline">
+                    <i class="fas fa-redo"></i>
+                    Reset
+                </a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Data List/Table -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Reference #</th>
+                        <th>Beneficiary</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Submitted</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model?.Count > 0)
+                    {
+                        @foreach (var request in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <code style="background-color: var(--color-gray-100); padding: 4px 8px; border-radius: 4px;">
+                                        @request.ReferenceNumber
+                                    </code>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div style="font-weight: 500;">@request.BeneficiaryNameAr</div>
+                                        <div style="font-size: var(--font-size-sm); color: var(--color-text-muted);">@request.BeneficiaryPhone</div>
+                                    </div>
+                                </td>
+                                <td>@request.AidCategory?.NameEn</td>
+                                <td>
+                                    <span style="font-weight: 500;">$@request.RequestedAmount.ToString("F2")</span>
+                                </td>
+                                <td>
+                                    <span class="status-badge @request.Status.ToString().ToLower()">
+                                        <span class="status-badge-dot"></span>
+                                        @request.Status
+                                    </span>
+                                </td>
+                                <td>@request.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    <div class="btn-group" style="gap: var(--spacing-2);">
+                                        <a href="@Url.Action("Details", "AssistanceRequests", new { id = request.Id })" class="btn btn-sm btn-outline">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        @if (request.Status == AssistanceRequestStatus.Pending)
+                                        {
+                                            <a href="@Url.Action("Edit", "AssistanceRequests", new { id = request.Id })" class="btn btn-sm btn-outline">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state" style="padding: var(--spacing-8) var(--spacing-4);">
+                                    <div class="empty-state-icon">
+                                        <i class="fas fa-inbox"></i>
+                                    </div>
+                                    <p class="empty-state-title">No requests found</p>
+                                    <p class="empty-state-description">
+                                        There are no assistance requests matching your criteria.
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        @if (Model?.TotalPages > 1)
+        {
+            <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: var(--font-size-sm); color: var(--color-text-muted);">
+                    Showing @((Model.PageIndex - 1) * Model.PageSize + 1) to @Math.Min(Model.PageIndex * Model.PageSize, Model.TotalCount) of @Model.TotalCount
+                </div>
+
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" style="margin: 0;">
+                        @if (Model.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageIndex - 1 })">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Previous
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.TotalPages; i++)
+                        {
+                            @if (i == Model.PageIndex)
+                            {
+                                <li class="page-item active">
+                                    <span class="page-link">@i</span>
+                                </li>
+                            }
+                            else if (i <= Model.PageIndex + 2 && i >= Model.PageIndex - 2)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                                </li>
+                            }
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageIndex + 1 })">
+                                    Next
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+        }
+    </div>
+
+    <!-- Export Options -->
+    <div style="margin-top: var(--spacing-6); display: flex; justify-content: flex-end; gap: var(--spacing-3);">
+        <button class="export-btn" onclick="exportToCSV()">
+            <i class="fas fa-file-csv export-btn-icon"></i>
+            Export CSV
+        </button>
+        <button class="export-btn" onclick="exportToExcel()">
+            <i class="fas fa-file-excel export-btn-icon"></i>
+            Export Excel
+        </button>
+        <button class="export-btn" onclick="exportToPDF()">
+            <i class="fas fa-file-pdf export-btn-icon"></i>
+            Export PDF
+        </button>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function exportToCSV() {
+        Notification.info('Preparing CSV export...');
+        window.location.href = '@Url.Action("ExportCsv", "AssistanceRequests")?@ViewContext.HttpContext.Request.QueryString';
+    }
+
+    function exportToExcel() {
+        Notification.info('Preparing Excel export...');
+        window.location.href = '@Url.Action("ExportExcel", "AssistanceRequests")?@ViewContext.HttpContext.Request.QueryString';
+    }
+
+    function exportToPDF() {
+        Notification.info('Preparing PDF export...');
+        window.location.href = '@Url.Action("ExportPdf", "AssistanceRequests")?@ViewContext.HttpContext.Request.QueryString';
+    }
+</script>
+}

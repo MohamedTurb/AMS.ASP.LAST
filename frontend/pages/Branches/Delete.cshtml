@@ -1,0 +1,33 @@
+@model AssistanceManagementSystem.Models.Branch
+
+@{
+    ViewData["Title"] = "حذف الفرع";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-trash";
+    ViewData["PageHeaderActionText"] = "العودة للفروع";
+    ViewData["PageHeaderActionUrl"] = Url.Action("Index", "Branches");
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="card border-danger shadow-sm">
+    <div class="card-body">
+        <h5 class="text-danger mb-3">هل أنت متأكد من حذف هذا الفرع؟</h5>
+        <dl class="row mb-0">
+            <dt class="col-sm-3">اسم الفرع</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+            <dt class="col-sm-3">العنوان</dt>
+            <dd class="col-sm-9">@(Model.Address ?? "-")</dd>
+            <dt class="col-sm-3">الهاتف</dt>
+            <dd class="col-sm-9">@(Model.Phone ?? "-")</dd>
+        </dl>
+
+        <form asp-action="Delete" method="post" class="mt-4 d-flex gap-2">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">حذف</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">إلغاء</a>
+        </form>
+    </div>
+</div>

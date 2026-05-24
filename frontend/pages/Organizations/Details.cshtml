@@ -1,0 +1,72 @@
+@model AssistanceManagementSystem.Models.Organization
+
+@{
+    ViewData["Title"] = "تفاصيل المنظمة";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-building";
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="page-shell">
+    <div class="page-hero p-4 p-lg-5 mb-4">
+        <div class="hero-copy row align-items-center g-4">
+            <div class="col-lg-8">
+                <div class="hero-chip"><i class="fas fa-building"></i>بيانات مرجعية</div>
+                <h1 class="hero-title">@ViewData["Title"]</h1>
+                <p class="hero-subtitle mb-0">مراجعة سريعة لكل بيانات المنظمة مع الوصول إلى التعديل أو العودة للقائمة.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-light btn-lg me-2"><i class="fas fa-edit me-2"></i>تعديل</a>
+                <a asp-action="Index" class="btn btn-outline-light btn-lg mt-2 mt-lg-0"><i class="fas fa-arrow-right me-2"></i>العودة</a>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card detail-shell">
+            <div class="card-header">
+                <h5 class="card-title mb-0">تفاصيل المنظمة</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>اسم المنظمة:</strong>
+                        <p class="text-muted">@Model.Name</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>الفرع:</strong>
+                        <p class="text-muted">@Model.Branch?.Name ?? "غير محدد"</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>نوع المنظمة:</strong>
+                        <p class="text-muted">@Model.Type</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <strong>العنوان:</strong>
+                        <p class="text-muted">@Model.Address</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>رقم الهاتف:</strong>
+                        <p class="text-muted">@Model.Phone</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>رقم الحساب:</strong>
+                        <p class="text-muted">@Model.AccountNumber</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

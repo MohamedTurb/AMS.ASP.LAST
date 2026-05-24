@@ -1,0 +1,57 @@
+@model AssistanceManagementSystem.Models.AidCategory
+
+@{
+    ViewData["Title"] = "تفاصيل التصنيف";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-tags";
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">الاسم بالعربية</dt>
+                    <dd class="col-sm-8">@Model.NameAr</dd>
+
+                    <dt class="col-sm-4">الاسم بالإنجليزية</dt>
+                    <dd class="col-sm-8">@(Model.NameEn ?? "-")</dd>
+
+                    <dt class="col-sm-4">الرمز</dt>
+                    <dd class="col-sm-8">@(Model.Code ?? "-")</dd>
+
+                    <dt class="col-sm-4">النطاق</dt>
+                    <dd class="col-sm-8">@Model.Scope</dd>
+
+                    <dt class="col-sm-4">الوصف</dt>
+                    <dd class="col-sm-8">@(Model.Description ?? "-")</dd>
+
+                    <dt class="col-sm-4">التصنيف الأب</dt>
+                    <dd class="col-sm-8">@(Model.ParentAidCategory?.NameAr ?? "-")</dd>
+
+                    <dt class="col-sm-4">الترتيب</dt>
+                    <dd class="col-sm-8">@Model.SortOrder</dd>
+
+                    <dt class="col-sm-4">الحالة</dt>
+                    <dd class="col-sm-8">@(Model.IsActive ? "نشط" : "غير نشط")</dd>
+
+                    <dt class="col-sm-4">النص الحر</dt>
+                    <dd class="col-sm-8">@(Model.AllowCustomText ? "مسموح" : "غير مسموح")</dd>
+                </dl>
+
+                <div class="d-flex gap-2 mt-4">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                        <i class="fas fa-edit me-2"></i>تعديل
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

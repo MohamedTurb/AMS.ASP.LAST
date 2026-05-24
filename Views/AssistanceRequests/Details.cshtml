@@ -1,0 +1,296 @@
+@model AssistanceRequest
+@{
+    ViewData["Title"] = "Request Details";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    @{
+        var actions = $@"<div class=""btn-group"">
+            <a href=""{Url.Action("Edit", new { id = Model.Id })}"" class=""btn btn-primary"">
+                <i class=""fas fa-edit""></i>
+                Edit
+            </a>
+            <a href=""{Url.Action("Index")}"" class=""btn btn-outline"">
+                <i class=""fas fa-arrow-left""></i>
+                Back
+            </a>
+        </div>";
+        ViewBag.Subtitle = $"Reference: {Model.ReferenceNumber}";
+        ViewBag.Actions = actions;
+    }
+    @await Html.PartialAsync("_PageHeader", "Request Details")
+
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Request Information -->
+            <div class="request-card">
+                <div class="request-card-header">
+                    <h5 class="request-card-title">Request Information</h5>
+                    <span class="status-badge @Model.Status.ToString().ToLower()">
+                        <span class="status-badge-dot"></span>
+                        @Model.Status
+                    </span>
+                </div>
+
+                <div class="request-card-body">
+                    <div class="request-field">
+                        <div class="request-field-label">Reference Number</div>
+                        <div class="request-field-value">
+                            <code>@Model.ReferenceNumber</code>
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Requested Amount</div>
+                        <div class="request-field-value">
+                            $@Model.RequestedAmount.ToString("F2")
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Aid Category</div>
+                        <div class="request-field-value">
+                            @Model.AidCategory?.NameEn
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Description</div>
+                        <div class="request-field-value">
+                            @Model.Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beneficiary Information -->
+            <div class="request-card">
+                <div class="request-card-header">
+                    <h5 class="request-card-title">Beneficiary Information</h5>
+                </div>
+
+                <div class="request-card-body">
+                    <div class="request-field">
+                        <div class="request-field-label">Full Name (Arabic)</div>
+                        <div class="request-field-value">
+                            @Model.BeneficiaryNameAr
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Full Name (English)</div>
+                        <div class="request-field-value">
+                            @Model.BeneficiaryNameEn
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">National ID</div>
+                        <div class="request-field-value">
+                            @Model.BeneficiaryNationalId
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Phone</div>
+                        <div class="request-field-value">
+                            <a href="tel:@Model.BeneficiaryPhone">@Model.BeneficiaryPhone</a>
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Address</div>
+                        <div class="request-field-value">
+                            @Model.BeneficiaryAddress
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Gender</div>
+                        <div class="request-field-value">
+                            @Model.Gender
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Marital Status</div>
+                        <div class="request-field-value">
+                            @Model.MaritalStatus
+                        </div>
+                    </div>
+
+                    <div class="request-field">
+                        <div class="request-field-label">Religion</div>
+                        <div class="request-field-value">
+                            @Model.Religion
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attached Files -->
+            @if (Model.Files?.Any() == true)
+            {
+                <div class="request-card">
+                    <div class="request-card-header">
+                        <h5 class="request-card-title">Attached Documents</h5>
+                    </div>
+
+                    <div class="request-card-body">
+                        <div class="file-list">
+                            @foreach (var file in Model.Files)
+                            {
+                                <li class="file-list-item">
+                                    <span class="file-list-icon">
+                                        <i class="fas fa-file"></i>
+                                    </span>
+                                    <a href="@Url.Action("DownloadFile", new { id = file.Id })" class="file-list-name">
+                                        @file.FileName
+                                    </a>
+                                    <span class="file-list-size">@(file.FileSize / 1024)KB</span>
+                                </li>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Status Timeline -->
+            <div class="card" style="margin-bottom: var(--spacing-6);">
+                <div class="card-header">
+                    <h5 style="margin: 0;">Timeline</h5>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-item-title">Request Submitted</div>
+                            <div class="timeline-item-date">
+                                @Model.CreatedAt.ToString("MMM dd, yyyy h:mm tt")
+                            </div>
+                        </div>
+
+                        @if (Model.ReviewedAt.HasValue)
+                        {
+                            <div class="timeline-item">
+                                <div class="timeline-item-title">Request Reviewed</div>
+                                <div class="timeline-item-description">
+                                    by @Model.ReviewedByUser?.FullName
+                                </div>
+                                <div class="timeline-item-date">
+                                    @Model.ReviewedAt?.ToString("MMM dd, yyyy h:mm tt")
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model.Status == AssistanceRequestStatus.Approved)
+                        {
+                            <div class="timeline-item">
+                                <div class="timeline-item-title">Request Approved</div>
+                                <div class="timeline-item-date">Pending disbursement</div>
+                            </div>
+                        }
+                        else if (Model.Status == AssistanceRequestStatus.Rejected)
+                        {
+                            <div class="timeline-item">
+                                <div class="timeline-item-title">Request Rejected</div>
+                                <div class="timeline-item-description">
+                                    @Model.RejectionReason
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            @if (User.IsInRole("Admin") || User.IsInRole("BranchManager"))
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h5 style="margin: 0;">Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+                            @if (Model.Status == AssistanceRequestStatus.Pending)
+                            {
+                                <button type="button" class="btn btn-success btn-full" onclick="approveRequest(@Model.Id)">
+                                    <i class="fas fa-check"></i>
+                                    Approve Request
+                                </button>
+                                <button type="button" class="btn btn-danger btn-full" onclick="rejectRequest(@Model.Id)">
+                                    <i class="fas fa-times"></i>
+                                    Reject Request
+                                </button>
+                            }
+
+                            @if (Model.Status == AssistanceRequestStatus.Approved)
+                            {
+                                <button type="button" class="btn btn-secondary btn-full" onclick="markCompleted(@Model.Id)">
+                                    <i class="fas fa-check-double"></i>
+                                    Mark Completed
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function approveRequest(id) {
+        Confirm.show(
+            'Are you sure you want to approve this request?',
+            async () => {
+                try {
+                    await API.post(`@Url.Action("Approve", "AssistanceRequests")/${id}`, {});
+                    Notification.success('Request approved successfully');
+                    setTimeout(() => window.location.reload(), 1500);
+                } catch (error) {
+                    Notification.error('Failed to approve request');
+                }
+            }
+        );
+    }
+
+    function rejectRequest(id) {
+        const reason = prompt('Please provide a reason for rejection:');
+        if (reason) {
+            Confirm.show(
+                'Are you sure you want to reject this request?',
+                async () => {
+                    try {
+                        await API.post(`@Url.Action("Reject", "AssistanceRequests")/${id}`, { reason });
+                        Notification.success('Request rejected successfully');
+                        setTimeout(() => window.location.reload(), 1500);
+                    } catch (error) {
+                        Notification.error('Failed to reject request');
+                    }
+                }
+            );
+        }
+    }
+
+    function markCompleted(id) {
+        Confirm.show(
+            'Mark this request as completed?',
+            async () => {
+                try {
+                    await API.post(`@Url.Action("Complete", "AssistanceRequests")/${id}`, {});
+                    Notification.success('Request marked as completed');
+                    setTimeout(() => window.location.reload(), 1500);
+                } catch (error) {
+                    Notification.error('Failed to complete request');
+                }
+            }
+        );
+    }
+</script>
+}

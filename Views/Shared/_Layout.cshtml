@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = ViewData["Title"] ?? "Assistance Management System";
+}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AMS</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar Navigation -->
+        @await Html.PartialAsync("_Navigation")
+        
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="layout-sidebar-overlay"></div>
+        
+        <!-- Main Content Wrapper -->
+        <div class="layout-content-wrapper">
+            <!-- Top Navbar -->
+            @await Html.PartialAsync("_TopNavbar")
+            
+            <!-- Main Content -->
+            <main class="layout-main">
+                <!-- Page Content -->
+                @RenderBody()
+            </main>
+            
+            <!-- Footer -->
+            @await Html.PartialAsync("_Footer")
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

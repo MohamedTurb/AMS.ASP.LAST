@@ -1,0 +1,78 @@
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="auth-container">
+    <div class="auth-box">
+        <!-- Logo/Branding -->
+        <div style="text-align: center; margin-bottom: var(--spacing-6);">
+            <div style="font-size: 48px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: var(--spacing-4); display: inline-block;">
+                <i class="fas fa-hands-helping"></i>
+            </div>
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-subtitle">Sign in to your account to continue</p>
+        </div>
+
+        <!-- Login Form -->
+        <form method="post" asp-action="Login">
+            <div asp-validation-summary="All" class="alert alert-danger d-none"></div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email Address</label>
+                <input asp-for="Email" type="email" class="form-input" placeholder="you@example.com" />
+                <span asp-validation-for="Email" class="form-error"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-2);">
+                    <label asp-for="Password" class="form-label" style="margin: 0;">Password</label>
+                    <a href="@Url.Action("ForgotPassword", "Account")" style="font-size: var(--font-size-sm); color: var(--color-primary); text-decoration: none;">Forgot?</a>
+                </div>
+                <input asp-for="Password" type="password" class="form-input" placeholder="••••••••" />
+                <span asp-validation-for="Password" class="form-error"></span>
+            </div>
+
+            <!-- Remember Me -->
+            <div class="form-group" style="display: flex; align-items: center; gap: var(--spacing-2); margin-bottom: var(--spacing-6);">
+                <input asp-for="RememberMe" type="checkbox" id="rememberMe" class="form-input" style="width: 18px; margin: 0;" />
+                <label for="rememberMe" style="margin: 0; font-weight: normal;">Remember me</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-bottom: var(--spacing-4);">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+            </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider">Or</div>
+
+        <!-- Social Login Options -->
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+            <button class="btn btn-outline" style="width: 100%;">
+                <i class="fab fa-google"></i>
+                Continue with Google
+            </button>
+            <button class="btn btn-outline" style="width: 100%;">
+                <i class="fab fa-microsoft"></i>
+                Continue with Microsoft
+            </button>
+        </div>
+
+        <!-- Register Link -->
+        <p style="text-align: center; margin-top: var(--spacing-6); color: var(--color-text-muted); font-size: var(--font-size-sm);">
+            Don't have an account?
+            <a href="@Url.Action("Register", "Account")" class="auth-link">Create one</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

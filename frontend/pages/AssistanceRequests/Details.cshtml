@@ -1,0 +1,439 @@
+@model AssistanceManagementSystem.Models.AssistanceRequest
+
+@{
+    ViewData["Title"] = "تفاصيل طلب المساعدة";
+}
+
+<div class="page-shell">
+    <div class="page-hero p-4 p-lg-5 mb-4">
+        <div class="hero-copy row align-items-center g-4">
+            <div class="col-lg-8">
+                <div class="hero-chip"><i class="fas fa-file-alt"></i>تفاصيل تشغيلية</div>
+                <h1 class="hero-title">@ViewData["Title"]</h1>
+                <p class="hero-subtitle mb-0">عرض كامل للطلب والمستفيد والمراجعة والمستندات في لوحة واحدة مع وصول مباشر إلى الإجراءات الأساسية.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a asp-action="Index" class="btn btn-light btn-lg">
+                    <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+                </a>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card detail-shell">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>تفاصيل طلب المساعدة
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>المرجع:</strong> @(Model.ReferenceNumber ?? "غير محدد")
+                </div>
+                <!-- طالب المساعدة -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h6 class="text-primary border-bottom pb-2">
+                            <i class="fas fa-user me-2"></i>بيانات طالب المساعدة (رب الأسرة)
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">الاسم الكامل:</label>
+                        <p class="form-control-plaintext">@(!string.IsNullOrWhiteSpace(Model.RequesterNameAr) ? Model.RequesterNameAr : Model.RequesterName)@(!string.IsNullOrWhiteSpace(Model.RequesterNameEn) ? " (" + Model.RequesterNameEn + ")" : "")</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">الرقم القومي:</label>
+                        <p class="form-control-plaintext">@Model.RequesterNationalId</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">رقم التليفون:</label>
+                        <p class="form-control-plaintext">
+                            <a href="tel:@Model.RequesterPhoneNumber" class="text-decoration-none">
+                                <i class="fas fa-phone me-1"></i>@Model.RequesterPhoneNumber
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">العنوان:</label>
+                        <p class="form-control-plaintext">@Model.RequesterAddress</p>
+                    </div>
+                </div>
+
+                <!-- المستفيد الفعلي -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h6 class="text-primary border-bottom pb-2 mt-4">
+                            <i class="fas fa-user-friends me-2"></i>بيانات المستفيد الفعلي
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">الاسم الكامل:</label>
+                        <p class="form-control-plaintext">@(!string.IsNullOrWhiteSpace(Model.BeneficiaryNameAr) ? Model.BeneficiaryNameAr : Model.BeneficiaryName)@(!string.IsNullOrWhiteSpace(Model.BeneficiaryNameEn) ? " (" + Model.BeneficiaryNameEn + ")" : "")</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">الرقم القومي:</label>
+                        <p class="form-control-plaintext">@Model.BeneficiaryNationalId</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">رقم التليفون:</label>
+                        <p class="form-control-plaintext">
+                            <a href="tel:@Model.BeneficiaryPhoneNumber" class="text-decoration-none">
+                                <i class="fas fa-phone me-1"></i>@Model.BeneficiaryPhoneNumber
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">العنوان:</label>
+                        <p class="form-control-plaintext">@Model.BeneficiaryAddress</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">الجنس:</label>
+                        <p class="form-control-plaintext">@Model.BeneficiaryGender</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">الديانة:</label>
+                        <p class="form-control-plaintext">@Model.BeneficiaryReligion</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">الحالة الاجتماعية:</label>
+                        <p class="form-control-plaintext">@Model.BeneficiaryMaritalStatus</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label fw-bold">عدد أفراد الأسرة:</label>
+                        <p class="form-control-plaintext">@Model.BeneficiaryFamilyMembers</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">الدخل الشهري:</label>
+                        <p class="form-control-plaintext">
+                            <span class="text-success fw-bold">@Model.BeneficiaryIncome.ToString("N0") جنيه</span>
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">العلاقة بالمستفيد:</label>
+                        <p class="form-control-plaintext">@(Model.RelationshipToBeneficiary ?? "غير محدد")</p>
+                    </div>
+                </div>
+
+                <!-- بيانات المساعدة -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h6 class="text-primary border-bottom pb-2 mt-4">
+                            <i class="fas fa-hand-holding-heart me-2"></i>بيانات المساعدة المطلوبة
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">نوع المساعدة:</label>
+                        <p class="form-control-plaintext">
+                            <span class="badge bg-primary">@Model.TypeOfAssistance</span>
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">قيمة المساعدة:</label>
+                        <p class="form-control-plaintext">
+                            @if (Model.Amount.HasValue)
+                            {
+                                <span class="text-success fw-bold fs-5">@Model.Amount.Value.ToString("N0") جنيه</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">غير محدد</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="form-label fw-bold">سبب الطلب / ملاحظات:</label>
+                        <div class="form-control-plaintext bg-light p-3 rounded">
+                            @if (!string.IsNullOrEmpty(Model.Reason))
+                            {
+                                @Model.Reason
+                            }
+                            else
+                            {
+                                <span class="text-muted">لا توجد ملاحظات</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- مستندات داعمة -->
+                @if (!string.IsNullOrEmpty(Model.SupportingDocuments))
+                {
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h6 class="text-primary border-bottom pb-2 mt-4">
+                                <i class="fas fa-file-upload me-2"></i>مستندات داعمة
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold">الملفات المرفقة:</label>
+                            <div class="form-control-plaintext">
+                                @{
+                                    var files = Model.SupportingDocuments.Split(',');
+                                }
+                                @foreach (var file in files)
+                                {
+                                    if (!string.IsNullOrEmpty(file))
+                                    {
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-file me-2 text-primary"></i>
+                                            <a href="~/uploads/@file" target="_blank" class="text-decoration-none">
+                                                @file
+                                            </a>
+                                            <small class="text-muted ms-2">(انقر للتحميل)</small>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- معلومات المراجعة -->
+                @if (Model.Status != "معلق")
+                {
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h6 class="text-primary border-bottom pb-2 mt-4">
+                                <i class="fas fa-clipboard-check me-2"></i>معلومات المراجعة
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">تم المراجعة بواسطة:</label>
+                            <p class="form-control-plaintext">@(Model.ReviewedByUser?.FullName ?? "غير محدد")</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">تاريخ المراجعة:</label>
+                            <p class="form-control-plaintext">@(Model.ReviewedAt?.ToString("yyyy/MM/dd HH:mm") ?? "غير محدد")</p>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.ReviewNotes))
+                    {
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label fw-bold">ملاحظات المراجعة:</label>
+                                <div class="form-control-plaintext bg-light p-3 rounded">
+                                    @Model.ReviewNotes
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <!-- المساعدات المرتبطة -->
+                @if (Model.Assistances?.Count > 0)
+                {
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h6 class="text-primary border-bottom pb-2 mt-4">
+                                <i class="fas fa-hand-holding-heart me-2"></i>المساعدات المُصرفة
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>رقم المساعدة</th>
+                                            <th>النوع</th>
+                                            <th>المبلغ</th>
+                                            <th>طريقة الدفع</th>
+                                            <th>الحالة</th>
+                                            <th>التاريخ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var assistance in Model.Assistances)
+                                        {
+                                            <tr>
+                                                <td><strong>#@assistance.Id</strong></td>
+                                                <td>@assistance.Type</td>
+                                                <td><span class="badge bg-success">@assistance.Amount.ToString("N0") جنيه</span></td>
+                                                <td>@(assistance.PaymentMethod ?? "غير محدد")</td>
+                                                <td>
+                                                    <span class="badge @(assistance.Status switch {
+                                                        "Pending" => "bg-warning",
+                                                        "Approved" => "bg-success",
+                                                        "Paid" => "bg-info",
+                                                        "Rejected" => "bg-danger",
+                                                        _ => "bg-secondary"
+                                                    })">@assistance.Status</span>
+                                                </td>
+                                                <td>@assistance.CreatedAt.ToString("yyyy/MM/dd")</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions Card -->
+    <div class="col-md-4">
+        <div class="card detail-shell">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-cogs me-2"></i>الإجراءات
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+                    </a>
+                    
+                    @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                            <i class="fas fa-edit me-2"></i>تعديل الطلب
+                        </a>
+                    }
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Approver"))
+                    {
+                        @if (Model.Status == "معلق")
+                        {
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
+                                <i class="fas fa-check me-2"></i>الموافقة على الطلب
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                <i class="fas fa-times me-2"></i>رفض الطلب
+                            </button>
+                        }
+                    }
+
+                    @if ((User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff")) && Model.Status == "موافق عليه")
+                    {
+                        <a asp-action="AddAssistance" asp-route-id="@Model.Id" class="btn btn-info">
+                            <i class="fas fa-plus me-2"></i>إضافة مساعدة جديدة
+                        </a>
+                    }
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>حذف الطلب
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Request Info -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>معلومات الطلب
+                </h5>
+            </div>
+            <div class="card-body">
+                <small class="text-muted">
+                    <strong>رقم الطلب:</strong> #@Model.Id<br>
+                    <strong>تاريخ الإنشاء:</strong> @Model.CreatedAt.ToString("yyyy/MM/dd")<br>
+                    @if (Model.CreatedByUser != null)
+                    {
+                        <strong>أنشئ بواسطة:</strong> @Model.CreatedByUser.FullName<br>
+                    }
+                    <strong>الفرع:</strong> @(Model.Branch?.Name ?? "غير محدد")<br>
+                    <strong>الحالة:</strong> 
+                    <span class="badge @(Model.Status switch {
+                        "معلق" => "bg-warning",
+                        "موافق عليه" => "bg-success",
+                        "مرفوض" => "bg-danger",
+                        "تم التنفيذ" => "bg-info",
+                        _ => "bg-secondary"
+                    })">@Model.Status</span>
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Approve Modal -->
+<div class="modal fade" id="approveModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">الموافقة على طلب المساعدة</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-action="Approve" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label for="reviewNotes" class="form-label">ملاحظات المراجعة:</label>
+                        <textarea name="reviewNotes" class="form-control" rows="3" placeholder="أضف ملاحظات حول الموافقة..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-success">موافقة</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">رفض طلب المساعدة</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-action="Reject" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label for="reviewNotes" class="form-label">سبب الرفض:</label>
+                        <textarea name="reviewNotes" class="form-control" rows="3" placeholder="أضف سبب الرفض..." required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-danger">رفض</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

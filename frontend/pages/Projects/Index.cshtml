@@ -1,0 +1,95 @@
+@model IEnumerable<AssistanceManagementSystem.Models.Project>
+
+@{
+    ViewData["Title"] = "قائمة المشاريع";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-project-diagram";
+    ViewData["PageHeaderActionText"] = User.IsInRole("Admin") || User.IsInRole("Branch Manager") ? "إضافة مشروع جديد" : null;
+    ViewData["PageHeaderActionUrl"] = User.IsInRole("Admin") || User.IsInRole("Branch Manager") ? Url.Action("Create", "Projects") : null;
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="card">
+    <div class="card-body">
+        <div class="mb-3 d-flex justify-content-between">
+            <form method="get" class="d-flex g-2">
+                <input name="searchString" value="@ViewBag.SearchString" class="form-control me-2" placeholder="بحث..." />
+                @if (User.IsInRole("Admin"))
+                {
+                    <select name="branchFilter" class="form-select me-2">
+                        <option value="">كل الفروع</option>
+                        @foreach (var b in ViewBag.Branches)
+                        {
+                            <option value="@b.Id" selected="@(ViewBag.BranchFilter != null && (int)ViewBag.BranchFilter == b.Id)">@b.Name</option>
+                        }
+                    </select>
+                }
+                <button class="btn btn-primary">بحث</button>
+            </form>
+            <form asp-action="ExportCsv" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="branchFilter" value="@ViewBag.BranchFilter" />
+                <button class="btn btn-outline-secondary"><i class="fas fa-file-csv me-2"></i>تصدير CSV</button>
+            </form>
+        </div>
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>اسم المشروع</th>
+                            <th>الفرع</th>
+                            <th>النوع</th>
+                            <th>العنوان</th>
+                            <th>رقم الهاتف</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Branch?.Name</td>
+                                <td>@item.Type</td>
+                                <td>@item.Address</td>
+                                <td>@item.Phone</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="fas fa-project-diagram fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">لا توجد مشاريع</h5>
+                <p class="text-muted">ابدأ بإضافة مشروع جديد</p>
+                @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+                {
+                    <a asp-action="Create" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>إضافة مشروع جديد
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,199 @@
+@model AssistanceManagementSystem.Models.AssistanceRequest
+
+@{
+    ViewData["Title"] = "حذف طلب المساعدة";
+}
+
+<div class="page-shell">
+    <div class="page-hero p-4 p-lg-5 mb-4">
+        <div class="hero-copy row align-items-center g-4">
+            <div class="col-lg-8">
+                <div class="hero-chip"><i class="fas fa-triangle-exclamation"></i>منطقة حساسة</div>
+                <h1 class="hero-title">@ViewData["Title"]</h1>
+                <p class="hero-subtitle mb-0">سيؤدي هذا الإجراء إلى حذف الطلب من النظام نهائيًا. يفضل مراجعة التفاصيل أو تغيير الحالة إن كان الحذف غير ضروري.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-light btn-lg me-2">
+                    <i class="fas fa-eye me-2"></i>عرض التفاصيل
+                </a>
+                <a asp-action="Index" class="btn btn-light btn-lg mt-2 mt-lg-0">
+                    <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+                </a>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card danger-shell">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>تأكيد الحذف
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>تحذير:</strong> هل أنت متأكد من حذف طلب المساعدة هذا؟ لا يمكن التراجع عن هذا الإجراء.
+                </div>
+
+                <!-- Request Details -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h6 class="text-primary border-bottom pb-2">
+                            <i class="fas fa-file-alt me-2"></i>تفاصيل طلب المساعدة
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">طالب المساعدة:</label>
+                        <p class="form-control-plaintext">@Model.RequesterName</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">المستفيد:</label>
+                        <p class="form-control-plaintext">@Model.BeneficiaryName</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">رقم تليفون طالب المساعدة:</label>
+                        <p class="form-control-plaintext">@Model.RequesterPhoneNumber</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">نوع المساعدة:</label>
+                        <p class="form-control-plaintext">
+                            <span class="badge bg-primary">@Model.TypeOfAssistance</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">قيمة المساعدة:</label>
+                        <p class="form-control-plaintext">
+                            @if (Model.Amount.HasValue)
+                            {
+                                <span class="text-success fw-bold">@Model.Amount.Value.ToString("N0") جنيه</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted">غير محدد</span>
+                            }
+                        </p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">حالة الطلب:</label>
+                        <p class="form-control-plaintext">
+                            <span class="badge @(Model.Status switch {
+                                "معلق" => "bg-warning",
+                                "موافق عليه" => "bg-success",
+                                "مرفوض" => "bg-danger",
+                                "تم التنفيذ" => "bg-info",
+                                _ => "bg-secondary"
+                            })">@Model.Status</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">تاريخ الطلب:</label>
+                        <p class="form-control-plaintext">@Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">أنشئ بواسطة:</label>
+                        <p class="form-control-plaintext">@(Model.CreatedByUser?.FullName ?? "غير محدد")</p>
+                    </div>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Reason))
+                {
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold">سبب الطلب:</label>
+                            <div class="form-control-plaintext bg-light p-3 rounded">
+                                @Model.Reason
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- Delete Form -->
+                <form asp-action="Delete" method="post" class="mt-4">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                <i class="fas fa-trash me-2"></i>حذف نهائياً
+                            </button>
+                            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info btn-lg">
+                                <i class="fas fa-eye me-2"></i>عرض التفاصيل
+                            </a>
+                            <a asp-action="Index" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Sidebar -->
+    <div class="col-md-4">
+        <div class="card danger-shell mt-4 mt-md-0">
+            <div class="card-header warning-gradient-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>تحذيرات مهمة
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <i class="fas fa-times-circle me-2"></i>
+                    <strong>لا يمكن التراجع!</strong><br>
+                    سيتم حذف طلب المساعدة نهائياً من النظام.
+                </div>
+
+                <div class="alert alert-warning">
+                    <i class="fas fa-database me-2"></i>
+                    <strong>تأثير على البيانات:</strong><br>
+                    - سيتم حذف جميع البيانات المرتبطة<br>
+                    - لن يتم حفظ أي نسخة احتياطية<br>
+                    - قد يؤثر على التقارير والإحصائيات
+                </div>
+
+                <div class="alert alert-info">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>بديل آمن:</strong><br>
+                    يمكنك تغيير حالة الطلب إلى "مرفوض" بدلاً من الحذف.
+                </div>
+            </div>
+        </div>
+
+        <!-- Request Summary -->
+        <div class="card detail-shell mt-3">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-info-circle me-2"></i>ملخص الطلب
+                </h5>
+            </div>
+            <div class="card-body">
+                <small class="text-muted">
+                    <strong>رقم الطلب:</strong> #@Model.Id<br>
+                    <strong>تاريخ الإنشاء:</strong> @Model.CreatedAt.ToString("yyyy/MM/dd")<br>
+                    @if (Model.CreatedByUser != null)
+                    {
+                        <strong>أنشئ بواسطة:</strong> @Model.CreatedByUser.FullName<br>
+                    }
+                    @if (Model.UpdatedAt.HasValue)
+                    {
+                        <strong>آخر تحديث:</strong> @Model.UpdatedAt.Value.ToString("yyyy/MM/dd")
+                    }
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+@model string
+
+<div class="page-header">
+    <div class="page-header-top">
+        <div>
+            <h1 class="page-header-title">@Model</h1>
+            @if (!string.IsNullOrEmpty(ViewBag.Subtitle))
+            {
+                <p class="page-header-subtitle">@ViewBag.Subtitle</p>
+            }
+        </div>
+        @if (!string.IsNullOrEmpty(ViewBag.Actions))
+        {
+            <div class="page-header-actions">
+                @Html.Raw(ViewBag.Actions)
+            </div>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.BreadcrumbHtml))
+    {
+        <nav aria-label="breadcrumb" style="font-size: var(--font-size-sm);">
+            <ol class="breadcrumb" style="margin: 0; background-color: transparent; padding: 0;">
+                @Html.Raw(ViewBag.BreadcrumbHtml)
+            </ol>
+        </nav>
+    }
+</div>

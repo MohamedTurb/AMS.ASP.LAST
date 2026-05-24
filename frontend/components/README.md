@@ -1,0 +1,1 @@
+Reusable frontend components live here in a future split frontend app.

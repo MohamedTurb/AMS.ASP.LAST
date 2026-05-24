@@ -1,0 +1,26 @@
+@model AssistanceManagementSystem.Models.Beneficiary
+
+@{
+    ViewData["Title"] = "حذف المستفيد";
+}
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h4>هل أنت متأكد من حذف هذا المستفيد؟</h4>
+                <div class="mb-3">
+                    <strong>الاسم:</strong> @Model.FullName
+                </div>
+                <div class="mb-3">
+                    <strong>الرقم القومي:</strong> @Model.NationalId
+                </div>
+                <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">نعم، احذف</button>
+                    <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

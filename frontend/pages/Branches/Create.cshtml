@@ -1,0 +1,46 @@
+@model AssistanceManagementSystem.Models.Branch
+
+@{
+    ViewData["Title"] = "إضافة فرع جديد";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-code-branch";
+    ViewData["PageHeaderActionText"] = "العودة للفروع";
+    ViewData["PageHeaderActionUrl"] = Url.Action("Index", "Branches");
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="row g-3">
+    <div class="col-lg-8">
+        <div class="card glass-surface">
+            <div class="card-body">
+                <form asp-action="Create" method="post" class="row g-3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-6">
+                        <label asp-for="Name" class="form-label">اسم الفرع</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label">الهاتف</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <label asp-for="Address" class="form-label">العنوان</label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 d-flex flex-wrap gap-2 mt-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>حفظ
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">إلغاء</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

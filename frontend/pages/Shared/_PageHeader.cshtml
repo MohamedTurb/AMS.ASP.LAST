@@ -1,0 +1,23 @@
+@{
+    var title = ViewData["PageHeaderTitle"]?.ToString() ?? string.Empty;
+    var iconClass = ViewData["PageHeaderIcon"]?.ToString() ?? string.Empty;
+    var actionText = ViewData["PageHeaderActionText"]?.ToString();
+    var actionUrl = ViewData["PageHeaderActionUrl"]?.ToString();
+}
+
+<div class="hero-shell mb-4 py-3 py-lg-4 px-4 px-lg-5">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <div class="eyebrow text-white-50 mb-2">إدارة القسم</div>
+            <h1 class="h3 fw-bold text-white mb-0">
+                <i class="@iconClass me-2"></i>@title
+            </h1>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(actionText) && !string.IsNullOrWhiteSpace(actionUrl))
+        {
+            <a href="@actionUrl" class="btn btn-light btn-sm">
+                <i class="fas fa-plus me-2"></i>@actionText
+            </a>
+        }
+    </div>
+</div>

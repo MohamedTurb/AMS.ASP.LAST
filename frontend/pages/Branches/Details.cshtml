@@ -1,0 +1,78 @@
+@model AssistanceManagementSystem.Models.Branch
+@using AssistanceManagementSystem.Models
+
+@{
+    ViewData["Title"] = "تفاصيل الفرع";
+    var staff = ViewBag.Staff as List<ApplicationUser> ?? new List<ApplicationUser>();
+    var beneficiaries = ViewBag.Beneficiaries as List<Beneficiary> ?? new List<Beneficiary>();
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-building";
+    ViewData["PageHeaderActionText"] = "Dashboard";
+    ViewData["PageHeaderActionUrl"] = Url.Action("Dashboard", "Branches", new { id = Model.Id });
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">اسم الفرع</dt>
+            <dd class="col-sm-9">@Model.Name</dd>
+            <dt class="col-sm-3">العنوان</dt>
+            <dd class="col-sm-9">@(Model.Address ?? "-")</dd>
+            <dt class="col-sm-3">الهاتف</dt>
+            <dd class="col-sm-9">@(Model.Phone ?? "-")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="mb-3">الموظفين</h5>
+                @if (staff.Any())
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var user in staff)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@user.FullName</span>
+                                <span class="badge bg-secondary">@user.Email</span>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">لا يوجد موظفين مرتبطين بهذا الفرع.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="mb-3">المستفيدون</h5>
+                @if (beneficiaries.Any())
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in beneficiaries)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@item.FullName</span>
+                                <span class="text-muted">@item.NationalId</span>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted mb-0">لا يوجد مستفيدون مرتبطون بهذا الفرع.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

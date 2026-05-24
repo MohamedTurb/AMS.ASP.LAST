@@ -1,0 +1,23 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace AssistanceManagementSystem.Models
+{
+    public class ReviewAudit
+    {
+        public int Id { get; set; }
+        public int AssistanceRequestId { get; set; }
+        public AssistanceRequest? AssistanceRequest { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Action { get; set; } = string.Empty; // e.g., Approved, Rejected, Updated
+
+        public string? UserId { get; set; }
+        public ApplicationUser? User { get; set; }
+
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+
+        [StringLength(1000)]
+        public string? Notes { get; set; }
+    }
+}

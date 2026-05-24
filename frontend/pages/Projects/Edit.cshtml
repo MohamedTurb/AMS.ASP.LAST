@@ -1,0 +1,74 @@
+@model AssistanceManagementSystem.Models.Project
+
+@{
+    ViewData["Title"] = "تعديل المشروع";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-project-diagram";
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="row g-3">
+    <div class="col-lg-8">
+        <div class="card glass-surface">
+            <div class="card-body">
+                <form asp-action="Edit" class="row g-3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="col-md-6">
+                        <label asp-for="Name" class="form-label">اسم المشروع</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Type" class="form-label">نوع المشروع</label>
+                        <input asp-for="Type" class="form-control" />
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Address" class="form-label">العنوان</label>
+                        <textarea asp-for="Address" class="form-control" rows="2"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label">رقم الهاتف</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col-md-6">
+                            <label class="form-label">الفرع</label>
+                            <select asp-for="BranchId" class="form-select">
+                                <option value="">اختر الفرع</option>
+                                @foreach (var b in ViewBag.Branches)
+                                {
+                                    <option value="@b.Id" selected="@(Model.BranchId.HasValue && Model.BranchId.Value == b.Id)">@b.Name</option>
+                                }
+                            </select>
+                        </div>
+                    }
+
+                    <div class="col-12 d-flex flex-wrap gap-2 mt-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>حفظ التغييرات
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

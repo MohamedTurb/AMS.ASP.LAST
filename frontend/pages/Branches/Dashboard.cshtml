@@ -1,0 +1,109 @@
+@model AssistanceManagementSystem.Models.Branch
+
+@{
+    ViewData["Title"] = "Dashboard الفرع";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = $"Dashboard - {Model.Name}";
+    ViewData["PageHeaderIcon"] = "fas fa-chart-line";
+    ViewData["PageHeaderActionText"] = "العودة للفروع";
+    ViewData["PageHeaderActionUrl"] = Url.Action("Index", "Branches");
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">إجمالي الطلبات</div>
+                <div class="display-6 fw-bold">@ViewBag.TotalRequests</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">معلقة</div>
+                <div class="display-6 fw-bold">@ViewBag.PendingRequests</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">موافق عليها</div>
+                <div class="display-6 fw-bold">@ViewBag.ApprovedRequests</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">مرفوضة</div>
+                <div class="display-6 fw-bold">@ViewBag.RejectedRequests</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">تم التنفيذ</div>
+                <h3 class="mb-0">@ViewBag.ExecutedRequests</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">آخر 30 يوم</div>
+                <h3 class="mb-0">@ViewBag.LastMonthRequests</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="text-muted small">الموظفين</div>
+                <h3 class="mb-0">@ViewBag.StaffCount</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <h5 class="mb-3">بيانات الفرع</h5>
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">اسم الفرع</dt>
+                    <dd class="col-sm-8">@Model.Name</dd>
+                    <dt class="col-sm-4">العنوان</dt>
+                    <dd class="col-sm-8">@(Model.Address ?? "-")</dd>
+                    <dt class="col-sm-4">الهاتف</dt>
+                    <dd class="col-sm-8">@(Model.Phone ?? "-")</dd>
+                    <dt class="col-sm-4">المستفيدون</dt>
+                    <dd class="col-sm-8">@ViewBag.BeneficiaryCount</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <h5 class="mb-3">إجراءات سريعة</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-list me-2"></i>قائمة الفروع
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning">
+                        <i class="fas fa-edit me-2"></i>تعديل الفرع
+                    </a>
+                    <a asp-controller="AssistanceRequests" asp-action="Index" class="btn btn-outline-primary">
+                        <i class="fas fa-file-alt me-2"></i>الطلبات
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

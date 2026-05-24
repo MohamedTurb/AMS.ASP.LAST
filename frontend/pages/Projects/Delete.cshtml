@@ -1,0 +1,64 @@
+@model AssistanceManagementSystem.Models.Project
+
+@{
+    ViewData["Title"] = "حذف المشروع";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-trash text-danger";
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="page-shell">
+    <div class="page-hero p-4 p-lg-5 mb-4">
+        <div class="hero-copy row align-items-center g-4">
+            <div class="col-lg-8">
+                <div class="hero-chip"><i class="fas fa-trash"></i>منطقة حساسة</div>
+                <h1 class="hero-title">@ViewData["Title"]</h1>
+                <p class="hero-subtitle mb-0">الحذف النهائي للمشروع قد يربك البيانات المرتبطة به. راجع التفاصيل أو اختر الإلغاء.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-light btn-lg me-2"><i class="fas fa-eye me-2"></i>عرض التفاصيل</a>
+                <a asp-action="Index" class="btn btn-light btn-lg mt-2 mt-lg-0"><i class="fas fa-arrow-right me-2"></i>العودة</a>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card danger-shell">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>تحذير
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="text-danger mb-3">
+                    <strong>هل أنت متأكد من حذف هذا المشروع؟</strong>
+                </p>
+                <p class="text-muted">سيتم حذف جميع البيانات المرتبطة بهذا المشروع نهائياً.</p>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>اسم المشروع:</strong>
+                        <p class="text-muted">@Model.Name</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <strong>نوع المشروع:</strong>
+                        <p class="text-muted">@Model.Type</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <strong>رقم الهاتف:</strong>
+                        <p class="text-muted">@Model.Phone</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

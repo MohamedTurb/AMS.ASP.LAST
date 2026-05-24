@@ -1,0 +1,30 @@
+.analytics-page { overflow-x: hidden; }
+.analytics-hero .hero-panel,
+.analytics-card { border-radius: 1rem; }
+.analytics-topline {
+    align-items: center;
+    display: flex;
+    gap: .75rem;
+    justify-content: space-between;
+    margin-bottom: .75rem;
+}
+.analytics-metric .metric-mini {
+    justify-content: center;
+    min-height: 84px;
+}
+.chart-card,
+.insight-card { min-height: 380px; }
+.chart-wrap {
+    height: 290px;
+    position: relative;
+    width: 100%;
+}
+.chart-wrap canvas {
+    height: 100% !important;
+    width: 100% !important;
+}
+@media (max-width: 767.98px) {
+    .chart-card,
+    .insight-card { min-height: 320px; }
+    .chart-wrap { height: 240px; }
+}

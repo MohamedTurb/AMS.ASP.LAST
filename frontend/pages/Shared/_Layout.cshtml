@@ -1,0 +1,1132 @@
+@using AssistanceManagementSystem.Data
+@using AssistanceManagementSystem.Models
+@inject AssistanceManagementSystem.Data.ApplicationDbContext _db
+@inject Microsoft.AspNetCore.Identity.UserManager<AssistanceManagementSystem.Models.ApplicationUser> _um
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - نظام إدارة المساعدات</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1d4ed8;
+            --secondary-color: #059669;
+            --neutral-bg: #eef2ff;
+            --text-color: #0f172a;
+            --accent-color: #f97316;
+            --surface: rgba(255,255,255,0.78);
+            --surface-strong: rgba(255,255,255,0.95);
+            --border-color: rgba(148,163,184,0.22);
+            --heading-color: #0f172a;
+            --muted-color: #64748b;
+            --page-gap: 1rem;
+            --section-gap: 1.25rem;
+            --control-height: 44px;
+            --icon-size: 1rem;
+
+            /* Global sizing tokens (tweak here to change site scale) */
+            --card-padding: 1rem;
+            --card-border-radius: 12px;
+            --card-min-width: 240px;
+            --card-min-height: 140px;
+            --card-max-width: 480px;
+            --btn-padding-y: 0.47rem; /* vertical padding */
+            --btn-padding-x: 0.85rem;    /* horizontal padding */
+            --btn-border-radius: 10px;
+            --metric-icon-size: 40px;
+            /* Hero sizing */
+            --hero-padding: .85rem 1rem;
+            --hero-border-radius: 14px;
+        }
+
+        body {
+            background: #eef2ff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6 {
+            color: var(--heading-color);
+            line-height: 1.25;
+            margin-bottom: .6rem;
+        }
+
+        .text-muted,
+        small,
+        .small,
+        .form-text {
+            color: var(--muted-color) !important;
+        }
+
+        body::before {
+            display: none;
+        }
+
+        .navbar {
+            background: #1d4ed8;
+            box-shadow: 0 10px 22px rgba(15,23,42,0.14);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar .container-fluid {
+            gap: .75rem;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+            letter-spacing: .02em;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            line-height: 1;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        .navbar-nav {
+            gap: .2rem .35rem;
+        }
+
+        .navbar-nav .nav-item {
+            white-space: nowrap;
+        }
+
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: var(--card-border-radius);
+            box-shadow: 0 10px 24px rgba(15,23,42,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            margin: 0 0 var(--section-gap) 0; /* consistent vertical spacing between cards */
+            display: flex;
+            flex-direction: column;
+            min-height: var(--card-min-height);
+            max-width: var(--card-max-width);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 36px rgba(15,23,42,0.12);
+        }
+
+        .card-header {
+            background: rgba(248,250,252,0.88);
+            border-bottom: 1px solid rgba(148,163,184,0.2);
+            border-radius: var(--card-border-radius) var(--card-border-radius) 0 0 !important;
+            padding: .8rem 1rem;
+        }
+
+        /* Ensure consistent inner spacing for all cards */
+        .card .card-body {
+            padding: var(--card-padding) !important;
+            flex: 1 1 auto; /* allow body to fill card height */
+        }
+
+        /* Card size helpers */
+        .card-sm { --card-min-height: 96px; --card-padding: .6rem; }
+        .card-md { --card-min-height: 140px; --card-padding: 1rem; }
+        .card-lg { --card-min-height: 220px; --card-padding: 1.25rem; }
+
+        /* Media tweaks for tighter screens */
+        @@media (max-width: 576px) {
+            :root { --card-min-width: 180px; --card-min-height: 110px; }
+            .card { border-radius: 10px; }
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: .5rem;
+        }
+
+        .card-subtitle {
+            font-size: .92rem;
+            color: var(--muted-color);
+        }
+
+        /* Utility grid for card collections */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(var(--card-min-width), 1fr));
+            gap: var(--section-gap);
+        }
+
+        /* Slightly larger metric icons for better visual balance */
+        .metric-icon {
+            width: calc(var(--metric-icon-size) * 1.14);
+            height: calc(var(--metric-icon-size) * 1.14);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(37,99,235,0.08);
+            font-size: 1.2rem;
+        }
+
+        .page-shell {
+            padding: var(--page-gap) 0 1.35rem;
+        }
+
+        .page-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--hero-border-radius);
+            background: #1d4ed8;
+            color: white;
+            box-shadow: 0 8px 18px rgba(15,23,42,0.08);
+            padding: var(--hero-padding);
+        }
+
+        .page-hero::after {
+            display: none;
+        }
+
+        .page-hero .hero-copy {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .3rem .7rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.9);
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .02em;
+        }
+
+        .page-hero .hero-title {
+            font-size: clamp(1rem, 2.4vw, 1.75rem);
+            line-height: 1.05;
+            font-weight: 800;
+            margin: .35rem 0 .45rem;
+        }
+
+        .page-hero .hero-subtitle {
+            max-width: 62ch;
+            color: rgba(255,255,255,0.88);
+            font-size: .95rem;
+        }
+
+        .page-shell .row {
+            --bs-gutter-x: 1rem;
+            --bs-gutter-y: 1rem;
+        }
+
+        .detail-shell {
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 12px 28px rgba(15,23,42,0.08);
+            background: var(--surface-strong);
+            overflow: hidden;
+        }
+
+        .detail-shell .card-header,
+        .detail-shell .card-body {
+            background: transparent;
+        }
+
+        .detail-meta {
+            display: grid;
+            gap: .65rem;
+        }
+
+        .detail-meta-item {
+            display: flex;
+            justify-content: space-between;
+            gap: .85rem;
+            padding: .75rem .95rem;
+            border-radius: 14px;
+            background: rgba(248,250,252,0.9);
+            border: 1px solid rgba(148,163,184,0.16);
+        }
+
+        .detail-meta-item span:first-child {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .detail-meta-item strong {
+            color: #0f172a;
+        }
+
+        .danger-shell {
+            border: 1px solid rgba(239,68,68,0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 14px 28px rgba(239,68,68,0.08);
+        }
+
+        .danger-shell .card-header {
+            background: #ef4444;
+            color: white;
+        }
+
+        .danger-shell .card-body {
+            background: #ffffff;
+        }
+
+        .hero-shell {
+            background: #1d4ed8;
+            color: white;
+            border-radius: 20px;
+            padding: 1.35rem;
+            box-shadow: 0 18px 36px rgba(15,23,42,0.16);
+        }
+
+        .hero-shell .eyebrow,
+        .login-hero .eyebrow {
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            font-size: .78rem;
+            font-weight: 700;
+        }
+
+        .hero-panel {
+            background: rgba(255,255,255,0.14);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 16px;
+        }
+
+        .metric-card .card-body {
+            display: flex;
+            align-items: center;
+            gap: .85rem;
+        }
+
+        .metric-icon {
+            width: var(--metric-icon-size);
+            height: var(--metric-icon-size);
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: rgba(37,99,235,0.08);
+            font-size: 1.2rem;
+        }
+
+        .metric-label {
+            color: var(--muted-color);
+            font-size: .85rem;
+            margin-bottom: .1rem;
+        }
+
+        .metric-value {
+            font-size: 1.75rem;
+            line-height: 1;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .metric-mini {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 14px;
+            padding: .8rem .9rem;
+        }
+
+        .metric-mini span {
+            display: block;
+            opacity: .85;
+            font-size: .8rem;
+            margin-bottom: .25rem;
+        }
+
+        .metric-mini strong {
+            font-size: 1.35rem;
+        }
+
+        .filter-card {
+            border: 1px solid rgba(37,99,235,0.14);
+            box-shadow: 0 10px 25px rgba(15,23,42,0.05);
+        }
+
+        .request-table thead th {
+            background: #f8fafc;
+            color: #111827;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: .35rem .75rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: .82rem;
+        }
+
+        .login-shell {
+            max-width: 1120px;
+            margin: 1.5rem auto 0;
+        }
+
+        .login-hero {
+            min-height: 100%;
+            background: #1d4ed8;
+            border-radius: 20px 0 0 20px;
+        }
+
+        .login-panel {
+            background: #ffffff;
+            border-radius: 0 20px 20px 0;
+        }
+
+        .login-badge {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            margin-inline: auto;
+            font-size: 1.4rem;
+            color: white;
+            background: #1d4ed8;
+            box-shadow: 0 12px 24px rgba(37,99,235,0.24);
+        }
+
+        .btn-google,
+        .btn-microsoft {
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #111827;
+            border-radius: var(--btn-border-radius);
+            min-height: var(--control-height);
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+        }
+
+        .btn-google:hover,
+        .btn-microsoft:hover {
+            background: #f8fafc;
+            color: #111827;
+        }
+
+        .btn-google i { color: #ea4335; }
+        .btn-microsoft i { color: #00a4ef; }
+
+        .divider-with-text {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            color: #6b7280;
+        }
+
+        .divider-with-text::before,
+        .divider-with-text::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .feature-list {
+            display: grid;
+            gap: .7rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+
+        .demo-box {
+            background: #f8fafc;
+            border: 1px dashed #d1d5db;
+            border-radius: 16px;
+        }
+
+        .action-cta {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            border-radius: 16px;
+            padding: 1rem 1.15rem;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .action-cta:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px rgba(15,23,42,0.12);
+        }
+
+        .action-cta-primary {
+            background: #1d4ed8;
+        }
+
+        .action-cta-secondary {
+            background: #059669;
+        }
+
+        .empty-inline {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        @@media (max-width: 991.98px) {
+            .login-hero,
+            .login-panel {
+                border-radius: 24px;
+            }
+        }
+
+        /* كروت الانتقال السريع */
+        .quick-nav-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            background: white;
+            color: inherit;
+        }
+
+        .quick-nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.14);
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .quick-nav-card .card-body {
+            padding: calc(var(--card-padding) * 1.05);
+        }
+
+        .quick-nav-card:hover .fa-2x {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* تحسين كروت الإحصائيات */
+        .dashboard-card {
+            background: #ffffff;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .dashboard-card .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .dashboard-card .text-success {
+            color: var(--secondary-color) !important;
+        }
+
+        .dashboard-card .text-warning {
+            color: var(--accent-color) !important;
+        }
+
+        .dashboard-card .text-info {
+            color: #06b6d4 !important;
+        }
+
+        .btn-primary {
+            background: #1d4ed8;
+            border: none;
+            border-radius: var(--btn-border-radius);
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1a3fa0;
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #059669;
+            border: none;
+            border-radius: var(--btn-border-radius);
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+        }
+
+        .btn-warning {
+            background: #f97316;
+            border: none;
+            border-radius: var(--btn-border-radius);
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            border: none;
+            border-radius: var(--btn-border-radius);
+            padding: var(--btn-padding-y) var(--btn-padding-x);
+        }
+
+        .table {
+            background: rgba(255,255,255,0.9);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(15,23,42,0.08);
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .table thead th {
+            background: #1d4ed8;
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+
+        .table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+
+        .form-select {
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .alert {
+            border-radius: 8px;
+            border: none;
+        }
+
+        .badge {
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .status-pending { background-color: #fbbf24; color: white; }
+        .status-approved { background-color: #10b981; color: white; }
+        .status-paid { background-color: #3b82f6; color: white; }
+        .status-rejected { background-color: #ef4444; color: white; }
+
+        .section-kicker {
+            color: var(--secondary-color);
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .glass-surface {
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .dashboard-card .card-body {
+            padding: calc(var(--card-padding) * 1.15);
+        }
+
+        .dashboard-card .card-title {
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .dashboard-card .card-text {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            font-weight: 800;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: var(--control-height);
+            border-radius: 10px;
+            border: 1.5px solid #dbe3ee;
+            padding: .55rem .85rem;
+            box-shadow: none;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.18rem rgba(37,99,235,0.16);
+        }
+
+        .input-group-text {
+            min-height: var(--control-height);
+            border-radius: 10px;
+            border-color: #dbe3ee;
+            background: #f8fafc;
+            color: var(--muted-color);
+        }
+
+        .form-label {
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: .35rem;
+        }
+
+        .btn,
+        .btn-sm {
+            min-height: var(--control-height);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .35rem;
+            line-height: 1;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            padding: .9rem;
+        }
+
+        .sidebar .nav-link {
+            color: var(--text-color) !important;
+            padding: .7rem .9rem;
+            border-radius: 8px;
+            margin-bottom: 0.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color) !important;
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white !important;
+        }
+        /* Responsive variable overrides */
+        @@media (max-width: 1199.98px) {
+            :root {
+                --card-min-width: 200px;
+                --hero-padding: 1rem 1.5rem;
+            }
+        }
+
+        @@media (max-width: 991.98px) {
+            :root {
+                --card-min-width: 160px;
+                --card-padding: 0.6rem;
+                --metric-icon-size: 40px;
+                --hero-padding: 0.8rem 1rem;
+                --hero-border-radius: 12px;
+            }
+            .page-hero { padding: var(--hero-padding); box-shadow: 0 8px 16px rgba(15,23,42,0.08); }
+            .page-hero .hero-title { font-size: clamp(1rem, 5vw, 1.7rem); }
+            .cards-grid { gap: 1rem; }
+            .action-cta { padding: .9rem 1rem; }
+            .navbar .dropdown-menu { min-width: 260px !important; }
+            .navbar-nav { flex-wrap: wrap; }
+            .navbar-collapse {
+                width: 100%;
+                align-items: flex-start;
+                justify-content: flex-start !important;
+                gap: .5rem;
+            }
+            .navbar-nav {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar-nav .nav-item {
+                width: 100%;
+            }
+            .navbar-nav .nav-link {
+                width: 100%;
+                justify-content: flex-start;
+                padding: .6rem .75rem;
+                border-radius: 10px;
+            }
+            .navbar .nav-item.dropdown,
+            .navbar .nav-item .dropdown-menu {
+                width: 100%;
+            }
+            .navbar .dropdown-menu.dropdown-menu-end {
+                position: static;
+                transform: none !important;
+                margin-top: .35rem;
+            }
+        }
+
+        @@media (max-width: 767.98px) {
+            .navbar-collapse {
+                padding-top: .5rem;
+            }
+
+            .navbar-nav {
+                gap: .15rem;
+            }
+
+            .navbar-nav .nav-link {
+                padding: .55rem .65rem;
+                border-radius: 10px;
+            }
+
+            .page-shell {
+                padding-top: .65rem;
+            }
+
+            .page-hero,
+            .hero-shell,
+            .login-shell {
+                border-radius: 16px;
+            }
+
+            .page-hero .hero-subtitle,
+            .hero-shell .hero-subtitle {
+                font-size: .9rem;
+            }
+
+            .metric-mini {
+                padding: .65rem .75rem;
+            }
+
+            .metric-mini strong {
+                font-size: 1.1rem;
+            }
+
+            .glass-surface,
+            .detail-shell,
+            .danger-shell {
+                border-radius: 16px;
+            }
+        }
+
+        @@media (max-width: 575.98px) {
+            :root {
+                --card-min-width: 140px;
+                --btn-padding-x: 12px;
+                --btn-padding-y: 8px;
+                --metric-icon-size: 36px;
+            }
+            .page-hero { padding: .45rem .6rem; }
+            .page-hero .hero-title { font-size: 1.12rem; }
+            .page-shell { padding: .5rem 0 1rem; }
+            .navbar-brand { font-size: 0.95rem; }
+            .hero-shell { padding: .95rem; }
+            .hero-shell .hero-title { font-size: 1.08rem; }
+            .hero-shell .hero-subtitle { font-size: .88rem; }
+            .card-body { padding: .7rem !important; }
+            .btn,
+            .btn-sm,
+            .form-control,
+            .form-select,
+            .input-group-text { min-height: 40px; }
+        }
+
+        /* Overrides to ensure bootstrap utility padding doesn't make hero too large */
+        .page-hero.p-4,
+        .page-hero.p-lg-5 {
+            padding: var(--hero-padding) !important;
+        }
+
+        /* Limit hero height and tighten inner content */
+        .page-hero {
+            max-height: 240px;
+            overflow: hidden;
+        }
+
+        .page-hero .hero-title {
+            font-size: clamp(0.95rem, 2.2vw, 1.6rem) !important;
+        }
+
+        .page-hero .hero-subtitle {
+            font-size: .95rem;
+            max-width: 54ch;
+        }
+
+        .hero-panel.p-4 { padding: calc(var(--card-padding) * 0.75) !important; }
+
+        .page-hero .hero-copy { display: flex; align-items: center; }
+        .page-hero .hero-copy { gap: .65rem; }
+        /* Navbar dropdown visual fixes to prevent header bleed-through */
+        .navbar .dropdown-menu {
+            background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.95)) !important;
+            border-radius: 12px;
+            overflow: visible;
+            box-shadow: 0 10px 22px rgba(15,23,42,0.10);
+            z-index: 2050; /* above page hero */
+            min-width: 260px;
+            padding: .35rem; /* small padding around items */
+        }
+
+        @@media (max-width: 575.98px) {
+            .navbar .dropdown-menu,
+            .navbar .dropdown-menu.dropdown-menu-end {
+                min-width: min(92vw, 320px) !important;
+                max-width: 92vw;
+            }
+        }
+
+        .navbar .dropdown-menu .dropdown-header {
+            padding: .5rem .75rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .navbar .dropdown-menu .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .55rem .75rem;
+            color: #0f172a;
+            border-radius: 8px;
+            margin: .18rem 0;
+        }
+
+        .navbar .dropdown-menu .dropdown-item:hover,
+        .navbar .dropdown-menu .dropdown-item:focus {
+            background: rgba(15,23,42,0.04);
+            color: #0f172a;
+        }
+
+        .navbar .dropdown-menu .dropdown-item .fa,
+        .navbar .dropdown-menu .dropdown-item i {
+            width: 26px;
+            text-align: center;
+            opacity: .95;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        /* make sure end-aligned dropdowns still fit on small screens */
+        .navbar .dropdown-menu.dropdown-menu-end {
+            right: 0; left: auto; min-width: 220px;
+        }
+    </style>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-hands-helping me-2"></i>
+                    نظام إدارة المساعدات
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home me-1"></i>الرئيسية
+                            </a>
+                        </li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager") || User.IsInRole("Staff") || User.IsInRole("Approver") || User.IsInRole("Beneficiary"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="AssistanceRequests" asp-action="Index">
+                                    <i class="fas fa-file-alt me-1"></i>طلبات المساعدة
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Cashier") || User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Assistances" asp-action="ReadyForDisbursement">
+                                    <i class="fas fa-wallet me-1"></i>صرف المساعدات
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Organizations" asp-action="Index">
+                                    <i class="fas fa-building me-1"></i>المنظمات
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">
+                                    <i class="fas fa-project-diagram me-1"></i>المشاريع
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="AidCategories" asp-action="Index">
+                                    <i class="fas fa-tags me-1"></i>التصنيفات
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Reports" asp-action="Index">
+                                    <i class="fas fa-chart-bar me-1"></i>التقارير
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Reports" asp-action="Analytics">
+                                    <i class="fas fa-chart-pie me-1"></i>التحليلات
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Branch Manager"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Beneficiaries" asp-action="Index">
+                                    <i class="fas fa-users me-1"></i>المستفيدون
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Branches" asp-action="Index">
+                                    <i class="fas fa-code-branch me-1"></i>الفروع
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Index">
+                                    <i class="fas fa-user-cog me-1"></i>إدارة المستخدمين
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav">
+                        @* Notifications dropdown *@
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            var _userId = _um.GetUserId(User);
+                            var _unread = _db.Notifications.Where(n => n.UserId == _userId && !n.IsRead).Count();
+                            var _latest = _db.Notifications.Where(n => n.UserId == _userId).OrderByDescending(n => n.CreatedAt).Take(5).ToList();
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-bell me-1"></i>
+                                    @if (_unread > 0) { <span class="badge bg-danger">@_unread</span> }
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end p-2 app-dropdown-menu">
+                                    <li class="mb-2"><strong>الإشعارات</strong></li>
+                                    @foreach (var n in _latest)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item d-flex justify-content-between" href="@(!string.IsNullOrEmpty(n.Link) ? n.Link : "#")">
+                                                <div>
+                                                    <div class="small">@n.Message</div>
+                                                    <div class="small text-muted">@n.CreatedAt.ToString("yyyy/MM/dd HH:mm")</div>
+                                                </div>
+                                                @if (!n.IsRead) { <span class="badge bg-warning">جديد</span> }
+                                            </a>
+                                        </li>
+                                    }
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-center" asp-controller="Notifications" asp-action="Index">عرض كل الإشعارات</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user me-1"></i>@User.Identity?.Name
+                                </a>
+                                <ul class="dropdown-menu app-dropdown-menu">
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>الملف الشخصي</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" class="px-2">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">
+                                    <i class="fas fa-sign-in-alt me-1"></i>تسجيل الدخول
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-5">
+        <div class="container text-center py-3">
+            <p>&copy; 2024 - نظام إدارة المساعدات - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

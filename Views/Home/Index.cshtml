@@ -1,0 +1,224 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    @await Html.PartialAsync("_PageHeader", "Dashboard")
+
+    <!-- Main Content -->
+    <div class="page-content">
+        <!-- Stat Cards Row -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="d-flex items-start gap-4">
+                    <div class="stat-card-icon primary">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="stat-card-title">Pending Requests</h5>
+                        <p class="stat-card-value">@ViewBag.PendingCount ?? 0</p>
+                        <span class="stat-card-change up">
+                            <i class="fas fa-arrow-up"></i>
+                            This month
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="d-flex items-start gap-4">
+                    <div class="stat-card-icon secondary">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="stat-card-title">Approved Requests</h5>
+                        <p class="stat-card-value">@ViewBag.ApprovedCount ?? 0</p>
+                        <span class="stat-card-change up">
+                            <i class="fas fa-arrow-up"></i>
+                            This month
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="d-flex items-start gap-4">
+                    <div class="stat-card-icon accent">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="stat-card-title">Total Beneficiaries</h5>
+                        <p class="stat-card-value">@ViewBag.BeneficiaryCount ?? 0</p>
+                        <span class="stat-card-change up">
+                            <i class="fas fa-arrow-up"></i>
+                            This month
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="d-flex items-start gap-4">
+                    <div class="stat-card-icon primary">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="stat-card-title">Total Disbursed</h5>
+                        <p class="stat-card-value">$@(ViewBag.TotalDisbursed?.ToString("F0") ?? "0")</p>
+                        <span class="stat-card-change up">
+                            <i class="fas fa-arrow-up"></i>
+                            This month
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="chart-container">
+                    <h5 class="chart-title">Requests Over Time</h5>
+                    <canvas id="requestsChart" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="chart-container">
+                    <h5 class="chart-title">Request Status</h5>
+                    <canvas id="statusChart" style="max-height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="row mt-8">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 style="margin: 0;">Recent Assistance Requests</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Beneficiary</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.RecentRequests?.Count > 0)
+                                {
+                                    @foreach (var request in ViewBag.RecentRequests)
+                                    {
+                                        <tr>
+                                            <td><code>@request.ReferenceNumber</code></td>
+                                            <td>@request.BeneficiaryName</td>
+                                            <td>@request.AssistanceType</td>
+                                            <td>$@request.Amount.ToString("F2")</td>
+                                            <td>
+                                                <span class="status-badge @request.Status.ToString().ToLower()">
+                                                    <span class="status-badge-dot"></span>
+                                                    @request.Status
+                                                </span>
+                                            </td>
+                                            <td>@request.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                            <td>
+                                                <a href="@Url.Action("Details", "AssistanceRequests", new { id = request.Id })" class="btn btn-sm btn-outline">
+                                                    View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted py-8">
+                                            No recent requests
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/lib/chart.js/dist/chart.min.js"></script>
+<script>
+    // Requests Chart
+    const requestsCtx = document.getElementById('requestsChart')?.getContext('2d');
+    if (requestsCtx) {
+        new Chart(requestsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Requests',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderColor: 'var(--color-primary)',
+                    backgroundColor: 'rgba(29, 78, 216, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Status Chart
+    const statusCtx = document.getElementById('statusChart')?.getContext('2d');
+    if (statusCtx) {
+        new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Pending', 'Approved', 'Completed', 'Rejected'],
+                datasets: [{
+                    data: [12, 19, 3, 5],
+                    backgroundColor: [
+                        'rgb(245, 158, 11)',
+                        'rgb(16, 185, 129)',
+                        'rgb(5, 150, 105)',
+                        'rgb(239, 68, 68)'
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+</script>
+}

@@ -1,0 +1,105 @@
+@model AssistanceManagementSystem.Controllers.LoginViewModel
+
+@{
+    ViewData["Title"] = "تسجيل الدخول";
+    Layout = "_Layout";
+    var returnUrl = string.IsNullOrWhiteSpace((string?)ViewData["ReturnUrl"]) ? Url.Action("Index", "Home") : (string?)ViewData["ReturnUrl"];
+}
+
+<div class="login-shell">
+    <div class="row g-0 align-items-stretch">
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="login-hero h-100 p-5 d-flex flex-column justify-content-between">
+                <div>
+                    <div class="eyebrow text-white-50 mb-3">نظام إدارة المساعدات</div>
+                    <h1 class="display-6 fw-bold text-white mb-3">وصول سريع وآمن إلى لوحة المساعدات</h1>
+                    <p class="text-white-50 mb-4">سجّل الدخول باستخدام البريد وكلمة المرور أو استخدم Google / Microsoft للانتقال المباشر إلى الحساب المرتبط.</p>
+                    <div class="feature-list">
+                        <div><i class="fas fa-shield-alt me-2"></i>جلسات آمنة وJWT + Refresh Token</div>
+                        <div><i class="fas fa-check-circle me-2"></i>ربط المستخدم المحلي بعد OAuth</div>
+                        <div><i class="fas fa-mobile-screen me-2"></i>جاهز للويب وSPA والموبايل</div>
+                    </div>
+                </div>
+                <div class="text-white-50 small">تأكد من ضبط Redirect URLs في Google/Microsoft Console قبل تشغيل OAuth.</div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="login-panel p-4 p-md-5 h-100">
+                <div class="card glass-surface shadow-sm border-0">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <div class="login-badge mb-3"><i class="fas fa-hands-helping"></i></div>
+                            <h3 class="mb-2">تسجيل الدخول</h3>
+                            <p class="text-muted mb-0">اختر طريقة الدخول المناسبة لك</p>
+                        </div>
+
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        }
+
+                        <div class="d-grid gap-2 mb-4">
+                            <a class="btn btn-google btn-lg" href="/api/v1/auth/external/google?redirectUri=@Uri.EscapeDataString(returnUrl ?? Url.Action("Index", "Home") ?? "/")">
+                                <i class="fab fa-google me-2"></i>المتابعة عبر Google
+                            </a>
+                            <a class="btn btn-microsoft btn-lg" href="/api/v1/auth/external/microsoft?redirectUri=@Uri.EscapeDataString(returnUrl ?? Url.Action("Index", "Home") ?? "/")">
+                                <i class="fab fa-microsoft me-2"></i>المتابعة عبر Microsoft
+                            </a>
+                        </div>
+
+                        <div class="divider-with-text mb-4"><span>أو استخدم البريد الإلكتروني</span></div>
+
+                        <form asp-action="Login" method="post">
+                            <input type="hidden" name="returnUrl" value="@returnUrl" />
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Email" class="form-label">البريد الإلكتروني</label>
+                                <input asp-for="Email" class="form-control form-control-lg" placeholder="name@example.com" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label asp-for="Password" class="form-label">كلمة المرور</label>
+                                <input asp-for="Password" class="form-control form-control-lg" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mb-4 d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <input asp-for="RememberMe" class="form-check-input" />
+                                    <label asp-for="RememberMe" class="form-check-label">تذكرني</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i>تسجيل الدخول
+                            </button>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            لا تملك حسابًا؟ <a href="@Url.Action("Register", "Account")">سجل الآن</a>
+                        </div>
+
+                        <div class="demo-box mt-4 p-3">
+                            <div class="fw-semibold mb-2">حسابات تجريبية</div>
+                            <div class="row g-2 small text-muted">
+                                <div class="col-6">admin@ams.com / Admin123!</div>
+                                <div class="col-6">manager@ams.com / Manager123!</div>
+                                <div class="col-6">staff@ams.com / Staff123!</div>
+                                <div class="col-6">approver@ams.com / Approver123!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

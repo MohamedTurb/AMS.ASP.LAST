@@ -1,0 +1,51 @@
+@model AssistanceManagementSystem.Models.Beneficiary
+
+@{
+    ViewData["Title"] = "تفاصيل المستفيد";
+}
+
+<div class="page-shell mt-4">
+    <div class="card detail-shell">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <strong>الاسم:</strong>
+                    <p class="text-muted">@Model.FullName</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>الرقم القومي:</strong>
+                    <p class="text-muted">@Model.NationalId</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <strong>الهاتف:</strong>
+                    <p class="text-muted">@Model.Phone</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>الفرع:</strong>
+                    <p class="text-muted">@Model.Branch?.Name ?? "غير محدد"</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <strong>الجنس:</strong>
+                    <p class="text-muted">@Model.Gender</p>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <strong>الديانة:</strong>
+                    <p class="text-muted">@Model.Religion</p>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">تعديل</a>
+                    <a asp-action="Index" class="btn btn-secondary">العودة</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,146 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<nav class="layout-navbar">
+    <div class="d-flex justify-between items-center w-full">
+        <!-- Left Section -->
+        <div class="d-flex items-center gap-4">
+            <!-- Sidebar Toggle (Mobile) -->
+            <button class="sidebar-toggle d-md-none btn btn-ghost btn-sm">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Brand -->
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand d-sm-none">
+                <span>AMS</span>
+            </a>
+        </div>
+
+        <!-- Right Section - Navbar Actions -->
+        <div class="navbar-actions">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <!-- Search Bar (Desktop Only) -->
+                <div class="search-box d-md-flex d-none">
+                    <input type="text" class="form-input" placeholder="Search..." />
+                    <i class="fas fa-search search-box-icon"></i>
+                </div>
+
+                <!-- Notifications -->
+                <div class="navbar-item">
+                    <a href="@Url.Action("Index", "Notifications")" class="btn btn-ghost btn-sm" title="Notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge badge-danger position-absolute">
+                            <!-- Notification count would go here -->
+                        </span>
+                    </a>
+                </div>
+
+                <!-- User Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-ghost btn-sm dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="~/images/avatar-default.png" alt="Profile" class="rounded-full" style="width: 32px; height: 32px;" />
+                        <span class="d-md-inline d-none ms-2">
+                            @(await UserManager.GetUserAsync(User))?.FullName ?? "User"
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("ProfileEdit", "Account")">
+                                <i class="fas fa-user me-2"></i>
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Settings", "Account")">
+                                <i class="fas fa-cog me-2"></i>
+                                Settings
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form method="post" action="@Url.Action("Logout", "Account")" style="display:inline;">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt me-2"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <!-- Login/Register Links -->
+                <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-sm">
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    Login
+                </a>
+            }
+        </div>
+    </div>
+</nav>
+
+<style>
+    .navbar-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3);
+    }
+
+    .search-box {
+        position: relative;
+        width: 300px;
+    }
+
+    .search-box input {
+        padding-left: 32px;
+    }
+
+    .search-box-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--color-text-muted);
+        pointer-events: none;
+    }
+
+    .dropdown-menu {
+        min-width: 200px;
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        color: var(--color-text-primary);
+        text-decoration: none;
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--color-bg-secondary);
+        color: var(--color-text-primary);
+    }
+
+    .dropdown-item i {
+        width: 20px;
+    }
+
+    .notification-badge {
+        position: relative;
+    }
+
+    .notification-badge .badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        min-width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+    }
+</style>

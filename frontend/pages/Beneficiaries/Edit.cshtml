@@ -1,0 +1,70 @@
+@model AssistanceManagementSystem.Models.Beneficiary
+
+@{
+    ViewData["Title"] = "تعديل المستفيد";
+}
+
+<div class="hero-shell mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <div class="eyebrow mb-2">نموذج</div>
+            <h1 class="h3 fw-bold text-white mb-1"><i class="fas fa-user-pen me-2"></i>@ViewData["Title"]</h1>
+            <p class="text-white-50 mb-0">عدّل بيانات المستفيد بنفس الإيقاع البصري للنماذج الأخرى.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-8">
+        <div class="card glass-surface">
+            <div class="card-body">
+                <form asp-action="Edit" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-6">
+                        <label asp-for="FullName" class="form-label">الاسم الكامل</label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="NationalId" class="form-label">الرقم القومي</label>
+                        <input asp-for="NationalId" class="form-control" maxlength="14" />
+                        <span asp-validation-for="NationalId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label">رقم التليفون</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Gender" class="form-label">الجنس</label>
+                        <input asp-for="Gender" class="form-control" />
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="col-md-6">
+                            <label class="form-label">الفرع</label>
+                            <select asp-for="BranchId" class="form-select">
+                                <option value="">اختر الفرع</option>
+                                @foreach (var b in ViewBag.Branches)
+                                {
+                                    <option value="@b.Id" selected="@(Model.BranchId.HasValue && Model.BranchId.Value == b.Id)">@b.Name</option>
+                                }
+                            </select>
+                        </div>
+                    }
+
+                    <div class="col-12 d-flex flex-wrap gap-2 mt-2">
+                        <button class="btn btn-primary">حفظ التغييرات</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">العودة</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

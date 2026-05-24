@@ -1,0 +1,58 @@
+@model AssistanceManagementSystem.Models.AidCategory
+
+@{
+    ViewData["Title"] = "حذف التصنيف";
+}
+
+@{
+    ViewData["PageHeaderTitle"] = ViewData["Title"]?.ToString() ?? "";
+    ViewData["PageHeaderIcon"] = "fas fa-trash text-danger";
+}
+@{ await Html.RenderPartialAsync("_PageHeader"); }
+
+<div class="page-shell">
+    <div class="page-hero p-4 p-lg-5 mb-4">
+        <div class="hero-copy row align-items-center g-4">
+            <div class="col-lg-8">
+                <div class="hero-chip"><i class="fas fa-trash"></i>منطقة حساسة</div>
+                <h1 class="hero-title">@ViewData["Title"]</h1>
+                <p class="hero-subtitle mb-0">حذف التصنيف قد يؤثر على الطلبات أو النماذج المرتبطة به. تأكد قبل التنفيذ.</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a asp-action="Index" class="btn btn-light btn-lg"><i class="fas fa-arrow-right me-2"></i>العودة</a>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card danger-shell">
+            <div class="card-body">
+                <p class="mb-4">هل أنت متأكد من حذف هذا التصنيف؟</p>
+
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">الاسم</dt>
+                    <dd class="col-sm-8">@Model.NameAr</dd>
+
+                    <dt class="col-sm-4">الرمز</dt>
+                    <dd class="col-sm-8">@(Model.Code ?? "-")</dd>
+
+                    <dt class="col-sm-4">التصنيف الأب</dt>
+                    <dd class="col-sm-8">@(Model.ParentAidCategory?.NameAr ?? "-")</dd>
+                </dl>
+
+                <form asp-action="Delete" class="mt-4">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>حذف
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-right me-2"></i>إلغاء
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

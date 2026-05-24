@@ -1,0 +1,1 @@
+ASP.NET controllers belong here in a future split backend layout.

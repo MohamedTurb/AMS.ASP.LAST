@@ -1,0 +1,97 @@
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="auth-container">
+    <div class="auth-box">
+        <!-- Logo/Branding -->
+        <div style="text-align: center; margin-bottom: var(--spacing-6);">
+            <div style="font-size: 48px; background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: var(--spacing-4); display: inline-block;">
+                <i class="fas fa-hands-helping"></i>
+            </div>
+            <h1 class="auth-title">Create Account</h1>
+            <p class="auth-subtitle">Join our assistance management platform</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form method="post" asp-action="Register">
+            <div asp-validation-summary="All" class="alert alert-danger d-none"></div>
+
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" id="fullName" name="FullName" class="form-input" placeholder="John Doe" required />
+                <span class="form-error"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" name="Email" class="form-input" placeholder="you@example.com" required />
+                <span class="form-error"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="Password" class="form-input" placeholder="••••••••" required />
+                <span class="form-error"></span>
+                <small style="color: var(--color-text-muted); display: block; margin-top: var(--spacing-1);">
+                    At least 8 characters with uppercase, lowercase, and numbers
+                </small>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="ConfirmPassword" class="form-input" placeholder="••••••••" required />
+                <span class="form-error"></span>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="form-group" style="display: flex; align-items: flex-start; gap: var(--spacing-2); margin-bottom: var(--spacing-6);">
+                <input type="checkbox" id="agreeTerms" name="AgreeTerms" class="form-input" style="width: 18px; margin-top: 4px; margin-right: 0;" required />
+                <label for="agreeTerms" style="margin: 0; font-weight: normal; font-size: var(--font-size-sm);">
+                    I agree to the
+                    <a href="#" style="color: var(--color-primary); text-decoration: none;">Terms of Service</a>
+                    and
+                    <a href="#" style="color: var(--color-primary); text-decoration: none;">Privacy Policy</a>
+                </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-bottom: var(--spacing-4);">
+                <i class="fas fa-user-plus"></i>
+                Create Account
+            </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="auth-divider">Or sign up with</div>
+
+        <!-- Social Registration Options -->
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-3);">
+            <button type="button" class="btn btn-outline" style="width: 100%;">
+                <i class="fab fa-google"></i>
+                Google
+            </button>
+            <button type="button" class="btn btn-outline" style="width: 100%;">
+                <i class="fab fa-microsoft"></i>
+                Microsoft
+            </button>
+        </div>
+
+        <!-- Login Link -->
+        <p style="text-align: center; margin-top: var(--spacing-6); color: var(--color-text-muted); font-size: var(--font-size-sm);">
+            Already have an account?
+            <a href="@Url.Action("Login", "Account")" class="auth-link">Sign in</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

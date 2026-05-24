@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ams-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ams-web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DatabaseProvider=Sqlite
+      - ConnectionStrings__DefaultConnection=Data Source=/data/AssistanceManagementSystem.db
+    ports:
+      - "5002:8080"
+    volumes:
+      - ams_data:/data
+      - ams_logs:/app/logs
+    restart: unless-stopped
+
+volumes:
+  ams_data:
+  ams_logs:

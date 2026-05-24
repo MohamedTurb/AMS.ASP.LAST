@@ -1,0 +1,95 @@
+@model PaginatedList<Project>
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<div class="container">
+    @{
+        ViewBag.Subtitle = "Manage assistance projects and initiatives";
+        ViewBag.Actions = $@"<a href=""{Url.Action("Create", "Projects")}"" class=""btn btn-primary"">
+            <i class=""fas fa-plus""></i>
+            New Project
+        </a>";
+    }
+    @await Html.PartialAsync("_PageHeader", "Projects")
+
+    <!-- Search & Filter -->
+    <div class="card" style="margin-bottom: var(--spacing-6);">
+        <div class="card-body">
+            <form method="get" asp-action="Index" class="search-filters">
+                <div class="search-box">
+                    <input type="text" name="searchString" class="form-input" placeholder="Search projects..." value="@ViewContext.HttpContext.Request.Query["searchString"]" />
+                    <i class="fas fa-search search-box-icon"></i>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a href="@Url.Action("Index")" class="btn btn-outline">Reset</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="row">
+        @if (Model?.Count > 0)
+        {
+            @foreach (var project in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="display: flex; align-items: start; justify-content: space-between; margin-bottom: var(--spacing-4);">
+                                <h5 style="margin: 0; flex: 1;">@project.Name</h5>
+                                <span class="badge badge-primary">@project.Type</span>
+                            </div>
+
+                            <p style="margin-bottom: var(--spacing-3); color: var(--color-text-muted); font-size: var(--font-size-sm);">
+                                <i class="fas fa-map-marker-alt"></i>
+                                @project.Address
+                            </p>
+
+                            <p style="margin-bottom: var(--spacing-3); color: var(--color-text-muted); font-size: var(--font-size-sm);">
+                                <i class="fas fa-phone"></i>
+                                @project.Phone
+                            </p>
+
+                            <p style="margin: var(--spacing-3) 0; color: var(--color-text-muted); font-size: var(--font-size-xs);">
+                                Branch: <strong>@project.Branch?.Name</strong>
+                            </p>
+
+                            <div style="display: flex; gap: var(--spacing-2); margin-top: var(--spacing-4);">
+                                <a href="@Url.Action("Edit", new { id = project.Id })" class="btn btn-sm btn-outline" style="flex: 1;">Edit</a>
+                                <button onclick="deleteProject(@project.Id)" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="empty-state" style="padding: var(--spacing-12) var(--spacing-6);">
+                    <div class="empty-state-icon"><i class="fas fa-project-diagram"></i></div>
+                    <p class="empty-state-title">No projects found</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function deleteProject(id) {
+        Confirm.show('Delete this project?', async () => {
+            try {
+                await API.delete(`@Url.Action("Delete")?id=${id}`);
+                Notification.success('Project deleted');
+                window.location.reload();
+            } catch (e) {
+                Notification.error('Failed to delete');
+            }
+        });
+    }
+</script>
+}

@@ -1,0 +1,97 @@
+@model PaginatedList<Organization>
+@{
+    ViewData["Title"] = "Organizations";
+}
+
+<div class="container">
+    @{
+        ViewBag.Subtitle = "Manage partner organizations";
+        ViewBag.Actions = $@"<a href=""{Url.Action("Create", "Organizations")}"" class=""btn btn-primary"">
+            <i class=""fas fa-plus""></i>
+            New Organization
+        </a>";
+    }
+    @await Html.PartialAsync("_PageHeader", "Organizations")
+
+    <!-- Search -->
+    <div class="card" style="margin-bottom: var(--spacing-6);">
+        <div class="card-body">
+            <form method="get" asp-action="Index" class="search-filters">
+                <div class="search-box">
+                    <input type="text" name="searchString" class="form-input" placeholder="Search organizations..." value="@ViewContext.HttpContext.Request.Query["searchString"]" />
+                    <i class="fas fa-search search-box-icon"></i>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a href="@Url.Action("Index")" class="btn btn-outline">Reset</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Organizations List -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Branch</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model?.Count > 0)
+                    {
+                        @foreach (var org in Model)
+                        {
+                            <tr>
+                                <td>@org.Name</td>
+                                <td><span class="badge badge-secondary">@org.Type</span></td>
+                                <td>@org.Address</td>
+                                <td><a href="tel:@org.Phone">@org.Phone</a></td>
+                                <td>@org.Branch?.Name</td>
+                                <td>@org.CreatedAt.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    <div class="btn-group" style="gap: var(--spacing-2);">
+                                        <a href="@Url.Action("Edit", new { id = org.Id })" class="btn btn-sm btn-outline">Edit</a>
+                                        <button onclick="deleteOrg(@org.Id)" class="btn btn-sm btn-danger">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state" style="padding: var(--spacing-8) var(--spacing-4);">
+                                    <div class="empty-state-icon"><i class="fas fa-sitemap"></i></div>
+                                    <p class="empty-state-title">No organizations</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function deleteOrg(id) {
+        Confirm.show('Delete this organization?', async () => {
+            try {
+                await API.delete(`@Url.Action("Delete")?id=${id}`);
+                Notification.success('Organization deleted');
+                window.location.reload();
+            } catch (e) {
+                Notification.error('Failed to delete');
+            }
+        });
+    }
+</script>
+}

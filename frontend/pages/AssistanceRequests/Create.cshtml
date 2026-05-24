@@ -1,0 +1,412 @@
+@model AssistanceManagementSystem.Models.AssistanceRequest
+
+@{
+    ViewData["Title"] = "طلب مساعدة جديد";
+}
+
+<div class="hero-shell mb-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div>
+            <div class="eyebrow mb-2">نموذج</div>
+            <h1 class="h3 fw-bold text-white mb-1"><i class="fas fa-file-plus me-2"></i>@ViewData["Title"]</h1>
+            <p class="text-white-50 mb-0">املأ بيانات طالب المساعدة والمستفيد والمرفقات بشكل متسق وسريع.</p>
+        </div>
+        <a asp-action="Index" class="btn btn-light btn-sm">
+            <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="card glass-surface">
+            <div class="card-header">
+                <div class="section-kicker mb-1">تفاصيل الطلب</div>
+                <h5 class="card-title mb-0"><i class="fas fa-edit me-2"></i>بيانات طلب المساعدة والمستفيد</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" enctype="multipart/form-data" id="unifiedForm">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <!-- بيانات طالب المساعدة -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0"><i class="fas fa-user me-2"></i>بيانات طالب المساعدة (رب الأسرة)</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12 mb-2">
+                                    <label class="form-label">الاسم (عربي) / Full name (EN)</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="RequesterNameAr" class="form-control" placeholder="الاسم بالعربية" />
+                                    <span asp-validation-for="RequesterNameAr" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="RequesterNameEn" class="form-control" placeholder="Full name in English" />
+                                    <span asp-validation-for="RequesterNameEn" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="RequesterNationalId" class="form-label"></label>
+                                    <input asp-for="RequesterNationalId" class="form-control" placeholder="14 رقم" maxlength="14" />
+                                    <span asp-validation-for="RequesterNationalId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-0">
+                                <div class="col-md-6">
+                                    <label asp-for="RequesterPhoneNumber" class="form-label"></label>
+                                    <input asp-for="RequesterPhoneNumber" class="form-control" placeholder="01xxxxxxxxx" />
+                                    <span asp-validation-for="RequesterPhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="RequesterAddress" class="form-label"></label>
+                                    <input asp-for="RequesterAddress" class="form-control" placeholder="العنوان الكامل" />
+                                    <span asp-validation-for="RequesterAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- بيانات المستفيد الفعلي -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fas fa-user-friends me-2"></i>بيانات المستفيد الفعلي</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12 mb-2">
+                                    <label class="form-label">الاسم (عربي) / Full name (EN)</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="BeneficiaryNameAr" class="form-control" placeholder="الاسم بالعربية" />
+                                    <span asp-validation-for="BeneficiaryNameAr" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="BeneficiaryNameEn" class="form-control" placeholder="Full name in English" />
+                                    <span asp-validation-for="BeneficiaryNameEn" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="BeneficiaryNationalId" class="form-label"></label>
+                                    <input asp-for="BeneficiaryNationalId" class="form-control" placeholder="14 رقم" maxlength="14" />
+                                    <span asp-validation-for="BeneficiaryNationalId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-0">
+                                <div class="col-md-6">
+                                    <label asp-for="BeneficiaryPhoneNumber" class="form-label"></label>
+                                    <input asp-for="BeneficiaryPhoneNumber" class="form-control" placeholder="01xxxxxxxxx" />
+                                    <span asp-validation-for="BeneficiaryPhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="BeneficiaryAddress" class="form-label"></label>
+                                    <input asp-for="BeneficiaryAddress" class="form-control" placeholder="العنوان الكامل" />
+                                    <span asp-validation-for="BeneficiaryAddress" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-0">
+                                <div class="col-md-6">
+                                    <label asp-for="BranchId" class="form-label">الفرع</label>
+                                    <select asp-for="BranchId" class="form-select" id="BranchId" name="BranchId">
+                                        <option value="">اختر الفرع</option>
+                                        @if (ViewBag.Branches != null)
+                                        {
+                                            foreach (var b in (IEnumerable<dynamic>)ViewBag.Branches)
+                                            {
+                                                <option value="@b.Value">@b.Text</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-0">
+                                <div class="col-md-3">
+                                    <label asp-for="BeneficiaryGender" class="form-label"></label>
+                                    <select asp-for="BeneficiaryGender" class="form-select">
+                                        <option value="">اختر الجنس</option>
+                                        @foreach (var gender in ViewBag.Genders)
+                                        {
+                                            <option value="@gender">@gender</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="BeneficiaryGender" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <label asp-for="BeneficiaryReligion" class="form-label"></label>
+                                    <select asp-for="BeneficiaryReligion" class="form-select">
+                                        <option value="">اختر الديانة</option>
+                                        @foreach (var religion in ViewBag.Religions)
+                                        {
+                                            <option value="@religion">@religion</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="BeneficiaryReligion" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <label asp-for="BeneficiaryMaritalStatus" class="form-label"></label>
+                                    <select asp-for="BeneficiaryMaritalStatus" class="form-select">
+                                        <option value="">اختر الحالة الاجتماعية</option>
+                                        @foreach (var status in ViewBag.MaritalStatuses)
+                                        {
+                                            <option value="@status">@status</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="BeneficiaryMaritalStatus" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <label asp-for="BeneficiaryFamilyMembers" class="form-label"></label>
+                                    <input asp-for="BeneficiaryFamilyMembers" type="number" class="form-control" min="1" max="20" />
+                                    <span asp-validation-for="BeneficiaryFamilyMembers" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-0">
+                                <div class="col-md-6">
+                                    <label asp-for="BeneficiaryIncome" class="form-label"></label>
+                                    <input asp-for="BeneficiaryIncome" type="number" class="form-control" min="0" step="0.01" />
+                                    <span asp-validation-for="BeneficiaryIncome" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="RelationshipToBeneficiary" class="form-label"></label>
+                                    <select asp-for="RelationshipToBeneficiary" class="form-select">
+                                        <option value="">اختر العلاقة</option>
+                                        @foreach (var relationship in ViewBag.Relationships)
+                                        {
+                                            <option value="@relationship">@relationship</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="RelationshipToBeneficiary" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- بيانات المساعدة المطلوبة -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-hand-holding-heart me-2"></i>بيانات المساعدة المطلوبة</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label asp-for="TypeOfAssistance" class="form-label"></label>
+                                    <select asp-for="TypeOfAssistance" class="form-select">
+                                        <option value="">اختر نوع المساعدة</option>
+                                        @foreach (var type in ViewBag.AssistanceTypes)
+                                        {
+                                            <option value="@type.Value">@type.Text</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="TypeOfAssistance" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="Amount" class="form-label"></label>
+                                    <input asp-for="Amount" type="number" class="form-control" min="0" step="0.01" placeholder="0.00" />
+                                    <small class="form-text text-muted">اختياري - للمساعدات المالية فقط</small>
+                                    <span asp-validation-for="Amount" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-0">
+                                <div class="col-12">
+                                    <label asp-for="AidCategoryDetails" class="form-label"></label>
+                                    <input asp-for="AidCategoryDetails" class="form-control" placeholder="مثال: فشل كلوى، ورم، قلب مفتوح، زراعة كلى..." />
+                                    <small class="form-text text-muted">استخدمها لتحديد المرض/العملية أو أي نوع فرعي غير موجود بالقائمة.</small>
+                                    <span asp-validation-for="AidCategoryDetails" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-0">
+                                <div class="col-12">
+                                    <label asp-for="Reason" class="form-label"></label>
+                                    <textarea asp-for="Reason" class="form-control" rows="4" placeholder="اشرح باختصار سبب الحاجة للمساعدة..."></textarea>
+                                    <span asp-validation-for="Reason" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- مستندات داعمة -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0"><i class="fas fa-file-upload me-2"></i>مستندات داعمة (اختياري)</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="supportingFiles" class="form-label">رفع الملفات</label>
+                                    <input type="file" id="supportingFiles" name="supportingFiles" class="form-control" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+                                    <small class="form-text text-muted">
+                                        يمكن رفع ملفات PDF، صور، أو مستندات Word. الحد الأقصى 10 ميجابايت لكل ملف.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ملخص الطلب -->
+                    <div class="card mb-4 border-0 shadow-sm">
+                        <div class="card-header bg-secondary text-white">
+                            <h6 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>ملخص الطلب</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">طالب المساعدة:</h6>
+                                    <p id="requesterSummary" class="text-muted">سيتم ملء البيانات تلقائياً</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-success">المستفيد:</h6>
+                                    <p id="beneficiarySummary" class="text-muted">سيتم ملء البيانات تلقائياً</p>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <h6 class="text-info">نوع المساعدة:</h6>
+                                    <p id="assistanceSummary" class="text-muted">سيتم ملء البيانات تلقائياً</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- تنبيهات مهمة -->
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>ملاحظة مهمة:</strong> سيتم مراجعة طلبك خلال 3-5 أيام عمل. تأكد من صحة البيانات المدخلة.
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>تنبيه:</strong> تأكد من صحة الرقم القومي والبيانات المدخلة قبل الإرسال.
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-success">
+                                <i class="fas fa-paper-plane me-2"></i>إرسال الطلب
+                            </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-right me-2"></i>العودة للقائمة
+                            </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم المساعدة -->
+    <div class="col-md-2">
+        <div class="card glass-surface">
+            <div class="card-header">
+                <div class="section-kicker mb-1">مساعدة</div>
+                <h5 class="card-title mb-0"><i class="fas fa-question-circle me-2"></i>معلومات مفيدة</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="text-primary">أنواع المساعدات:</h6>
+                <ul class="list-unstyled small">
+                    <li><i class="fas fa-money-bill-wave text-success me-2"></i>مساعدة مالية</li>
+                    <li><i class="fas fa-shopping-basket text-info me-2"></i>مساعدة عينية</li>
+                    <li><i class="fas fa-heartbeat text-danger me-2"></i>مساعدة علاجية</li>
+                    <li><i class="fas fa-graduation-cap text-warning me-2"></i>مساعدة تعليمية</li>
+                    <li><i class="fas fa-home text-primary me-2"></i>مساعدة سكنية</li>
+                    <li><i class="fas fa-utensils text-secondary me-2"></i>مساعدة غذائية</li>
+                </ul>
+
+                <hr>
+
+                <h6 class="text-primary">مستندات مفيدة:</h6>
+                <ul class="list-unstyled small">
+                    <li><i class="fas fa-file-alt text-muted me-2"></i>إيصالات طبية</li>
+                    <li><i class="fas fa-file-alt text-muted me-2"></i>تقارير طبية</li>
+                    <li><i class="fas fa-file-alt text-muted me-2"></i>شهادات دخل</li>
+                    <li><i class="fas fa-file-alt text-muted me-2"></i>أي مستندات أخرى</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        // Format National ID input
+        document.getElementById('RequesterNationalId').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        document.getElementById('BeneficiaryNationalId').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Format Phone Number input
+        document.getElementById('RequesterPhoneNumber').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9+]/g, '');
+        });
+
+        document.getElementById('BeneficiaryPhoneNumber').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9+]/g, '');
+        });
+
+        // Show/hide amount field based on assistance type
+        document.getElementById('TypeOfAssistance').addEventListener('change', function() {
+            const amountField = document.getElementById('Amount').closest('.col-md-6');
+            if (this.value === 'مساعدة مالية') {
+                amountField.style.display = 'block';
+                document.getElementById('Amount').required = true;
+            } else {
+                amountField.style.display = 'block'; // Keep visible but not required
+                document.getElementById('Amount').required = false;
+            }
+        });
+
+        // Update summary in real-time
+        function updateSummary() {
+            const requesterNameAr = document.getElementById('RequesterNameAr') ? document.getElementById('RequesterNameAr').value : '';
+            const requesterNameEn = document.getElementById('RequesterNameEn') ? document.getElementById('RequesterNameEn').value : '';
+            const requesterName = requesterNameAr || requesterNameEn;
+            const requesterPhone = document.getElementById('RequesterPhoneNumber').value;
+            const beneficiaryNameAr = document.getElementById('BeneficiaryNameAr') ? document.getElementById('BeneficiaryNameAr').value : '';
+            const beneficiaryNameEn = document.getElementById('BeneficiaryNameEn') ? document.getElementById('BeneficiaryNameEn').value : '';
+            const beneficiaryName = beneficiaryNameAr || beneficiaryNameEn;
+            const beneficiaryPhone = document.getElementById('BeneficiaryPhoneNumber').value;
+            const assistanceType = document.getElementById('TypeOfAssistance').value;
+            const amount = document.getElementById('Amount').value;
+
+            document.getElementById('requesterSummary').textContent = 
+                requesterName ? `${requesterName} - ${requesterPhone}` : 'لم يتم ملء البيانات';
+            
+            document.getElementById('beneficiarySummary').textContent = 
+                beneficiaryName ? `${beneficiaryName} - ${beneficiaryPhone}` : 'لم يتم ملء البيانات';
+            
+            document.getElementById('assistanceSummary').textContent = 
+                assistanceType ? `${assistanceType}${amount ? ` - ${amount} جنيه` : ''}` : 'لم يتم ملء البيانات';
+        }
+
+        // Add event listeners for real-time summary updates
+        if (document.getElementById('RequesterNameAr')) document.getElementById('RequesterNameAr').addEventListener('input', updateSummary);
+        if (document.getElementById('RequesterNameEn')) document.getElementById('RequesterNameEn').addEventListener('input', updateSummary);
+        document.getElementById('RequesterPhoneNumber').addEventListener('input', updateSummary);
+        if (document.getElementById('BeneficiaryNameAr')) document.getElementById('BeneficiaryNameAr').addEventListener('input', updateSummary);
+        if (document.getElementById('BeneficiaryNameEn')) document.getElementById('BeneficiaryNameEn').addEventListener('input', updateSummary);
+        document.getElementById('BeneficiaryPhoneNumber').addEventListener('input', updateSummary);
+        document.getElementById('TypeOfAssistance').addEventListener('change', updateSummary);
+        document.getElementById('Amount').addEventListener('input', updateSummary);
+
+        // Initialize summary
+        updateSummary();
+    </script>
+    <script>
+        // Preselect branch if current user has a branch
+        (function(){
+            var defaultBranch = '@(ViewBag.CurrentUserBranchId ?? "")';
+            if (defaultBranch) {
+                var el = document.getElementById('BranchId');
+                if (el) el.value = defaultBranch;
+            }
+        })();
+    </script>
+}

@@ -1,0 +1,277 @@
+@model AssistanceRequest
+@{
+    ViewData["Title"] = Model?.Id > 0 ? "Edit Request" : "Create Request";
+}
+
+<div class="container">
+    <!-- Page Header -->
+    @{
+        ViewBag.Subtitle = Model?.Id > 0 ? $"Reference: {Model.ReferenceNumber}" : "Submit a new assistance request";
+        ViewBag.Actions = $@"<a href=""{Url.Action("Index")}"" class=""btn btn-outline"">
+            <i class=""fas fa-arrow-left""></i>
+            Back
+        </a>";
+    }
+    @await Html.PartialAsync("_PageHeader", ViewData["Title"].ToString())
+
+    <form method="post" asp-action="@(Model?.Id > 0 ? "Edit" : "Create")" enctype="multipart/form-data" class="row">
+        @if (Model?.Id > 0)
+        {
+            <input type="hidden" asp-for="Id" />
+        }
+
+        <!-- Main Form Content -->
+        <div class="col-lg-8">
+            <!-- Request Information Section -->
+            <div class="card" style="margin-bottom: var(--spacing-6);">
+                <div class="card-header">
+                    <h5 style="margin: 0;">Request Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="AidCategoryId" class="form-label required">Aid Category</label>
+                                <select asp-for="AidCategoryId" class="form-select" required>
+                                    <option value="">Select a category</option>
+                                    @* Categories would be populated from ViewBag *@
+                                </select>
+                                <span asp-validation-for="AidCategoryId" class="form-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="RequestedAmount" class="form-label required">Requested Amount ($)</label>
+                                <input asp-for="RequestedAmount" type="number" class="form-input" step="0.01" min="0" placeholder="0.00" required />
+                                <span asp-validation-for="RequestedAmount" class="form-error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="form-label">Description / Reason</label>
+                        <textarea asp-for="Description" class="form-textarea" placeholder="Describe the need for assistance..."></textarea>
+                        <span asp-validation-for="Description" class="form-error"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beneficiary Information Section -->
+            <div class="card" style="margin-bottom: var(--spacing-6);">
+                <div class="card-header">
+                    <h5 style="margin: 0;">Beneficiary Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="BeneficiaryNameAr" class="form-label required">Full Name (Arabic)</label>
+                                <input asp-for="BeneficiaryNameAr" type="text" class="form-input" placeholder="الاسم كاملاً" required />
+                                <span asp-validation-for="BeneficiaryNameAr" class="form-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="BeneficiaryNameEn" class="form-label required">Full Name (English)</label>
+                                <input asp-for="BeneficiaryNameEn" type="text" class="form-input" placeholder="Full Name" required />
+                                <span asp-validation-for="BeneficiaryNameEn" class="form-error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="BeneficiaryNationalId" class="form-label required">National ID</label>
+                                <input asp-for="BeneficiaryNationalId" type="text" class="form-input" placeholder="ID number" required />
+                                <span asp-validation-for="BeneficiaryNationalId" class="form-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="BeneficiaryPhone" class="form-label required">Phone Number</label>
+                                <input asp-for="BeneficiaryPhone" type="tel" class="form-input" placeholder="+1 (555) 000-0000" required />
+                                <span asp-validation-for="BeneficiaryPhone" class="form-error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="BeneficiaryAddress" class="form-label required">Address</label>
+                        <input asp-for="BeneficiaryAddress" type="text" class="form-input" placeholder="Street address" required />
+                        <span asp-validation-for="BeneficiaryAddress" class="form-error"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Gender" class="form-label">Gender</label>
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="MaritalStatus" class="form-label">Marital Status</label>
+                                <select asp-for="MaritalStatus" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                    <option value="Widowed">Widowed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Religion" class="form-label">Religion</label>
+                                <select asp-for="Religion" class="form-select">
+                                    <option value="">Select</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Christianity">Christianity</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="card" style="margin-bottom: var(--spacing-6);">
+                <div class="card-header">
+                    <h5 style="margin: 0;">Supporting Documents</h5>
+                </div>
+                <div class="card-body">
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div class="file-upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <p class="file-upload-text">Drag and drop files here or click to browse</p>
+                        <p class="file-upload-hint">PDF, DOC, DOCX, JPG, PNG up to 10MB</p>
+                        <input type="file" id="fileInput" name="uploadedFiles" multiple style="display: none;" accept=".pdf,.doc,.docx,.jpg,.png,.jpeg" />
+                    </div>
+
+                    <ul class="file-list" id="fileList">
+                        <!-- Files will be added here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <!-- Summary Card -->
+            <div class="card" style="margin-bottom: var(--spacing-6); position: sticky; top: 20px;">
+                <div class="card-header">
+                    <h5 style="margin: 0;">Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="data-list-item-content">
+                        <div class="data-list-item-meta-item">
+                            <span style="color: var(--color-text-muted); font-size: var(--font-size-xs);">Requested Amount</span>
+                            <div style="font-size: var(--font-size-2xl); font-weight: bold; color: var(--color-primary);">
+                                $<span id="amountDisplay">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer" style="flex-direction: column; gap: var(--spacing-3); padding: var(--spacing-4);">
+                    <button type="submit" class="btn btn-primary btn-full btn-lg">
+                        <i class="fas fa-save"></i>
+                        @(Model?.Id > 0 ? "Update Request" : "Submit Request")
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-outline btn-full">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+            <!-- Important Notes -->
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle" style="margin-right: var(--spacing-2);"></i>
+                <div>
+                    <strong>Important</strong>
+                    <p style="margin-bottom: 0; font-size: var(--font-size-sm);">
+                        Please ensure all information is accurate and complete. Supporting documents will help speed up the review process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+<script>
+    // File Upload Handling
+    const fileUploadArea = document.getElementById('fileUploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const fileList = document.getElementById('fileList');
+    const selectedFiles = [];
+
+    fileUploadArea.addEventListener('click', () => fileInput.click());
+
+    fileUploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.add('dragover');
+    });
+
+    fileUploadArea.addEventListener('dragleave', () => {
+        fileUploadArea.classList.remove('dragover');
+    });
+
+    fileUploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+        Array.from(files).forEach(file => {
+            if (file.size <= 10 * 1024 * 1024) {
+                selectedFiles.push(file);
+                addFileToList(file);
+                Notification.success(`${file.name} added`);
+            } else {
+                Notification.error(`${file.name} is too large (max 10MB)`);
+            }
+        });
+    }
+
+    function addFileToList(file) {
+        const item = document.createElement('li');
+        item.className = 'file-list-item';
+        item.innerHTML = `
+            <span class="file-list-icon">
+                <i class="fas fa-file"></i>
+            </span>
+            <span class="file-list-name">${file.name}</span>
+            <span class="file-list-size">${(file.size / 1024).toFixed(0)}KB</span>
+            <button type="button" class="file-list-remove" onclick="this.parentElement.remove(); Notification.info('File removed');">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        fileList.appendChild(item);
+    }
+
+    // Update amount display
+    document.querySelector('input[name="RequestedAmount"]')?.addEventListener('input', (e) => {
+        const amount = parseFloat(e.target.value) || 0;
+        document.getElementById('amountDisplay').textContent = amount.toFixed(2);
+    });
+</script>
+}
