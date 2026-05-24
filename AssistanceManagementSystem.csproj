@@ -31,6 +31,9 @@
     <Compile Remove="AssistanceManagementSystem.Tests\**\*.cs" />
     <None Remove="AssistanceManagementSystem.Tests\**\*" />
     <Content Remove="AssistanceManagementSystem.Tests\**\*" />
+    <!-- Legacy Views/ duplicates frontend/pages; exclude from Razor compile -->
+    <Content Remove="Views\**\*.cshtml" />
+    <None Include="Views\**\*.cshtml" />
   </ItemGroup>
 
 </Project>
