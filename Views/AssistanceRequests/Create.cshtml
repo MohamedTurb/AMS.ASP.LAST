@@ -7,10 +7,10 @@
     <!-- Page Header -->
     @{
         ViewBag.Subtitle = Model?.Id > 0 ? $"Reference: {Model.ReferenceNumber}" : "Submit a new assistance request";
-        ViewBag.Actions = $@"<a href=""{Url.Action("Index")}"" class=""btn btn-outline"">
-            <i class=""fas fa-arrow-left""></i>
-            Back
-        </a>";
+        ViewBag.Actions = "<a href=\"" + Url.Action("Index") + "\" class=\"btn btn-outline\">"+
+            "<i class=\"fas fa-arrow-left\"></i>"+
+            "Back"+
+            "</a>";
     }
     @await Html.PartialAsync("_PageHeader", ViewData["Title"].ToString())
 
