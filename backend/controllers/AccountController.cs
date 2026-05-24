@@ -24,7 +24,7 @@ namespace AssistanceManagementSystem.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -33,7 +33,7 @@ namespace AssistanceManagementSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace AssistanceManagementSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, string? returnUrl = null)
         {
             ViewBag.Branches = _context.Branches.ToList();
             if (!ModelState.IsValid)
@@ -113,7 +113,7 @@ namespace AssistanceManagementSystem.Controllers
             return View(model);
         }
 
-        private IActionResult RedirectToLocal(string returnUrl)
+        private IActionResult RedirectToLocal(string? returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
@@ -140,8 +140,8 @@ namespace AssistanceManagementSystem.Controllers
                 userViewModels.Add(new UserViewModel
                 {
                     Id = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
+                    UserName = user.UserName ?? string.Empty,
+                    Email = user.Email ?? string.Empty,
                     FullName = user.FullName,
                     BranchName = user.Branch?.Name,
                     Roles = string.Join(", ", roles)
@@ -206,8 +206,8 @@ namespace AssistanceManagementSystem.Controllers
             var model = new EditUserViewModel
             {
                 Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
+                UserName = user.UserName ?? string.Empty,
+                Email = user.Email ?? string.Empty,
                 FullName = user.FullName,
                 BranchId = user.BranchId,
                 Role = roles.FirstOrDefault() ?? string.Empty
@@ -264,8 +264,8 @@ namespace AssistanceManagementSystem.Controllers
             return View(new UserViewModel
             {
                 Id = user.Id,
-                UserName = user.UserName,
-                Email = user.Email,
+                UserName = user.UserName ?? string.Empty,
+                Email = user.Email ?? string.Empty,
                 FullName = user.FullName,
                 BranchName = user.Branch?.Name
             });

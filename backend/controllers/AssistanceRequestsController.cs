@@ -159,7 +159,7 @@ namespace AssistanceManagementSystem.Controllers
         public async Task<IActionResult> Create()
         {
             await PopulateFormOptionsAsync();
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity?.IsAuthenticated == true)
             {
                 var currentUser = await _userManager.GetUserAsync(User);
                 ViewBag.CurrentUserBranchId = currentUser?.BranchId;
@@ -258,7 +258,7 @@ namespace AssistanceManagementSystem.Controllers
                 
                 // If user is logged in, set CreatedByUserId and BranchId
                 ApplicationUser? currentUser = null;
-                if (User.Identity.IsAuthenticated)
+                if (User.Identity?.IsAuthenticated == true)
                 {
                     currentUser = await _userManager.GetUserAsync(User);
                     assistanceRequest.CreatedByUserId = _userManager.GetUserId(User);
@@ -483,7 +483,7 @@ namespace AssistanceManagementSystem.Controllers
                     PaymentMethod = null,
                     Status = "ReadyForDisbursement",
                     Notes = $"مرجع الطلب: {assistanceRequest.ReferenceNumber}",
-                    CreatedByUserId = _userManager.GetUserId(User),
+                    CreatedByUserId = _userManager.GetUserId(User) ?? string.Empty,
                     CreatedAt = DateTime.Now,
                     AssistanceRequestId = assistanceRequest.Id,
                     ReferenceNumber = assistanceRequest.ReferenceNumber
@@ -630,7 +630,7 @@ namespace AssistanceManagementSystem.Controllers
 
             assistance.BeneficiaryId = beneficiary.Id;
             assistance.AssistanceRequestId = id;
-            assistance.CreatedByUserId = _userManager.GetUserId(User);
+            assistance.CreatedByUserId = _userManager.GetUserId(User) ?? string.Empty;
             assistance.CreatedAt = DateTime.Now;
             assistance.Status = "Pending";
 

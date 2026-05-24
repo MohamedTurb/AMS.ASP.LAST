@@ -210,3 +210,4 @@ System.IO.IOException: Failed to bind to address http://127.0.0.1:5002: address 
    at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
 2026-05-24 19:00:59.662 +03:00 [WRN] Failed to determine the https port for redirect.
 2026-05-24 21:23:58.409 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-24 21:38:41.251 +03:00 [WRN] Failed to determine the https port for redirect.

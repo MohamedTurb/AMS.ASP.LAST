@@ -244,7 +244,7 @@ namespace AssistanceManagementSystem.Controllers
                                 foreach (var assistance in assistances)
                                 {
                                      table.Cell().Text(assistance.Id.ToString());
-                                     table.Cell().Text(assistance.Beneficiary.FullName);
+                                     table.Cell().Text(assistance.Beneficiary?.FullName ?? string.Empty);
                                      table.Cell().Text(assistance.Beneficiary?.Branch?.Name ?? "");
                                      table.Cell().Text(assistance.Type);
                                      table.Cell().Text($"{assistance.Amount:N0} جنيه");

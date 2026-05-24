@@ -21,6 +21,7 @@ namespace AssistanceManagementSystem.Controllers
 
         public async Task<IActionResult> Index(string searchString, int? branchFilter)
         {
+            var isAdmin = User.Identity?.IsAuthenticated == true && User.IsInRole("Admin");
             var beneficiaries = _context.Beneficiaries
                 .Include(b => b.Branch)
                 .AsQueryable();
@@ -42,7 +43,7 @@ namespace AssistanceManagementSystem.Controllers
                 }
             }
 
-            if (branchFilter.HasValue && User.IsInRole("Admin"))
+            if (branchFilter.HasValue && isAdmin)
             {
                 beneficiaries = beneficiaries.Where(b => b.BranchId == branchFilter.Value);
                 ViewBag.BranchFilter = branchFilter.Value;
