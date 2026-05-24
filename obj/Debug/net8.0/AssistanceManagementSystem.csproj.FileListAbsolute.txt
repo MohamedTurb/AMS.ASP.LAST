@@ -872,3 +872,17 @@ E:\AMS ASP\bin\Debug\net8.0\backend\config\appsettings.Development.json
 E:\AMS ASP\bin\Debug\net8.0\backend\config\appsettings.json
 E:\AMS ASP\bin\Debug\net8.0\backend\config\appsettings.Production.json
 E:\AMS ASP\bin\Debug\net8.0\dotnet-tools.json
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.csproj.AssemblyReference.cache
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.AssemblyInfoInputs.cache
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.AssemblyInfo.cs
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.RazorAssemblyInfo.cache
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.RazorAssemblyInfo.cs
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.sourcelink.json
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.dll
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\refint\AssistanceManagementSystem.dll
+C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\obj\Debug\net8.0\AssistanceManagementSystem.pdb
