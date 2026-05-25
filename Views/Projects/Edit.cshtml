@@ -1,0 +1,23 @@
+@model AssistanceManagementSystem.Models.Project
+<h2>تعديل المشروع</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <label>الاسم</label>
+        <input asp-for="Name" />
+    </div>
+    <div>
+        <label>النوع</label>
+        <input asp-for="Type" />
+    </div>
+    <div>
+        <label>العنوان</label>
+        <input asp-for="Address" />
+    </div>
+    <div>
+        <label>الهاتف</label>
+        <input asp-for="Phone" />
+    </div>
+    <button type="submit">حفظ</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

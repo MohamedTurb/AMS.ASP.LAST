@@ -1,0 +1,17 @@
+@model AssistanceManagementSystem.Models.Project
+<h2>تفاصيل المشروع</h2>
+<div>
+    <dl>
+        <dt>الاسم</dt>
+        <dd>@Model.Name</dd>
+        <dt>النوع</dt>
+        <dd>@Model.Type</dd>
+        <dt>العنوان</dt>
+        <dd>@Model.Address</dd>
+        <dt>الهاتف</dt>
+        <dd>@Model.Phone</dd>
+        <dt>الفرع</dt>
+        <dd>@Model.Branch?.Name</dd>
+    </dl>
+    <a asp-action="Index">رجوع للقائمة</a>
+</div>

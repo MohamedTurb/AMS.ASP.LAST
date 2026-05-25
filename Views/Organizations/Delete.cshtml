@@ -1,0 +1,8 @@
+@model AssistanceManagementSystem.Models.Organization
+<h2>حذف المنظمة</h2>
+<p>هل تريد حذف المنظمة "@Model.Name"؟</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">حذف</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

@@ -1,0 +1,19 @@
+@model AssistanceManagementSystem.Models.Beneficiary
+<h2>تعديل المستفيد</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <label>الاسم</label>
+        <input asp-for="FullName" />
+    </div>
+    <div>
+        <label>الرقم القومي</label>
+        <input asp-for="NationalId" />
+    </div>
+    <div>
+        <label>الهاتف</label>
+        <input asp-for="Phone" />
+    </div>
+    <button type="submit">حفظ</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

@@ -1,0 +1,8 @@
+@model AssistanceManagementSystem.Models.AssistanceRequest
+<h2>حذف طلب المساعدة</h2>
+<p>هل تريد حذف الطلب برقم المرجع "@Model.ReferenceNumber"؟</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">حذف</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

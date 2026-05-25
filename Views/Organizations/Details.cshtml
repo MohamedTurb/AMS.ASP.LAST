@@ -1,0 +1,13 @@
+@model AssistanceManagementSystem.Models.Organization
+<h2>تفاصيل المنظمة</h2>
+<dl>
+    <dt>الاسم</dt>
+    <dd>@Model.Name</dd>
+    <dt>النوع</dt>
+    <dd>@Model.Type</dd>
+    <dt>العنوان</dt>
+    <dd>@Model.Address</dd>
+    <dt>الهاتف</dt>
+    <dd>@Model.Phone</dd>
+</dl>
+<a asp-action="Index">رجوع للقائمة</a>

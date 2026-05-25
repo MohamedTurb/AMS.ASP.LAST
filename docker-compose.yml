@@ -15,8 +15,15 @@ services:
     volumes:
       - ams_data:/data
       - ams_logs:/app/logs
+      - ams_uploads:/app/wwwroot/uploads
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: unless-stopped
 
 volumes:
   ams_data:
   ams_logs:
+  ams_uploads:

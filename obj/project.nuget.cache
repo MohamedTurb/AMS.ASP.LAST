@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F8eCpgPP+ro=",
+  "dgSpecHash": "BCZsNe2Rvaw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mohamed Khaled\\Documents\\GitHub\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj",
+  "projectFilePath": "E:\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mohamed Khaled\\.nuget\\packages\\asp.versioning.abstractions\\8.1.0\\asp.versioning.abstractions.8.1.0.nupkg.sha512",
     "C:\\Users\\Mohamed Khaled\\.nuget\\packages\\asp.versioning.http\\8.1.0\\asp.versioning.http.8.1.0.nupkg.sha512",

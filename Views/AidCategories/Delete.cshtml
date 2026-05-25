@@ -1,0 +1,8 @@
+@model AssistanceManagementSystem.Models.AidCategory
+<h2>حذف التصنيف</h2>
+<p>هل تريد حذف التصنيف "@Model.NameAr"؟</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">حذف</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

@@ -20,241 +20,355 @@ build_property.TargetFrameworkVersion = v8.0
 build_property.EntryPointFilePath = 
 build_property.RootNamespace = AssistanceManagementSystem
 build_property.RootNamespace = AssistanceManagementSystem
-build_property.ProjectDir = C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST\
+build_property.ProjectDir = E:\AMS.ASP.LAST\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Mohamed Khaled\Documents\GitHub\AMS.ASP.LAST
+build_property.MSBuildProjectDirectory = E:\AMS.ASP.LAST
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Account/Create.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Account/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Account/Delete.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Account/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Account/Edit.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Account/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Account/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Account/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Account/Login.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Account/Register.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AidCategories/Create.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AidCategories/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AidCategories/Delete.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AidCategories/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AidCategories/Details.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AidCategories/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AidCategories/Edit.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AidCategories/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AidCategories/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AidCategories/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQWlkQ2F0ZWdvcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AssistanceRequests/AddAssistance.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AssistanceRequests/AddAssistance.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXEFkZEFzc2lzdGFuY2UuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXEFkZEFzc2lzdGFuY2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Create.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Delete.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Details.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Edit.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/AssistanceRequests/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZVJlcXVlc3RzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Assistances/ReadyForDisbursement.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Assistances/ReadyForDisbursement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZXNcUmVhZHlGb3JEaXNidXJzZW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQXNzaXN0YW5jZXNcUmVhZHlGb3JEaXNidXJzZW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Beneficiaries/Create.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Beneficiaries/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Beneficiaries/Delete.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Beneficiaries/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Beneficiaries/Details.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Beneficiaries/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Beneficiaries/Edit.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Beneficiaries/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Beneficiaries/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Beneficiaries/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQmVuZWZpY2lhcmllc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Branches/Create.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Branches/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Branches/Dashboard.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Branches/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Branches/Delete.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Branches/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Branches/Details.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Branches/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Branches/Edit.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Branches/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Branches/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Branches/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcQnJhbmNoZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Home/BeneficiaryDashboard.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Home/BeneficiaryDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcSG9tZVxCZW5lZmljaWFyeURhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcSG9tZVxCZW5lZmljaWFyeURhc2hib2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Home/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Home/Privacy.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Notifications/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Notifications/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcTm90aWZpY2F0aW9uc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcTm90aWZpY2F0aW9uc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Organizations/Create.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Organizations/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Organizations/Delete.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Organizations/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Organizations/Details.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Organizations/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Organizations/Edit.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Organizations/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Organizations/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Organizations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcT3JnYW5pemF0aW9uc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Projects/Create.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Projects/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Projects/Delete.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Projects/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Projects/Details.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Projects/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Projects/Edit.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Projects/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Projects/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Projects/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUHJvamVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Reports/Analytics.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Reports/Analytics.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUmVwb3J0c1xBbmFseXRpY3MuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUmVwb3J0c1xBbmFseXRpY3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Reports/Index.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Reports/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUmVwb3J0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcUmVwb3J0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/Error.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Alerts.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_Alerts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9BbGVydHMuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9BbGVydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_AuthLayout.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_AuthLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9BdXRoTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9BdXRoTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_EmptyState.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_EmptyState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9FbXB0eVN0YXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9FbXB0eVN0YXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Layout.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_PageHeader.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_PageHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9QYWdlSGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9QYWdlSGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Sidebar.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_Sidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9TaWRlYmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_StatusBadge.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_StatusBadge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9TdGF0dXNCYWRnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9TdGF0dXNCYWRnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_Topbar.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_Topbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9Ub3BiYXIuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9Ub3BiYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/Shared/_ValidationScriptsPartial.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/_ViewImports.cshtml]
-build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Mohamed Khaled/Documents/GitHub/AMS.ASP.LAST/frontend/pages/_ViewStart.cshtml]
+[E:/AMS.ASP.LAST/frontend/pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/AMS.ASP.LAST/frontend/pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.TargetPath = ZnJvbnRlbmRccGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
 build_metadata.AdditionalFiles.CssScope = 

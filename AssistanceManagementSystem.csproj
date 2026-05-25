@@ -34,6 +34,9 @@
     <!-- Legacy Views/ duplicates frontend/pages; exclude from Razor compile -->
     <Content Remove="Views\**\*.cshtml" />
     <None Include="Views\**\*.cshtml" />
+    <!-- Include frontend Razor pages and static assets in publish output -->
+    <Content Include="frontend/pages\**\*.cshtml" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="frontend/assets\**\*" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

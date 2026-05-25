@@ -1,0 +1,17 @@
+@model List<AssistanceManagementSystem.Models.AidCategory>
+<h2>التصنيفات</h2>
+<table>
+    <thead>
+        <tr><th>الاسم</th><th>الترتيب</th><th>نشط</th></tr>
+    </thead>
+    <tbody>
+    @foreach(var c in Model) {
+        <tr>
+            <td>@c.NameAr</td>
+            <td>@c.SortOrder</td>
+            <td>@(c.IsActive ? "نعم" : "لا")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a asp-action="Create">إضافة تصنيف</a>

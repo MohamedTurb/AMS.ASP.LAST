@@ -1,0 +1,8 @@
+@model AssistanceManagementSystem.Models.Project
+<h2>حذف المشروع</h2>
+<p>هل أنت متأكد من حذف المشروع "@Model.Name"؟</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">حذف</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

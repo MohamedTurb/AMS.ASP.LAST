@@ -1,0 +1,11 @@
+@model AssistanceManagementSystem.Models.Beneficiary
+<h2>تفاصيل المستفيد</h2>
+<dl>
+    <dt>الاسم</dt>
+    <dd>@Model.FullName</dd>
+    <dt>الرقم القومي</dt>
+    <dd>@Model.NationalId</dd>
+    <dt>الهاتف</dt>
+    <dd>@Model.Phone</dd>
+</dl>
+<a asp-action="Index">رجوع</a>

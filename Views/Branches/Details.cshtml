@@ -1,0 +1,11 @@
+@model AssistanceManagementSystem.Models.Branch
+<h2>تفاصيل الفرع</h2>
+<dl>
+    <dt>الاسم</dt>
+    <dd>@Model.Name</dd>
+    <dt>العنوان</dt>
+    <dd>@Model.Address</dd>
+    <dt>الهاتف</dt>
+    <dd>@Model.Phone</dd>
+</dl>
+<a asp-action="Index">رجوع</a>

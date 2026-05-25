@@ -1,0 +1,8 @@
+@model AssistanceManagementSystem.Models.Beneficiary
+<h2>حذف المستفيد</h2>
+<p>هل تريد حذف المستفيد "@Model.FullName"؟</p>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">حذف</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

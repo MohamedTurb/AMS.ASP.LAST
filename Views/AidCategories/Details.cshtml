@@ -1,0 +1,13 @@
+@model AssistanceManagementSystem.Models.AidCategory
+<h2>تفاصيل التصنيف</h2>
+<dl>
+    <dt>الاسم (ع)</dt>
+    <dd>@Model.NameAr</dd>
+    <dt>الاسم (En)</dt>
+    <dd>@Model.NameEn</dd>
+    <dt>الوصف</dt>
+    <dd>@Model.Description</dd>
+    <dt>الترتيب</dt>
+    <dd>@Model.SortOrder</dd>
+</dl>
+<a asp-action="Index">رجوع</a>

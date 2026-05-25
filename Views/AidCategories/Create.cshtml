@@ -1,0 +1,18 @@
+@model AssistanceManagementSystem.Models.AidCategory
+<h2>إضافة تصنيف</h2>
+<form asp-action="Create" method="post">
+    <div>
+        <label>الاسم (ع)</label>
+        <input asp-for="NameAr" />
+    </div>
+    <div>
+        <label>الاسم (En)</label>
+        <input asp-for="NameEn" />
+    </div>
+    <div>
+        <label>الوصف</label>
+        <textarea asp-for="Description"></textarea>
+    </div>
+    <button type="submit">حفظ</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

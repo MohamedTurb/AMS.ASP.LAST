@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mohamed Khaled\\Documents\\GitHub\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj": {}
+    "E:\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mohamed Khaled\\Documents\\GitHub\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj": {
+    "E:\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mohamed Khaled\\Documents\\GitHub\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj",
+        "projectUniqueName": "E:\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj",
         "projectName": "AssistanceManagementSystem",
-        "projectPath": "C:\\Users\\Mohamed Khaled\\Documents\\GitHub\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj",
+        "projectPath": "E:\\AMS.ASP.LAST\\AssistanceManagementSystem.csproj",
         "packagesPath": "C:\\Users\\Mohamed Khaled\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mohamed Khaled\\Documents\\GitHub\\AMS.ASP.LAST\\obj\\",
+        "outputPath": "E:\\AMS.ASP.LAST\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mohamed Khaled\\AppData\\Roaming\\NuGet\\NuGet.Config"

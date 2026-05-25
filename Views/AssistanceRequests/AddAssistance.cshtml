@@ -1,0 +1,18 @@
+@model AssistanceManagementSystem.Models.AssistanceRequest
+<h2>إضافة مساعدة على الطلب @Model.ReferenceNumber</h2>
+<form asp-action="AddAssistance" method="post">
+    <div>
+        <label>النوع</label>
+        <input name="Type" />
+    </div>
+    <div>
+        <label>المبلغ</label>
+        <input name="Amount" />
+    </div>
+    <div>
+        <label>طريقة الدفع</label>
+        <input name="PaymentMethod" />
+    </div>
+    <button type="submit">حفظ</button>
+    <a asp-action="Details" asp-route-id="@Model.Id">إلغاء</a>
+</form>

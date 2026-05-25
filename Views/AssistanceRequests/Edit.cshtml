@@ -1,0 +1,19 @@
+@model AssistanceManagementSystem.Models.AssistanceRequest
+<h2>تعديل طلب المساعدة</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <label>نوع المساعدة</label>
+        <input asp-for="TypeOfAssistance" />
+    </div>
+    <div>
+        <label>المبلغ</label>
+        <input asp-for="Amount" />
+    </div>
+    <div>
+        <label>الحالة</label>
+        <input asp-for="Status" />
+    </div>
+    <button type="submit">حفظ</button>
+    <a asp-action="Index">إلغاء</a>
+</form>

@@ -1,0 +1,9 @@
+@model AssistanceManagementSystem.Models.Branch
+<h2>لوحة الفرع - @Model.Name</h2>
+<div>
+    <p>إجمالي الطلبات: @ViewBag.TotalRequests</p>
+    <p>المعلقة: @ViewBag.PendingRequests</p>
+    <p>الموافق عليها: @ViewBag.ApprovedRequests</p>
+    <p>المنفذة: @ViewBag.ExecutedRequests</p>
+</div>
+<a asp-action="Index">رجوع للقائمة</a>
